@@ -1,0 +1,2 @@
+route_id,route_short_name,route_long_name,route_desc,route_type
+L1,E23,E23,Outbound daily service between Tweeham Bus Station and Tweeham Hospital. Does not run Christmas Day or New Years Day. See timetable notes for further opeartional restrictions. ,3

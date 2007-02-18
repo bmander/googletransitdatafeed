@@ -1,0 +1,7 @@
+stop_id,stop_name,stop_desc,stop_lat,stop_lon,stop_street,stop_city,stop_region,stop_postcode,stop_country
+5530000004,Dotheboy's Academy,,523500,178970,,,,,
+5530000005,Edge,,523400,178800,,,,,
+5530000006,Framham,,523400,178600,,,,,
+5530000001,"Llarreggub, Ash",,OpenRequired,OpenRequired,,,,,
+5530000002,"Llarreggub, Barchester",,OpenRequired,OpenRequired,,,,,
+5530000003,"Llarreggub, Crumly",,OpenRequired,OpenRequired,,,,,

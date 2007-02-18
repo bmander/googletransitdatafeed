@@ -1,0 +1,10 @@
+C:\cygwin\home\Joachim Pfeiffer\Transxchange2GoogleTransitEclipseWS\.metadata\.plugins\org.eclipse.jdt.core\3881465352.index
+C:\cygwin\home\Joachim Pfeiffer\Transxchange2GoogleTransitEclipseWS\.metadata\.plugins\org.eclipse.jdt.core\2787639519.index
+C:\cygwin\home\Joachim Pfeiffer\Transxchange2GoogleTransitEclipseWS\.metadata\.plugins\org.eclipse.jdt.core\3530734587.index
+C:\cygwin\home\Joachim Pfeiffer\Transxchange2GoogleTransitEclipseWS\.metadata\.plugins\org.eclipse.jdt.core\989563514.index
+C:\cygwin\home\Joachim Pfeiffer\Transxchange2GoogleTransitEclipseWS\.metadata\.plugins\org.eclipse.jdt.core\3236852990.index
+C:\cygwin\home\Joachim Pfeiffer\Transxchange2GoogleTransitEclipseWS\.metadata\.plugins\org.eclipse.jdt.core\241174357.index
+C:\cygwin\home\Joachim Pfeiffer\Transxchange2GoogleTransitEclipseWS\.metadata\.plugins\org.eclipse.jdt.core\652116824.index
+C:\cygwin\home\Joachim Pfeiffer\Transxchange2GoogleTransitEclipseWS\.metadata\.plugins\org.eclipse.jdt.core\2587614642.index
+C:\cygwin\home\Joachim Pfeiffer\Transxchange2GoogleTransitEclipseWS\.metadata\.plugins\org.eclipse.jdt.core\3418296825.index
+C:\cygwin\home\Joachim Pfeiffer\Transxchange2GoogleTransitEclipseWS\.metadata\.plugins\org.eclipse.jdt.core\826128741.index

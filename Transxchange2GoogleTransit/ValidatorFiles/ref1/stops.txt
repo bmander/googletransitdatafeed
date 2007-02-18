@@ -1,0 +1,6 @@
+stop_id,stop_name,stop_desc,stop_lat,stop_lon,stop_street,stop_city,stop_region,stop_postcode,stop_country
+0600000001,Suborn Bus Station,,523400,178600,,,,,
+0600000002,"Suborn, Garden Village Shops, o/s",,524200,178700,,,,,
+0600000003,"Robridge, Plough, o/s",,524400,178900,,,,,
+0600000004,"Barford, Red Lion",,524400,179300,,,,,
+0600000005,"Egham, Golden Lion",,527000,179100,,,,,

@@ -1,0 +1,3 @@
+service_id,date,exception_type
+S1,20040601,1
+S1,20040602,2

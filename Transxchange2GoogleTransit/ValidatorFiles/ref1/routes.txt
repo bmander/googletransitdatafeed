@@ -1,0 +1,2 @@
+route_id,route_short_name,route_long_name,route_desc,route_type
+l_1,L1,L1,"The Suborn to Egham two way service runs Mondays to Fridays all year round, every 20 minutes.",3

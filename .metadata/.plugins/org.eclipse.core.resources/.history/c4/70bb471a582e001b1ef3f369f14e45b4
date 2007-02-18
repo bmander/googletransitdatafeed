@@ -1,0 +1,53 @@
+import java.io.*;
+import javax.xml.parsers.*;
+import org.xml.sax.*;
+import org.xml.sax.helpers.*;
+
+public class transxchange2GoogleTransit {
+
+	/**
+	 * transxchange2GoogleTransit <transxchange xml file>
+	 */
+	public static void main(String[] args)
+    throws SAXException,IOException, ParserConfigurationException
+    {
+        // Create a parser factory and use it to create a parser
+        SAXParserFactory parserFactory = SAXParserFactory.newInstance();
+        SAXParser parser = parserFactory.newSAXParser();
+ 
+        // This is the name of the file you're parsing
+        if (args.length != 1) {
+        	System.out.println("Usage: transxchange2GoogleTrans <transxchange xml file>");
+        	Runtime.exit(0);
+        }
+        String filename = args[0];
+ 
+        // Instantiate a DefaultHandler subclass to do parse the input file and output Google Transit data feed
+        transxchangeHandler handler = new transxchangeHandler();
+
+        // Start the parser. It reads the file and calls methods of the handler
+        parser.parse(new File(filename), handler);
+
+    }
+
+    // This inner class extends DefaultHandler to count elements and text in
+    // the XML file and saves the results in public fields. There are many
+    // other DefaultHandler methods you could override, but you need only 
+    // these.
+    public static class transxchangeHandler extends DefaultHandler {
+        public int numElements = 0, numChars = 0;  // Save counts here
+        // This method is invoked when the parser encounters the opening tag
+        // of any XML element. Ignore the arguments but count the element.
+        public void startElement(String uri, String localname, String qname,
+                                Attributes attributes) {
+            numElements++;
+        }
+
+        // This method is called for any plain text within an element
+        // Simply count the number of characters in that text
+        public void characters(char[] text, int start, int length) {
+            numChars += length;
+        }
+    }
+}	
+	

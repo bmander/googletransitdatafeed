@@ -1,0 +1,123 @@
+import java.io.*;
+import javax.xml.parsers.*;
+import org.xml.sax.*;
+import org.xml.sax.helpers.*;
+
+public class transxchange2GoogleTransit {
+
+	/**
+	 * transxchange2GoogleTransit <transxchange xml filename>
+	 */
+	public static void main(String[] args)
+    throws SAXException,IOException, ParserConfigurationException
+    {
+        // Create a parser factory and use it to create a parser
+        SAXParserFactory parserFactory = SAXParserFactory.newInstance();
+        SAXParser parser = parserFactory.newSAXParser();
+ 
+        // This is the name of the file you're parsing
+        if (args.length != 1) {
+        	System.out.println("Usage: transxchange2GoogleTransit <transxchange xml filename>");
+        	System.exit(0);
+        }
+        String filename = args[0];
+ 
+        // Instantiate a DefaultHandler subclass to do parse the input file and output Google Transit data feed
+        transxchangeHandler handler = new transxchangeHandler();
+
+        // Start the parser. It reads the file and calls methods of the handler
+        parser.parse(new File(filename), handler);
+
+    }
+
+    // This inner class extends DefaultHandler to parse an transxchange xml file
+	// and generate corresponding Google Transit data feed files
+    public static class transxchangeHandler extends DefaultHandler {
+ 
+    	/**
+    	 * Hardcoded xml keys and output field fillers. 
+    	 * 	Better practice: configuration file
+    	 */
+    	
+    	// Google Transit file names
+    	static final String agencyFilename = "agency.txt";
+    	static final String stopFilename = "stops.txt";
+       	static final String routesFilename = "routes.txt";
+       	static final String tripsFilename = "trips.txt";
+       	static final String stop_timesFilename = "stop_times.txt";
+       	static final String calendarFilename = "calendar.txt";
+       	static final String calendar_datesFilename = "calendar_dates.txt";
+   
+       	// transxchange XML keys (in corresponding Google Transit field names)
+      	static final String key_agency__agency_name = "OperatorShortName"; // Google Tranist required
+      	static final String key_agency__agency_url = "EmailAddress"; // Google Tranist required
+      	static final String key_agency__agency_timezone = "TBDTBDTBD"; // Google Tranist required
+      	static final String key_stops__stop_id = "AtcoCode"; // Google Tranist required
+      	static final String key_stops__stop_id2 = "StopPointRef"; // Google Tranist required
+      	static final String key_stops__stop_name = "CommonName"; // Google Tranist required
+      	static final String key_stops__stop_desc = "TBDTBDTBD";
+      	static final String key_stops__stop_lat = "TBDTBDTBD"; // Google Tranist required
+     	static final String key_stops__stop_lon = "TBDTBDTBD"; // Google Tranist required
+     	static final String key_stops__stop_city = "TBDTBDTBD";
+     	static final String key_stops__stop_region = "TBDTBDTBD";
+     	static final String key_stops__stop_postcode = "TBDTBDTBD";
+     	static final String key_stops__stop_country = "TBDTBDTBD";
+     	static final String key_routes__route_id = "Line id"; // Google Tranist required
+      	static final String key_routes__route_short_name = "LineName"; // Google Tranist required
+     	static final String key_routes__route_long_name = "Description"; // Google Tranist required
+     	static final String key_routes__route_desc = "TBDTBDTBD";
+     	static final String key_routes__route_type = "TBDTBDTBD"; // Google Tranist required
+      	static final String key_trips__route_id = "JourneyPatternRef"; // Google Tranist required
+      	static final String key_trips__route_id2 = "VehiceJourneyRef"; // Google Tranist required
+      	static final String key_trips__service_id = "ServiceRef"; // Google Tranist required
+      	static final String key_trips__trip_id = "VehicleJourneyCode"; // Google Tranist required
+      	static final String key_trips__trip_headsign = "DestinationDisplay";
+      	static final String key_trips__trip_block_id = "TBDTBDTBD";
+      	static final String key_stop_times__trip_id = "TBDTBDTBD"; // Google Tranist required
+      	static final String key_stop_times__arrival_time = "TBDTBDTBD"; // Google Tranist required
+      	static final String key_stop_times__departure_time = "TBDTBDTBD"; // Google Tranist required
+     	static final String key_stop_times__stop_id = "StopPointRef"; // Google Tranist required
+    	static final String key_stop_times__stop_sequence = "TBDTBDTBD"; // Google Tranist required
+      	static final String key_stop_times__type = "NormalStopping"; // Google Tranist required
+      	static final String key_calendar__service_id = "TBDTBDTBD"; // Google Tranist required
+      	static final String key_calendar__monday = "TBDTBDTBD"; // Google Tranist required
+      	static final String key_calendar__tuesday = "TBDTBDTBD"; // Google Tranist required
+      	static final String key_calendar__wednesday = "TBDTBDTBD"; // Google Tranist required
+      	static final String key_calendar__thursday = "TBDTBDTBD"; // Google Tranist required
+      	static final String key_calendar__friday = "TBDTBDTBD"; // Google Tranist required
+      	static final String key_calendar__saturday = "TBDTBDTBD"; // Google Tranist required
+      	static final String key_calendar__sunday = "TBDTBDTBD"; // Google Tranist required
+     	static final String key_calendar__start_date = "StartDate"; // Google Tranist required
+      	static final String key_calendar__end_date = "EndDate"; // Google Tranist required
+     	static final String key_calendar_dates__service_id = "ServiceCode"; // Google Tranist required
+     	static final String key_calendar_dates__date = "TBDTBDTBD"; // Google Tranist required
+     	static final String key_calendar_dates__exception_type = "TBDTBDTBD"; // Google Tranist required
+      	      	
+      	// hardcoded Google Transit fields fillers
+      	static final String default_agency__agency_timezone = "Europe/London"; // Google Tranist required
+      	static final String default_calendar__end_date_indefinite = "20091231"; // let's create a Y2010 problem
+      	static final String default_stops__stop_desc = "";
+      	static final String default_stops__stop_street = "";
+      	static final String default_stops__stop_city = "";
+      	static final String default_stops__stop_region = "";
+      	static final String default_stops__stop_postcode = "";
+      	static final String default_stops__stop_country = "";
+      	static final String default_routes__route_desc = "";
+      	static final String default_routes__route_type = "3"; // Google Tranist required
+      	static final String default_trips__block_id = "0";
+      	
+      	static final String default_calendar_dates__exception_type = "1"; // Google Tranist required
+      	
+      	
+  	
+        /**
+         * parse from startElement
+         */   	
+    	
+        public void startElement(String uri, String localname, String qname, Attributes attributes) {
+            
+        }
+
+    }
+}	
+	

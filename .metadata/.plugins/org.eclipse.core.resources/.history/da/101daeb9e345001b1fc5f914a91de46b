@@ -1,0 +1,48 @@
+package transxchange2GoogleTransitHandler;
+
+import java.util.*;
+
+public class ValueList {
+	  private String keyName;
+	  private List values;
+
+	  public void addValue(String addValue) {
+		  values.add(addValue);
+	  }
+
+	  public Object getValue(int i) {
+		  if (i < 0 || i >= values.size())
+			  return null;
+		  return values.get(i);
+	  }
+
+	  public void setValue(int i, Object value) {
+		    if (i < 0 || i >= values.size())
+		      return;
+		    values.set(i, value);
+		  }
+
+	  public void dumpValues() {
+		  Iterator i = values.iterator();
+		  while (i.hasNext()) {
+			  System.out.println(keyName + " " + i.next());
+		  }
+	  }
+
+	  public String getKeyName() {
+		  return keyName;
+	  }
+
+	  public List getValues() {
+		  return values;
+	  }
+	  
+	  public int size() {
+		  return values.size();
+	  }
+
+	  public ValueList(String key) {
+		  keyName = key;
+		  values = new ArrayList();
+	  }
+}
