@@ -37,8 +37,8 @@
 </folder>
 </info>
 </editorArea>
-<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="TransxchangeDataAspect.java" partName="TransxchangeDataAspect.java" path="C:/cygwin/home/Joachim Pfeiffer/Transxchange2GoogleTransitEclipseWS/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeDataAspect.java" title="TransxchangeDataAspect.java" tooltip="Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeDataAspect.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeDataAspect.java"/>
+<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Transxchange2GoogleTransit.java" partName="Transxchange2GoogleTransit.java" path="C:/cygwin/home/Joachim Pfeiffer/googletransitdatafeed/Transxchange2GoogleTransit/Transxchange2GoogleTransit.java" title="Transxchange2GoogleTransit.java" tooltip="Transxchange2GoogleTransit/Transxchange2GoogleTransit.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Transxchange2GoogleTransit/Transxchange2GoogleTransit.java"/>
 </editor>
 </editors>
 <views>
@@ -318,7 +318,6 @@
 <workingSets/>
 <navigationHistory>
 <editors>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeCalendar.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeDataAspect.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeHandler.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeRoutes.java"/>
@@ -339,156 +338,157 @@
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeTrips.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/ValueList.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeDataAspect.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Transxchange2GoogleTransit/Transxchange2GoogleTransit.java"/>
 </editors>
-<item historyLabel="TransxchangeCalendar.java" index="0">
+<item historyLabel="TransxchangeDataAspect.java" index="0">
 <position info="not_deleted" x="4" y="0"/>
 </item>
-<item historyLabel="TransxchangeDataAspect.java" index="1">
+<item historyLabel="TransxchangeHandler.java" index="1">
 <position info="not_deleted" x="4" y="0"/>
 </item>
-<item historyLabel="TransxchangeHandler.java" index="2">
+<item historyLabel="TransxchangeRoutes.java" index="2">
 <position info="not_deleted" x="4" y="0"/>
 </item>
-<item historyLabel="TransxchangeRoutes.java" index="3">
+<item historyLabel="TransxchangeStops.java" index="3">
 <position info="not_deleted" x="4" y="0"/>
 </item>
-<item historyLabel="TransxchangeStops.java" index="4">
+<item historyLabel="TransxchangeStopTimes.java" index="4">
 <position info="not_deleted" x="4" y="0"/>
 </item>
-<item historyLabel="TransxchangeStopTimes.java" index="5">
+<item historyLabel="TransxchangeTrips.java" index="5">
 <position info="not_deleted" x="4" y="0"/>
 </item>
-<item historyLabel="TransxchangeTrips.java" index="6">
-<position info="not_deleted" x="4" y="0"/>
-</item>
-<item historyLabel="ValueList.java" index="7">
+<item historyLabel="ValueList.java" index="6">
 <position/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="8">
+<item historyLabel="Transxchange2GoogleTransit.java" index="7">
 <position info="not_deleted" x="88" y="0"/>
 </item>
-<item historyLabel="TransxchangeCalendar.java" index="9">
+<item historyLabel="TransxchangeCalendar.java" index="8">
 <position info="not_deleted" x="5927" y="0"/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="8">
+<item historyLabel="Transxchange2GoogleTransit.java" index="7">
 <position/>
 </item>
-<item historyLabel="TransxchangeCalendar.java" index="10">
+<item historyLabel="TransxchangeCalendar.java" index="9">
 <position/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="8">
+<item historyLabel="Transxchange2GoogleTransit.java" index="7">
 <position/>
 </item>
-<item historyLabel="TransxchangeAgency.java" index="11">
+<item historyLabel="TransxchangeAgency.java" index="10">
 <position info="not_deleted" x="85" y="0"/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="8">
+<item historyLabel="Transxchange2GoogleTransit.java" index="7">
 <position/>
 </item>
-<item historyLabel="TransxchangeAgency.java" index="11">
+<item historyLabel="TransxchangeAgency.java" index="10">
 <position/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="8">
+<item historyLabel="Transxchange2GoogleTransit.java" index="7">
 <position info="not_deleted" x="6" y="77"/>
 </item>
-<item historyLabel="TransxchangeAgency.java" index="11">
+<item historyLabel="TransxchangeAgency.java" index="10">
 <position info="not_deleted" x="83" y="0"/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="8">
+<item historyLabel="Transxchange2GoogleTransit.java" index="7">
 <position info="not_deleted" x="6" y="77"/>
 </item>
-<item historyLabel="TransxchangeAgency.java" index="11">
+<item historyLabel="TransxchangeAgency.java" index="10">
 <position info="not_deleted" x="97" y="0"/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="8">
+<item historyLabel="Transxchange2GoogleTransit.java" index="7">
 <position info="not_deleted" x="6" y="77"/>
 </item>
-<item historyLabel="TransxchangeAgency.java" index="11">
+<item historyLabel="TransxchangeAgency.java" index="10">
 <position info="not_deleted" x="151" y="0"/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="8">
+<item historyLabel="Transxchange2GoogleTransit.java" index="7">
 <position info="not_deleted" x="162" y="0"/>
 </item>
-<item historyLabel="TransxchangeAgency.java" index="11">
+<item historyLabel="TransxchangeAgency.java" index="10">
 <position info="not_deleted" x="151" y="0"/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="8">
+<item historyLabel="Transxchange2GoogleTransit.java" index="7">
 <position info="not_deleted" x="162" y="0"/>
 </item>
-<item historyLabel="TransxchangeAgency.java" index="11">
+<item historyLabel="TransxchangeAgency.java" index="10">
 <position info="not_deleted" x="97" y="0"/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="8">
+<item historyLabel="Transxchange2GoogleTransit.java" index="7">
 <position info="not_deleted" x="100" y="0"/>
 </item>
-<item historyLabel="TransxchangeAgency.java" index="11">
+<item historyLabel="TransxchangeAgency.java" index="10">
 <position info="not_deleted" x="97" y="0"/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="8">
+<item historyLabel="Transxchange2GoogleTransit.java" index="7">
 <position info="not_deleted" x="100" y="0"/>
 </item>
-<item historyLabel="TransxchangeCalendar.java" index="10">
+<item historyLabel="TransxchangeCalendar.java" index="9">
 <position info="not_deleted" x="86" y="0"/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="8">
+<item historyLabel="Transxchange2GoogleTransit.java" index="7">
 <position info="not_deleted" x="100" y="0"/>
 </item>
-<item historyLabel="TransxchangeCalendarDates.java" index="12">
+<item historyLabel="TransxchangeCalendarDates.java" index="11">
 <position info="not_deleted" x="85" y="0"/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="8">
+<item historyLabel="Transxchange2GoogleTransit.java" index="7">
 <position info="not_deleted" x="6" y="77"/>
 </item>
-<item historyLabel="TransxchangeCalendarDates.java" index="12">
+<item historyLabel="TransxchangeCalendarDates.java" index="11">
 <position info="not_deleted" x="85" y="0"/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="8">
+<item historyLabel="Transxchange2GoogleTransit.java" index="7">
 <position info="not_deleted" x="6" y="77"/>
 </item>
-<item historyLabel="TransxchangeDataAspect.java" index="13">
+<item historyLabel="TransxchangeDataAspect.java" index="12">
 <position info="not_deleted" x="85" y="0"/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="8">
+<item historyLabel="Transxchange2GoogleTransit.java" index="7">
 <position info="not_deleted" x="6" y="77"/>
 </item>
-<item historyLabel="TransxchangeHandler.java" index="14">
+<item historyLabel="TransxchangeHandler.java" index="13">
 <position info="not_deleted" x="85" y="0"/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="8">
+<item historyLabel="Transxchange2GoogleTransit.java" index="7">
 <position info="not_deleted" x="6" y="77"/>
 </item>
-<item historyLabel="TransxchangeRoutes.java" index="15">
+<item historyLabel="TransxchangeRoutes.java" index="14">
 <position info="not_deleted" x="80" y="0"/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="8">
+<item historyLabel="Transxchange2GoogleTransit.java" index="7">
 <position info="not_deleted" x="6" y="77"/>
 </item>
-<item historyLabel="TransxchangeStops.java" index="16">
+<item historyLabel="TransxchangeStops.java" index="15">
 <position info="not_deleted" x="85" y="0"/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="8">
+<item historyLabel="Transxchange2GoogleTransit.java" index="7">
 <position info="not_deleted" x="6" y="77"/>
 </item>
-<item historyLabel="TransxchangeStopTimes.java" index="17">
+<item historyLabel="TransxchangeStopTimes.java" index="16">
 <position info="not_deleted" x="85" y="0"/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="8">
+<item historyLabel="Transxchange2GoogleTransit.java" index="7">
 <position info="not_deleted" x="6" y="77"/>
 </item>
-<item historyLabel="TransxchangeTrips.java" index="18">
+<item historyLabel="TransxchangeTrips.java" index="17">
 <position info="not_deleted" x="85" y="0"/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="8">
+<item historyLabel="Transxchange2GoogleTransit.java" index="7">
 <position info="not_deleted" x="6" y="77"/>
 </item>
-<item historyLabel="ValueList.java" index="19">
+<item historyLabel="ValueList.java" index="18">
 <position info="not_deleted" x="85" y="0"/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="8">
+<item historyLabel="Transxchange2GoogleTransit.java" index="7">
 <position info="not_deleted" x="6" y="77"/>
 </item>
-<item active="true" historyLabel="TransxchangeDataAspect.java" index="20">
-<position info="not_deleted" x="4" y="0"/>
+<item historyLabel="TransxchangeDataAspect.java" index="19">
+<position/>
+</item>
+<item active="true" historyLabel="Transxchange2GoogleTransit.java" index="20">
+<position/>
 </item>
 </navigationHistory>
 <stickyState>
@@ -511,6 +511,9 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Transxchange2GoogleTransit.java" tooltip="Transxchange2GoogleTransit/Transxchange2GoogleTransit.java">
+<persistable path="/Transxchange2GoogleTransit/Transxchange2GoogleTransit.java"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="TransxchangeDataAspect.java" tooltip="Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeDataAspect.java">
 <persistable path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeDataAspect.java"/>
 </file>
@@ -540,9 +543,6 @@
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="TransxchangeAgency.java" tooltip="Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeAgency.java">
 <persistable path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeAgency.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Transxchange2GoogleTransit.java" tooltip="Transxchange2GoogleTransit/Transxchange2GoogleTransit.java">
-<persistable path="/Transxchange2GoogleTransit/Transxchange2GoogleTransit.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Transxchange2GoogleTransitApplet.java" tooltip="Transxchange2GoogleTransitApplet/Transxchange2GoogleTransitApplet.java">
 <persistable path="/Transxchange2GoogleTransitApplet/Transxchange2GoogleTransitApplet.java"/>

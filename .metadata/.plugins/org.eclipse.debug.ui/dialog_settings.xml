@@ -2,23 +2,23 @@
 <section name="Workbench">
 	<section name="org.eclipse.debug.ui.SCOPED_SAVE_SELECTION_DIALOG">
 		<item key="DIALOG_X_ORIGIN" value="339"/>
-		<item key="DIALOG_HEIGHT" value="455"/>
 		<item key="DIALOG_FONT_NAME" value="1|Tahoma|8|0|WINDOWS|1|-11|0|0|0|400|0|0|0|1|0|0|0|0|Tahoma"/>
+		<item key="DIALOG_HEIGHT" value="455"/>
 		<item key="DIALOG_Y_ORIGIN" value="66"/>
 		<item key="DIALOG_WIDTH" value="347"/>
 	</section>
 	<section name=".DELETE_ASSOCIATED_CONFIGS_DIALOG">
 		<item key="DIALOG_X_ORIGIN" value="380"/>
-		<item key="DIALOG_HEIGHT" value="212"/>
 		<item key="DIALOG_FONT_NAME" value="1|Tahoma|8|0|WINDOWS|1|-11|0|0|0|400|0|0|0|1|0|0|0|0|Tahoma"/>
+		<item key="DIALOG_HEIGHT" value="212"/>
 		<item key="DIALOG_Y_ORIGIN" value="232"/>
 		<item key="DIALOG_WIDTH" value="273"/>
 	</section>
 	<section name="org.eclipse.debug.ui.LAUNCH_CONFIGURATIONS_DIALOG_SECTION">
-		<item key="org.eclipse.debug.ui.DIALOG_SASH_WEIGHTS_1" value="237"/>
 		<item key="DIALOG_X_ORIGIN" value="228"/>
-		<item key="DIALOG_HEIGHT" value="640"/>
+		<item key="org.eclipse.debug.ui.DIALOG_SASH_WEIGHTS_1" value="237"/>
 		<item key="DIALOG_FONT_NAME" value="1|Tahoma|8|0|WINDOWS|1|-11|0|0|0|400|0|0|0|1|0|0|0|0|Tahoma"/>
+		<item key="DIALOG_HEIGHT" value="640"/>
 		<item key="org.eclipse.debug.ui.EXPANDED_NODES" value=", org.eclipse.jdt.launching.localJavaApplication, "/>
 		<item key="DIALOG_Y_ORIGIN" value="54"/>
 		<item key="DIALOG_WIDTH" value="800"/>
