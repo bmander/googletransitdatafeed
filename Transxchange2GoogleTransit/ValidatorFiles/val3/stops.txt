@@ -1,7 +1,0 @@
-stop_id,stop_name,stop_desc,stop_lat,stop_lon,stop_street,stop_city,stop_region,stop_postcode,stop_country
-9990000001,"Tweeham, Bus Station",,OpenRequired,OpenRequired,,,,,
-9990000002,"Tweeham, High St",,OpenRequired,OpenRequired,,,,,
-9990000003,"Tweeham, Market St",,OpenRequired,OpenRequired,,,,,
-9990000004,"Tweeham, School",,OpenRequired,OpenRequired,,,,,
-9990000005,"Tweeham, Hospital",,OpenRequired,OpenRequired,,,,,
-9990000006,"Tweeham, Library",,OpenRequired,OpenRequired,,,,,
