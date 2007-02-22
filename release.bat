@@ -9,9 +9,9 @@ mkdir C:\SD\TransXChange2GoogleTransit_%1%2\examplesOutput
 
 xcopy Transxchange2GoogleTransit\tXCh2GT.bat C:\SD\TransXChange2GoogleTransit_%1%2
 xcopy Transxchange2GoogleTransit\tXCh2GT.sh C:\SD\TransXChange2GoogleTransit_%1%2
-xcopy Transxchange2GoogleTransit\License\*.* C:\SD\TransXChange2GoogleTransit_%1%2\License /S
-xcopy Transxchange2GoogleTransit\dist\*.* C:\SD\TransXChange2GoogleTransit_%1%2\dist
-xcopy Transxchange2GoogleTransit\examplesInput\*.* C:\SD\TransXChange2GoogleTransit_%1%2\examplesInput /S
+xcopy Transxchange2GoogleTransit\License\*.txt C:\SD\TransXChange2GoogleTransit_%1%2\License /S
+xcopy Transxchange2GoogleTransit\dist\*.jar C:\SD\TransXChange2GoogleTransit_%1%2\dist
+xcopy Transxchange2GoogleTransit\examplesInput\*.xml C:\SD\TransXChange2GoogleTransit_%1%2\examplesInput /S 
 
 if "%2" NEQ "dev" GOTO END
 mkdir C:\SD\TransXChange2GoogleTransit_%1%2\transxchange2GoogleTransitHandler
