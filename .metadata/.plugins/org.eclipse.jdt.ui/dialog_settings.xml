@@ -2,10 +2,10 @@
 <section name="Workbench">
 	<item key="CallHierarchyViewPart.ratio1" value="500"/>
 	<item key="CallHierarchyViewPart.orientation" value="3"/>
-	<item key="SearchScopeActionGroup.search_scope_type" value="1"/>
 	<item key="TypeHierarchyViewPart.hierarchyview" value="2"/>
-	<item key="CallHierarchyViewPart.ratio3" value="500"/>
+	<item key="SearchScopeActionGroup.search_scope_type" value="1"/>
 	<item key="CallHierarchyViewPart.call_mode" value="0"/>
+	<item key="CallHierarchyViewPart.ratio3" value="500"/>
 	<item key="TypeHierarchyViewPart.orientation" value="0"/>
 	<list key="SearchScopeActionGroup.working_set">
 	</list>
@@ -45,12 +45,14 @@
 		<item key="JarPackageWizardPage.OVERWRITE" value="false"/>
 		<item key="jarOptionsWizardPage.BUILD_IF_NEEDED" value="true"/>
 		<item key="JarPackageWizardPage.EXPORT_JAVA_FILES" value="false"/>
-		<item key="JarManifestWizardPage.MANIFEST_LOCATION" value=""/>
+		<item key="JarManifestWizardPage.MANIFEST_LOCATION" value="/Transxchange2GoogleTransit/Manifest.MF"/>
 		<item key="JarPackageWizardPage.EXPORT_OUTPUT_FOLDER" value="false"/>
 		<item key="JarManifestWizardPage.SAVE_MANIFEST" value="false"/>
 		<item key="JarManifestWizardPage.REUSE_MANIFEST" value="false"/>
 		<item key="JarPackageWizardPage.REFACTORINGS" value="false"/>
 		<list key="JarPackageWizardPage.DESTINATION_NAMES_ID">
+			<item value="C:\cygwin\home\Joachim Pfeiffer\googletransitdatafeed\Transxchange2GoogleTransit\dist\transxchange2GoogleTransit.jar"/>
+			<item value="C:\cygwin\home\Joachim Pfeiffer\googletransitdatafeed\Transxchange2GoogleTransit\dist\transxchange2GoogleTransitTransit.jar"/>
 			<item value="C:\cygwin\home\Joachim Pfeiffer\googletransitdatafeed\Transxchange2GoogleTransit\dist\transxchange2GoogleTransitHandler.jar"/>
 			<item value="C:\Documents and Settings\Joachim Pfeiffer\Transxchange2GoogleTransitEclipseWS\Transxchange2GoogleTransit\transxchange2GoogleTransitHandler\transxchange2GoogleTransitHandler.jar"/>
 			<item value="C:\Documents and Settings\Joachim Pfeiffer\Transxchange2GoogleTransitEclipseWS\Transxchange2GoogleTransitApplet\transxchange2GoogleTransitHandlerApplet.jar"/>
@@ -61,8 +63,8 @@
 	</section>
 	<section name="DialogBounds_SuperInterfaceSelectionDialog">
 		<item key="DIALOG_X_ORIGIN" value="49"/>
-		<item key="DIALOG_FONT_NAME" value="1|Tahoma|8|0|WINDOWS|1|-11|0|0|0|400|0|0|0|1|0|0|0|0|Tahoma"/>
 		<item key="DIALOG_HEIGHT" value="355"/>
+		<item key="DIALOG_FONT_NAME" value="1|Tahoma|8|0|WINDOWS|1|-11|0|0|0|400|0|0|0|1|0|0|0|0|Tahoma"/>
 		<item key="DIALOG_Y_ORIGIN" value="63"/>
 		<item key="DIALOG_WIDTH" value="397"/>
 	</section>
@@ -106,15 +108,6 @@
 			</list>
 		</section>
 	</section>
-	<section name="">
-		<item key="expanded2" value="false"/>
-		<item key="expanded6" value="false"/>
-		<item key="expanded4" value="false"/>
-		<item key="expanded1" value="false"/>
-		<item key="expanded0" value="true"/>
-		<item key="expanded5" value="false"/>
-		<item key="expanded3" value="false"/>
-	</section>
 	<section name="OptionalMessageDialog.hide.">
 		<item key="org.eclipse.jdt.ui.typecomment.deprecated" value="true"/>
 	</section>
@@ -125,8 +118,8 @@
 	<section name="">
 		<item key="expanded2" value="false"/>
 		<item key="expanded6" value="false"/>
-		<item key="expanded4" value="false"/>
 		<item key="expanded1" value="false"/>
+		<item key="expanded4" value="false"/>
 		<item key="expanded0" value="true"/>
 		<item key="expanded5" value="false"/>
 		<item key="expanded3" value="false"/>

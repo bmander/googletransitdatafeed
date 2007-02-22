@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench version="2.0" progressCount="18">
+<workbench version="2.0" progressCount="20">
 <workbenchAdvisor/>
 <window maximized="true" x="23" y="16" width="910" height="693">
 <fastViewData fastViewLocation="1024"/>
@@ -53,16 +53,6 @@
 <view id="org.eclipse.jdt.callhierarchy.view" partName="Call Hierarchy">
 <viewState search_scope_type="1"/>
 </view>
-<view id="org.eclipse.jdt.ui.MembersView" partName="Members">
-<viewState org.eclipse.jdt.ui.browsing.memberstoeditor="1" hidefields="false" hidestatic="false" hidenonpublic="false" hidelocaltypes="false">
-<customFilters userDefinedPatternsEnabled="false">
-<xmlDefinedFilters>
-<child filterId="org.eclipse.jdt.ui.MembersView.ImportDeclarationFilter" isEnabled="false"/>
-<child filterId="org.eclipse.jdt.ui.MembersView.SyntheticMembersFilter" isEnabled="true"/>
-</xmlDefinedFilters>
-</customFilters>
-</viewState>
-</view>
 <view id="org.eclipse.ui.views.TaskList" partName="Tasks">
 <viewState columnWidth0="55" columnWidth1="31" columnWidth2="265" columnWidth3="90" columnWidth4="165" columnWidth5="75" columnWidth6="0" verticalPosition="0" horizontalPosition="0">
 <columnOrder columnOrderIndex="0"/>
@@ -77,6 +67,14 @@
 <view id="org.eclipse.jdt.ui.JavadocView" partName="Javadoc">
 <viewState/>
 </view>
+<view id="org.eclipse.jdt.ui.MembersView" partName="Members">
+<viewState org.eclipse.jdt.ui.browsing.memberstoeditor="1" hidefields="false" hidestatic="false" hidenonpublic="false" hidelocaltypes="false">
+<customFilters userDefinedPatternsEnabled="false">&#x0A;<xmlDefinedFilters>&#x0A;<child filterId="org.eclipse.jdt.ui.MembersView.ImportDeclarationFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.MembersView.SyntheticMembersFilter" isEnabled="true"/>
+</xmlDefinedFilters>
+</customFilters>
+</viewState>
+</view>
 <view id="org.eclipse.debug.ui.VariableView" partName="Variables">
 <viewState/>
 </view>
@@ -88,9 +86,7 @@
 </view>
 <view id="org.eclipse.jdt.ui.TypesView" partName="Types">
 <viewState isWindowWorkingSet="true" workingSetName="" org.eclipse.jdt.ui.browsing.typestoeditor="1">
-<customFilters userDefinedPatternsEnabled="false">
-<xmlDefinedFilters>
-<child filterId="org.eclipse.jdt.ui.TypesView.AnnotationFilter" isEnabled="false"/>
+<customFilters userDefinedPatternsEnabled="false">&#x0A;<xmlDefinedFilters>&#x0A;<child filterId="org.eclipse.jdt.ui.TypesView.AnnotationFilter" isEnabled="false"/>
 <child filterId="org.eclipse.jdt.ui.TypesView.NonPublicTypeFilter" isEnabled="false"/>
 <child filterId="org.eclipse.jdt.ui.TypesView.ClassFilter" isEnabled="false"/>
 <child filterId="org.eclipse.jdt.ui.TypesView.EnumFilter" isEnabled="false"/>
@@ -111,9 +107,7 @@
 <view id="org.eclipse.jdt.ui.SourceView" partName="Declaration"/>
 <view id="org.eclipse.jdt.ui.PackageExplorer" partName="Package Explorer">
 <viewState rootMode="1" layout="2" org.eclipse.jdt.ui.packages.linktoeditor="0" isWindowWorkingSet="true" workingSetName="">
-<customFilters userDefinedPatternsEnabled="false">
-<xmlDefinedFilters>
-<child filterId="org.eclipse.jdt.ui.PackageExplorer.FieldsFilter" isEnabled="false"/>
+<customFilters userDefinedPatternsEnabled="false">&#x0A;<xmlDefinedFilters>&#x0A;<child filterId="org.eclipse.jdt.ui.PackageExplorer.FieldsFilter" isEnabled="false"/>
 <child filterId="org.eclipse.jdt.ui.PackageExplorer_patternFilterId_.*" isEnabled="true"/>
 <child filterId="org.eclipse.jdt.ui.PackageExplorer.LocalTypesFilter" isEnabled="false"/>
 <child filterId="org.eclipse.jdt.ui.PackageExplorer_patternFilterId_*$*.class" isEnabled="true"/>
@@ -309,39 +303,27 @@
 <view id="org.eclipse.debug.ui.DebugView"/>
 <view id="org.eclipse.debug.ui.VariableView"/>
 <view id="org.eclipse.jdt.ui.PackageExplorer"/>
-<layout>
-<mainWindow>
-<info part="left" folder="true">
-<folder activePageID="org.eclipse.jdt.ui.PackageExplorer" expanded="2" appearance="2">
-<page label="Package Explorer" content="org.eclipse.jdt.ui.PackageExplorer"/>
+<layout>&#x0A;<mainWindow>&#x0A;<info part="left" folder="true">&#x0A;<folder activePageID="org.eclipse.jdt.ui.PackageExplorer" expanded="2" appearance="2">&#x0A;<page label="Package Explorer" content="org.eclipse.jdt.ui.PackageExplorer"/>
 <page label="LabelNotFound" content="org.eclipse.jdt.ui.TypeHierarchy"/>
 <page label="LabelNotFound" content="org.eclipse.ui.views.ResourceNavigator"/>
 <page label="LabelNotFound" content="org.eclipse.jdt.junit.ResultView"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
 </presentation>
 </folder>
 </info>
-<info part="stickyFolderRight" relative="left" relationship="2" ratioLeft="760" ratioRight="254" ratio="0.7495069" folder="true">
-<folder expanded="2" appearance="2">
-<page label="LabelNotFound" content="org.eclipse.help.ui.HelpView"/>
+<info part="stickyFolderRight" relative="left" relationship="2" ratioLeft="760" ratioRight="254" ratio="0.7495069" folder="true">&#x0A;<folder expanded="2" appearance="2">&#x0A;<page label="LabelNotFound" content="org.eclipse.help.ui.HelpView"/>
 <page label="LabelNotFound" content="org.eclipse.ui.internal.introview"/>
 <page label="LabelNotFound" content="org.eclipse.ui.cheatsheets.views.CheatSheetView"/>
 <page label="LabelNotFound" content="org.eclipse.ui.navigator.ProjectExplorer"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info part="org.eclipse.ui.internal.ViewStack@12c69c0" relative="left" relationship="2" ratioLeft="227" ratioRight="784" ratio="0.22453018" folder="true">
-<folder activePageID="org.eclipse.debug.ui.VariableView" expanded="2" appearance="2">
-<page label="Variables" content="org.eclipse.debug.ui.VariableView"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
+<info part="org.eclipse.ui.internal.ViewStack@12c69c0" relative="left" relationship="2" ratioLeft="227" ratioRight="784" ratio="0.22453018" folder="true">&#x0A;<folder activePageID="org.eclipse.debug.ui.VariableView" expanded="2" appearance="2">&#x0A;<page label="Variables" content="org.eclipse.debug.ui.VariableView"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
 </presentation>
 </folder>
 </info>
-<info part="bottom" relative="org.eclipse.ui.internal.ViewStack@12c69c0" relationship="4" ratioLeft="511" ratioRight="123" ratio="0.8059937" folder="true">
-<folder activePageID="org.eclipse.ui.console.ConsoleView" expanded="2" appearance="2">
-<page label="LabelNotFound" content="org.eclipse.ui.views.ProblemView"/>
+<info part="bottom" relative="org.eclipse.ui.internal.ViewStack@12c69c0" relationship="4" ratioLeft="511" ratioRight="123" ratio="0.8059937" folder="true">&#x0A;<folder activePageID="org.eclipse.ui.console.ConsoleView" expanded="2" appearance="2">&#x0A;<page label="LabelNotFound" content="org.eclipse.ui.views.ProblemView"/>
 <page label="Javadoc" content="org.eclipse.jdt.ui.JavadocView"/>
 <page label="Declaration" content="org.eclipse.jdt.ui.SourceView"/>
 <page label="Search" content="org.eclipse.search.ui.views.SearchView"/>
@@ -350,8 +332,7 @@
 <page label="LabelNotFound" content="org.eclipse.ui.views.ProgressView"/>
 <page label="Display" content="org.eclipse.jdt.debug.ui.DisplayView"/>
 <page label="Debug" content="org.eclipse.debug.ui.DebugView"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
 <part id="1"/>
 <part id="2"/>
 <part id="3"/>
@@ -360,9 +341,7 @@
 </presentation>
 </folder>
 </info>
-<info part="org.eclipse.ui.internal.ViewStack@1096c16" relative="org.eclipse.ui.internal.ViewStack@12c69c0" relationship="2" ratioLeft="570" ratioRight="191" ratio="0.74901444" folder="true">
-<folder expanded="2" appearance="2">
-<page label="LabelNotFound" content="org.eclipse.ui.views.ContentOutline"/>
+<info part="org.eclipse.ui.internal.ViewStack@1096c16" relative="org.eclipse.ui.internal.ViewStack@12c69c0" relationship="2" ratioLeft="570" ratioRight="191" ratio="0.74901444" folder="true">&#x0A;<folder expanded="2" appearance="2">&#x0A;<page label="LabelNotFound" content="org.eclipse.ui.views.ContentOutline"/>
 <page label="LabelNotFound" content="org.eclipse.ant.ui.views.AntView"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
@@ -425,67 +404,47 @@
 <view id="org.eclipse.jdt.ui.MembersView"/>
 <view id="org.eclipse.jdt.ui.PackageExplorer"/>
 <view id="org.eclipse.ui.console.ConsoleView"/>
-<layout>
-<mainWindow>
-<info part="org.eclipse.ui.internal.ViewStack@dbbb9f" folder="true">
-<folder expanded="2" appearance="2">
-<page label="LabelNotFound" content="org.eclipse.jdt.ui.ProjectsView"/>
+<layout>&#x0A;<mainWindow>&#x0A;<info part="org.eclipse.ui.internal.ViewStack@dbbb9f" folder="true">&#x0A;<folder expanded="2" appearance="2">&#x0A;<page label="LabelNotFound" content="org.eclipse.jdt.ui.ProjectsView"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info part="stickyFolderRight" relative="org.eclipse.ui.internal.ViewStack@dbbb9f" relationship="2" ratioLeft="760" ratioRight="254" ratio="0.7495069" folder="true">
-<folder expanded="2" appearance="2">
-<page label="LabelNotFound" content="org.eclipse.help.ui.HelpView"/>
+<info part="stickyFolderRight" relative="org.eclipse.ui.internal.ViewStack@dbbb9f" relationship="2" ratioLeft="760" ratioRight="254" ratio="0.7495069" folder="true">&#x0A;<folder expanded="2" appearance="2">&#x0A;<page label="LabelNotFound" content="org.eclipse.help.ui.HelpView"/>
 <page label="LabelNotFound" content="org.eclipse.ui.internal.introview"/>
 <page label="LabelNotFound" content="org.eclipse.ui.cheatsheets.views.CheatSheetView"/>
 </folder>
 </info>
-<info part="left" relative="org.eclipse.ui.internal.ViewStack@dbbb9f" relationship="4" ratioLeft="159" ratioRight="478" ratio="0.24960753" folder="true">
-<folder activePageID="org.eclipse.jdt.ui.PackageExplorer" expanded="2" appearance="2">
-<page label="LabelNotFound" content="org.eclipse.jdt.ui.TypeHierarchy"/>
+<info part="left" relative="org.eclipse.ui.internal.ViewStack@dbbb9f" relationship="4" ratioLeft="159" ratioRight="478" ratio="0.24960753" folder="true">&#x0A;<folder activePageID="org.eclipse.jdt.ui.PackageExplorer" expanded="2" appearance="2">&#x0A;<page label="LabelNotFound" content="org.eclipse.jdt.ui.TypeHierarchy"/>
 <page label="LabelNotFound" content="org.eclipse.ui.views.ContentOutline"/>
 <page label="Package Explorer" content="org.eclipse.jdt.ui.PackageExplorer"/>
 <page label="LabelNotFound" content="org.eclipse.ui.views.ResourceNavigator"/>
 <page label="LabelNotFound" content="org.eclipse.ant.ui.views.AntView"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
 </presentation>
 </folder>
 </info>
 <info part="org.eclipse.ui.editorss" relative="left" relationship="2" ratioLeft="253" ratioRight="761" ratio="0.2495069"/>
-<info part="bottom" relative="org.eclipse.ui.editorss" relationship="4" ratioLeft="358" ratioRight="120" ratio="0.748954" folder="true">
-<folder activePageID="org.eclipse.ui.console.ConsoleView" expanded="2" appearance="2">
-<page label="LabelNotFound" content="org.eclipse.ui.views.ProblemView"/>
+<info part="bottom" relative="org.eclipse.ui.editorss" relationship="4" ratioLeft="358" ratioRight="120" ratio="0.748954" folder="true">&#x0A;<folder activePageID="org.eclipse.ui.console.ConsoleView" expanded="2" appearance="2">&#x0A;<page label="LabelNotFound" content="org.eclipse.ui.views.ProblemView"/>
 <page label="LabelNotFound" content="org.eclipse.search.ui.views.SearchView"/>
 <page label="Console" content="org.eclipse.ui.console.ConsoleView"/>
 <page label="LabelNotFound" content="org.eclipse.ui.views.BookmarkView"/>
 <page label="LabelNotFound" content="org.eclipse.jdt.ui.SourceView"/>
 <page label="LabelNotFound" content="org.eclipse.jdt.ui.JavadocView"/>
 <page label="LabelNotFound" content="org.eclipse.ui.views.ProgressView"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
 </presentation>
 </folder>
 </info>
-<info part="org.eclipse.ui.internal.ViewStack@1fac636" relative="org.eclipse.ui.internal.ViewStack@dbbb9f" relationship="2" ratioLeft="253" ratioRight="761" ratio="0.2495069" folder="true">
-<folder expanded="2" appearance="2">
-<page label="LabelNotFound" content="org.eclipse.jdt.ui.PackagesView"/>
+<info part="org.eclipse.ui.internal.ViewStack@1fac636" relative="org.eclipse.ui.internal.ViewStack@dbbb9f" relationship="2" ratioLeft="253" ratioRight="761" ratio="0.2495069" folder="true">&#x0A;<folder expanded="2" appearance="2">&#x0A;<page label="LabelNotFound" content="org.eclipse.jdt.ui.PackagesView"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info part="org.eclipse.ui.internal.ViewStack@eb3fbd" relative="org.eclipse.ui.internal.ViewStack@1fac636" relationship="2" ratioLeft="251" ratioRight="510" ratio="0.3298292" folder="true">
-<folder activePageID="org.eclipse.jdt.ui.TypesView" expanded="2" appearance="2">
-<page label="Types" content="org.eclipse.jdt.ui.TypesView"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
+<info part="org.eclipse.ui.internal.ViewStack@eb3fbd" relative="org.eclipse.ui.internal.ViewStack@1fac636" relationship="2" ratioLeft="251" ratioRight="510" ratio="0.3298292" folder="true">&#x0A;<folder activePageID="org.eclipse.jdt.ui.TypesView" expanded="2" appearance="2">&#x0A;<page label="Types" content="org.eclipse.jdt.ui.TypesView"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
 </presentation>
 </folder>
 </info>
-<info part="org.eclipse.ui.internal.ViewStack@a5a334" relative="org.eclipse.ui.internal.ViewStack@eb3fbd" relationship="2" ratioLeft="255" ratioRight="255" ratio="0.5" folder="true">
-<folder activePageID="org.eclipse.jdt.ui.MembersView" expanded="2" appearance="2">
-<page label="Members" content="org.eclipse.jdt.ui.MembersView"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
+<info part="org.eclipse.ui.internal.ViewStack@a5a334" relative="org.eclipse.ui.internal.ViewStack@eb3fbd" relationship="2" ratioLeft="255" ratioRight="255" ratio="0.5" folder="true">&#x0A;<folder activePageID="org.eclipse.jdt.ui.MembersView" expanded="2" appearance="2">&#x0A;<page label="Members" content="org.eclipse.jdt.ui.MembersView"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
 </presentation>
 </folder>
 </info>
