@@ -196,8 +196,10 @@ public class TransxchangeTrips extends TransxchangeDataAspect {
         	_scheduledFrequency = niceString;
         	// Unroll transxchange:vehicle journeys with frequency to google transit:descrete trips
         	int frequency = 0;
-        	Integer[] departureTimehhmmss = {-1, -1, -1};
+/* Java 1.5        	Integer[] departureTimehhmmss = {-1, -1, -1};
         	Integer[] endTimehhmmss = {-1, -1, -1};
+*/        	int[] departureTimehhmmss = {-1, -1, -1};
+			int[] endTimehhmmss = {-1, -1, -1};
         	readTransxchangeTime(departureTimehhmmss, _departureTime);
         	readTransxchangeTime(endTimehhmmss, _endTime);
         	frequency = readTransxchangeFrequency(_scheduledFrequency);
@@ -215,7 +217,8 @@ public class TransxchangeTrips extends TransxchangeDataAspect {
         				if (departureTimehhmmss[1] > endTimehhmmss[1])
         					hot = false;
         		if (hot) {
-        			_departureTime = String.format("%02d:%02d:00", departureTimehhmmss[0], departureTimehhmmss[1]);
+/* Java 1.5        			_departureTime = String.format("%02d:%02d:00", departureTimehhmmss[0], departureTimehhmmss[1]);
+*/        			_departureTime = TransxchangeDataAspect.formatTime(departureTimehhmmss[0], departureTimehhmmss[1]);
         			newTrips__trip_id = new ValueList(_vehicleJourneyCode + "@" + _departureTime);
         			listTrips__trip_id.add(newTrips__trip_id);
         			newTrips__trip_id.addValue(_departureTime);

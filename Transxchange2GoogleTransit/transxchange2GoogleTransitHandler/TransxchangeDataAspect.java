@@ -76,7 +76,8 @@ public abstract class TransxchangeDataAspect {
 	/*
 	 * Read time in transxchange specific format
 	 */
-	static void readTransxchangeTime(Integer[] timehhmmss, String inString) {
+/* Java 1.5	static void readTransxchangeTime(Integer[] timehhmmss, String inString) {
+*/static void readTransxchangeTime(int[] timehhmmss, String inString) {
 		StringTokenizer st = new StringTokenizer(inString, ":");
 		int i = 0;
 		while (st.hasMoreTokens() && i < 3) {
@@ -133,4 +134,63 @@ public abstract class TransxchangeDataAspect {
 		    }
 		}
 	}
+
+	/*
+	 * Return date in Google Transit Data Feed format
+	 * introduced to support Java 1.4.2
+	 */
+	static String formatDate(int year, int month, int day_of_month) {
+		String result = "";
+		String digis = "";
+		Integer iYear;
+		Integer iMonth;
+		Integer iDay_of_month;
+		
+		iYear = new Integer(year);
+		result = iYear.toString();
+
+		iMonth = new Integer(month);
+		digis = iMonth.toString();
+		if (digis.length() == 1)
+			digis = "0" + digis;
+		result = result + digis;
+
+		iDay_of_month = new Integer(day_of_month);
+		digis = iDay_of_month.toString();
+		if (digis.length() == 1)
+			digis = "0" + digis;
+		result = result + digis;
+		
+		return result;
+	}
+
+	/*
+	 * Return time in Google Transit Data Feed format
+	 * introduced to support Java 1.4.2
+	 */
+	static String formatTime(int hour, int mins) {
+		String result = "";
+		String digis = "";
+		Integer iHour;
+		Integer iMins;
+
+		iHour = new Integer(hour);
+		digis = iHour.toString();
+		if (digis.length() == 1)
+			digis = "0" + digis;
+		result = result + digis;
+		
+		result = result + ":";
+		
+		iMins = new Integer(mins);
+		digis = iMins.toString();
+		if (digis.length() == 1)
+			digis = "0" + digis;
+		result = result + digis;
+		
+		result = result + ":00";
+		
+		return result;
+	}
+
 }

@@ -77,9 +77,6 @@ public class TransxchangeAgency extends TransxchangeDataAspect {
 	   		listAgency__agency_name.add(newAgency__agency_name);
 	   		newAgency__agency_name.addValue(niceString);
 	    }
-   		newAgency__agency_url = new ValueList(handler.getUrl());
-   		listAgency__agency_url.add(newAgency__agency_url);
-   		newAgency__agency_url.addValue(handler.getUrl());
 	}
 
 	public void clearKeys (String qName) {
@@ -93,7 +90,11 @@ public class TransxchangeAgency extends TransxchangeDataAspect {
 		int i, j;
 	    boolean hot;
 		
-  	    for (i = 0; i < listAgency__agency_name.size(); i++) {
+   		newAgency__agency_url = new ValueList(handler.getUrl());
+   		listAgency__agency_url.add(newAgency__agency_url);
+   		newAgency__agency_url.addValue(handler.getUrl());
+
+   		for (i = 0; i < listAgency__agency_name.size(); i++) {
   	    	newAgency__agency_timezone = new ValueList(handler.getTimezone());
 	    	listAgency__agency_timezone.add(newAgency__agency_timezone);
 	    	newAgency__agency_timezone.addValue(handler.getTimezone());

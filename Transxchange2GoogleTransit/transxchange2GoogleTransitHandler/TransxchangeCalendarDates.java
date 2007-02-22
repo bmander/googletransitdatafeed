@@ -132,7 +132,8 @@ public class TransxchangeCalendarDates extends TransxchangeDataAspect {
            			newCalendarDates__service_id.addValue(handler.getCalendar().getService());
            			newCalendarDates__date = new ValueList(_key_calendar_dates_start[2]);
            			listCalendarDates__date.add(newCalendarDates__date);
-           			newCalendarDates__date.addValue(String.format("%04d%02d%02d", gcOperationDay.get(Calendar.YEAR), gcOperationDay.get(Calendar.MONTH) + 1, gcOperationDay.get(Calendar.DAY_OF_MONTH)));
+/* Java 1.5           			newCalendarDates__date.addValue(String.format("%04d%02d%02d", gcOperationDay.get(Calendar.YEAR), gcOperationDay.get(Calendar.MONTH) + 1, gcOperationDay.get(Calendar.DAY_OF_MONTH)));
+*/					newCalendarDates__date.addValue(TransxchangeDataAspect.formatDate(gcOperationDay.get(Calendar.YEAR), gcOperationDay.get(Calendar.MONTH) + 1, gcOperationDay.get(Calendar.DAY_OF_MONTH)));
            			newCalendarDates__exception_type = new ValueList(_key_calendar_dates_start[2]);
            			listCalendarDates__exception_type.add(newCalendarDates__exception_type);
                 	if (dayOfNoOperation) {
