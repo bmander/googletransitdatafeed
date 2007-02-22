@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="18" version="2.0">
+<workbench version="2.0" progressCount="18">
 <workbenchAdvisor/>
-<window height="693" maximized="true" width="910" x="23" y="16">
+<window maximized="true" x="23" y="16" width="910" height="693">
 <fastViewData fastViewLocation="1024"/>
 <perspectiveBar>
 <itemSize x="160"/>
@@ -26,30 +26,45 @@
 <coolItem id="group.help" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
 </coolbarLayout>
-<page aggregateWorkingSetId="Aggregate for window 1158447453775" focus="true" label="Workspace - Java">
+<page label="Workspace - Debug" aggregateWorkingSetId="Aggregate for window 1158447453775" focus="true">
 <editors>
 <editorArea activeWorkbook="DefaultEditorWorkbook">
 <info part="DefaultEditorWorkbook">
-<folder appearance="1" expanded="2">
+<folder expanded="2" appearance="1">
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
+<part id="1"/>
+<part id="2"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
-<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Transxchange2GoogleTransit.java" partName="Transxchange2GoogleTransit.java" path="C:/cygwin/home/Joachim Pfeiffer/googletransitdatafeed/Transxchange2GoogleTransit/Transxchange2GoogleTransit.java" title="Transxchange2GoogleTransit.java" tooltip="Transxchange2GoogleTransit/Transxchange2GoogleTransit.java" workbook="DefaultEditorWorkbook">
+<editor title="Transxchange2GoogleTransit.java" name="Transxchange2GoogleTransit.java" id="org.eclipse.jdt.ui.CompilationUnitEditor" tooltip="Transxchange2GoogleTransit/Transxchange2GoogleTransit.java" partName="Transxchange2GoogleTransit.java" workbook="DefaultEditorWorkbook" focus="true" path="C:/cygwin/home/Joachim Pfeiffer/googletransitdatafeed/Transxchange2GoogleTransit/Transxchange2GoogleTransit.java">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Transxchange2GoogleTransit/Transxchange2GoogleTransit.java"/>
+</editor>
+<editor title="TransxchangeAgency.java" name="TransxchangeAgency.java" id="org.eclipse.jdt.ui.CompilationUnitEditor" tooltip="Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeAgency.java" partName="TransxchangeAgency.java" workbook="DefaultEditorWorkbook" path="C:/cygwin/home/Joachim Pfeiffer/googletransitdatafeed/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeAgency.java">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeAgency.java"/>
+</editor>
+<editor title="TransxchangeHandler.java" name="TransxchangeHandler.java" id="org.eclipse.jdt.ui.CompilationUnitEditor" tooltip="Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeHandler.java" partName="TransxchangeHandler.java" workbook="DefaultEditorWorkbook" path="C:/cygwin/home/Joachim Pfeiffer/googletransitdatafeed/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeHandler.java">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeHandler.java"/>
 </editor>
 </editors>
 <views>
 <view id="org.eclipse.jdt.callhierarchy.view" partName="Call Hierarchy">
 <viewState search_scope_type="1"/>
 </view>
-<view id="org.eclipse.jdt.ui.JavadocView" partName="Javadoc">
-<viewState/>
+<view id="org.eclipse.jdt.ui.MembersView" partName="Members">
+<viewState org.eclipse.jdt.ui.browsing.memberstoeditor="1" hidefields="false" hidestatic="false" hidenonpublic="false" hidelocaltypes="false">
+<customFilters userDefinedPatternsEnabled="false">
+<xmlDefinedFilters>
+<child filterId="org.eclipse.jdt.ui.MembersView.ImportDeclarationFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.MembersView.SyntheticMembersFilter" isEnabled="true"/>
+</xmlDefinedFilters>
+</customFilters>
+</viewState>
 </view>
 <view id="org.eclipse.ui.views.TaskList" partName="Tasks">
-<viewState columnWidth0="49" columnWidth1="25" columnWidth2="259" columnWidth3="84" columnWidth4="159" columnWidth5="69" columnWidth6="0" horizontalPosition="0" verticalPosition="0">
+<viewState columnWidth0="55" columnWidth1="31" columnWidth2="265" columnWidth3="90" columnWidth4="165" columnWidth5="75" columnWidth6="0" verticalPosition="0" horizontalPosition="0">
 <columnOrder columnOrderIndex="0"/>
 <columnOrder columnOrderIndex="1"/>
 <columnOrder columnOrderIndex="2"/>
@@ -59,18 +74,43 @@
 <columnOrder columnOrderIndex="6"/>
 </viewState>
 </view>
-<view id="org.eclipse.debug.ui.VariableView" partName="Variables">
+<view id="org.eclipse.jdt.ui.JavadocView" partName="Javadoc">
 <viewState/>
 </view>
-<view id="org.eclipse.ui.console.ConsoleView" partName="Console">
+<view id="org.eclipse.debug.ui.VariableView" partName="Variables">
 <viewState/>
 </view>
 <view id="org.eclipse.debug.ui.DebugView" partName="Debug">
 <viewState/>
 </view>
+<view id="org.eclipse.jdt.debug.ui.DisplayView" partName="Display">
+<viewState/>
+</view>
+<view id="org.eclipse.jdt.ui.TypesView" partName="Types">
+<viewState isWindowWorkingSet="true" workingSetName="" org.eclipse.jdt.ui.browsing.typestoeditor="1">
+<customFilters userDefinedPatternsEnabled="false">
+<xmlDefinedFilters>
+<child filterId="org.eclipse.jdt.ui.TypesView.AnnotationFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.TypesView.NonPublicTypeFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.TypesView.ClassFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.TypesView.EnumFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.TypesView.InterfaceFilter" isEnabled="false"/>
+</xmlDefinedFilters>
+</customFilters>
+</viewState>
+</view>
+<view id="org.eclipse.search.ui.views.SearchView" partName="Search">
+<viewState isPinned="false">
+<view IMemento.internal.id="org.eclipse.jdt.ui.JavaSearchResultPage" org.eclipse.search.resultpage.layout="2" org.eclipse.jdt.search.resultpage.grouping="3" org.eclipse.jdt.search.resultpage.sorting="1" org.eclipse.jdt.search.resultpage.limit_enabled="TRUE" org.eclipse.jdt.search.resultpage.limit="1000" org.eclipse.search.lastActivation="1"/>
+<view IMemento.internal.id="" org.eclipse.search.lastActivation="0"/>
+</viewState>
+</view>
+<view id="org.eclipse.ui.console.ConsoleView" partName="Console">
+<viewState/>
+</view>
 <view id="org.eclipse.jdt.ui.SourceView" partName="Declaration"/>
 <view id="org.eclipse.jdt.ui.PackageExplorer" partName="Package Explorer">
-<viewState isWindowWorkingSet="true" layout="2" org.eclipse.jdt.ui.packages.linktoeditor="0" rootMode="1" workingSetName="">
+<viewState rootMode="1" layout="2" org.eclipse.jdt.ui.packages.linktoeditor="0" isWindowWorkingSet="true" workingSetName="">
 <customFilters userDefinedPatternsEnabled="false">
 <xmlDefinedFilters>
 <child filterId="org.eclipse.jdt.ui.PackageExplorer.FieldsFilter" isEnabled="false"/>
@@ -96,20 +136,13 @@
 </customFilters>
 </viewState>
 </view>
-<view id="org.eclipse.debug.ui.BreakpointView" partName="Breakpoints">
-<viewState>
-<isTrackingSelection value="false"/>
-</viewState>
-</view>
-<view id="org.eclipse.jdt.debug.ui.DisplayView" partName="Display">
-<viewState/>
+<view id="org.eclipse.ui.navigator.ProjectExplorer" partName="Project Explorer">
+<viewState CommonNavigator.LINKING_ENABLED="0" org.eclipse.ui.navigator.resources.workingSets.showTopLevelWorkingSets="0"/>
 </view>
 </views>
-<perspectives activePart="org.eclipse.jdt.ui.CompilationUnitEditor" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
-<perspective editorAreaVisible="1" fixed="0" version="0.016">
-<descriptor class="org.eclipse.debug.internal.ui.DebugPerspectiveFactory" id="org.eclipse.debug.ui.DebugPerspective" label="Debug"/>
-<alwaysOnActionSet id="org.eclipse.jst.servlet.ui.internal.actions.ConvertToWebModuleTypeActionSet"/>
-<alwaysOnActionSet id="org.eclipse.jst.ws.consumption"/>
+<perspectives activePerspective="org.eclipse.debug.ui.DebugPerspective" activePart="org.eclipse.ui.navigator.ProjectExplorer">
+<perspective version="0.016" editorAreaVisible="1" fixed="0">
+<descriptor id="org.eclipse.debug.ui.DebugPerspective" label="Debug" class="org.eclipse.debug.internal.ui.DebugPerspectiveFactory"/>
 <alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
 <alwaysOnActionSet id="org.eclipse.search.searchActionSet"/>
 <alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.openExternalFile"/>
@@ -120,7 +153,6 @@
 <alwaysOnActionSet id="org.eclipse.ui.actionSet.keyBindings"/>
 <alwaysOnActionSet id="org.eclipse.ui.WorkingSetActionSet"/>
 <alwaysOnActionSet id="org.eclipse.update.ui.softwareUpdates"/>
-<alwaysOnActionSet id="org.eclipse.wst.server.ui.internal.webbrowser.actionSet"/>
 <alwaysOnActionSet id="org.eclipse.debug.ui.launchActionSet"/>
 <alwaysOnActionSet id="org.eclipse.ui.NavigateActionSet"/>
 <alwaysOnActionSet id="org.eclipse.debug.ui.breakpointActionSet"/>
@@ -143,64 +175,87 @@
 <view id="org.eclipse.ui.views.TaskList"/>
 <view id="org.eclipse.jdt.debug.ui.DisplayView"/>
 <view id="org.eclipse.jdt.callhierarchy.view"/>
-<view id="org.eclipse.debug.ui.DebugView"/>
-<view id="org.eclipse.jdt.ui.PackageExplorer"/>
-<view id="org.eclipse.wst.server.ui.ServersView" removed="true"/>
 <view id="org.eclipse.debug.ui.VariableView"/>
-<view id="org.eclipse.debug.ui.BreakpointView"/>
-<layout>&#x0A;<mainWindow>&#x0A;<info folder="true" part="org.eclipse.debug.internal.ui.NavigatorFolderView">&#x0A;<folder activePageID="org.eclipse.jdt.ui.PackageExplorer" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.debug.ui.DebugView" label="Debug"/>
-<page content="org.eclipse.ui.views.ResourceNavigator" label="LabelNotFound"/>
-<page content="org.eclipse.jdt.ui.PackageExplorer" label="Package Explorer"/>
-<page content="org.eclipse.jdt.ui.TypeHierarchy" label="LabelNotFound"/>
-<page content="org.eclipse.wst.server.ui.ServersView" label="Servers"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
-<part id="1"/>
-<part id="2"/>
+<view id="org.eclipse.debug.ui.DebugView"/>
+<view id="org.eclipse.ui.navigator.ProjectExplorer"/>
+<layout>
+<mainWindow>
+<info part="org.eclipse.ui.internal.ViewStack@ab543e" folder="true">
+<folder activePageID="org.eclipse.ui.navigator.ProjectExplorer" expanded="2" appearance="2">
+<page label="Project Explorer" content="org.eclipse.ui.navigator.ProjectExplorer"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
 </presentation>
 </folder>
 </info>
-<info folder="true" part="stickyFolderRight" ratio="0.74950296" ratioLeft="754" ratioRight="252" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
-<page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
-<page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
+<info part="org.eclipse.debug.internal.ui.NavigatorFolderView" relative="org.eclipse.ui.internal.ViewStack@ab543e" relationship="2" ratioLeft="253" ratioRight="761" ratio="0.2495069" folder="true">
+<folder activePageID="org.eclipse.debug.ui.DebugView" expanded="2" appearance="2">
+<page label="Debug" content="org.eclipse.debug.ui.DebugView"/>
+<page label="LabelNotFound" content="org.eclipse.ui.views.ResourceNavigator"/>
+<page label="LabelNotFound" content="org.eclipse.jdt.ui.PackageExplorer"/>
+<page label="LabelNotFound" content="org.eclipse.jdt.ui.TypeHierarchy"/>
+<page label="LabelNotFound" content="org.eclipse.wst.server.ui.ServersView"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
+<info part="org.eclipse.ui.internal.ViewStack@98f864" relative="org.eclipse.debug.internal.ui.NavigatorFolderView" relationship="2" ratioLeft="863" ratioRight="148" ratio="0.8536103" folder="true">
+<folder activePageID="org.eclipse.debug.ui.VariableView" expanded="2" appearance="2">
+<page label="Variables" content="org.eclipse.debug.ui.VariableView"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
+<info part="stickyFolderRight" relative="org.eclipse.debug.internal.ui.NavigatorFolderView" relationship="2" ratioLeft="754" ratioRight="252" ratio="0.74950296" folder="true">
+<folder expanded="2" appearance="2">
+<page label="LabelNotFound" content="org.eclipse.help.ui.HelpView"/>
+<page label="LabelNotFound" content="org.eclipse.ui.internal.introview"/>
+<page label="LabelNotFound" content="org.eclipse.ui.cheatsheets.views.CheatSheetView"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.debug.internal.ui.ConsoleFolderView" ratio="0.7444795" ratioLeft="472" ratioRight="162" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">&#x0A;<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
-<page content="org.eclipse.ui.views.TaskList" label="Tasks"/>
-<page content="org.eclipse.ui.views.BookmarkView" label="LabelNotFound"/>
-<page content="org.eclipse.ui.views.PropertySheet" label="LabelNotFound"/>
-<page content="org.eclipse.jdt.debug.ui.DisplayView" label="Display"/>
-<page content="org.eclipse.search.SearchResultView" label="LabelNotFound"/>
-<page content="org.eclipse.pde.runtime.LogView" label="LabelNotFound"/>
-<page content="org.eclipse.jdt.callhierarchy.view" label="Call Hierarchy"/>
-<page content="org.eclipse.jdt.ui.PackagesView" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<info part="org.eclipse.debug.internal.ui.ConsoleFolderView" relative="org.eclipse.debug.internal.ui.NavigatorFolderView" relationship="4" ratioLeft="472" ratioRight="162" ratio="0.7444795" folder="true">
+<folder activePageID="org.eclipse.ui.console.ConsoleView" expanded="2" appearance="2">
+<page label="Console" content="org.eclipse.ui.console.ConsoleView"/>
+<page label="Tasks" content="org.eclipse.ui.views.TaskList"/>
+<page label="LabelNotFound" content="org.eclipse.ui.views.BookmarkView"/>
+<page label="LabelNotFound" content="org.eclipse.ui.views.PropertySheet"/>
+<page label="Display" content="org.eclipse.jdt.debug.ui.DisplayView"/>
+<page label="LabelNotFound" content="org.eclipse.search.SearchResultView"/>
+<page label="LabelNotFound" content="org.eclipse.pde.runtime.LogView"/>
+<page label="Call Hierarchy" content="org.eclipse.jdt.callhierarchy.view"/>
+<page label="LabelNotFound" content="org.eclipse.jdt.ui.PackagesView"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
 <part id="1"/>
 <part id="2"/>
 <part id="3"/>
 </presentation>
 </folder>
 </info>
-<info part="org.eclipse.ui.editorss" ratio="0.49253732" ratioLeft="231" ratioRight="238" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView"/>
-<info folder="true" part="org.eclipse.debug.internal.ui.OutlineFolderView" ratio="0.74950296" ratioLeft="754" ratioRight="252" relationship="2" relative="org.eclipse.ui.editorss">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.views.ContentOutline" label="LabelNotFound"/>
-<page content="org.eclipse.ant.ui.views.AntView" label="LabelNotFound"/>
+<info part="org.eclipse.ui.editorss" relative="org.eclipse.debug.internal.ui.NavigatorFolderView" relationship="4" ratioLeft="138" ratioRight="331" ratio="0.29424307"/>
+<info part="org.eclipse.debug.internal.ui.OutlineFolderView" relative="org.eclipse.ui.editorss" relationship="2" ratioLeft="754" ratioRight="252" ratio="0.74950296" folder="true">
+<folder expanded="2" appearance="2">
+<page label="LabelNotFound" content="org.eclipse.ui.views.ContentOutline"/>
+<page label="LabelNotFound" content="org.eclipse.ant.ui.views.AntView"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.debug.internal.ui.ToolsFolderView" ratio="0.53313553" ratioLeft="539" ratioRight="472" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">&#x0A;<folder activePageID="org.eclipse.debug.ui.VariableView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.debug.ui.VariableView" label="Variables"/>
-<page content="org.eclipse.debug.ui.BreakpointView" label="Breakpoints"/>
-<page content="org.eclipse.debug.ui.ExpressionView" label="LabelNotFound"/>
-<page content="org.eclipse.debug.ui.RegisterView" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
-<part id="1"/>
-</presentation>
+<info part="org.eclipse.debug.internal.ui.ToolsFolderView" relative="org.eclipse.debug.internal.ui.NavigatorFolderView" relationship="2" ratioLeft="539" ratioRight="472" ratio="0.53313553" folder="true">
+<folder expanded="2" appearance="2">
+<page label="LabelNotFound" content="org.eclipse.debug.ui.BreakpointView"/>
+<page label="LabelNotFound" content="org.eclipse.debug.ui.ExpressionView"/>
+<page label="LabelNotFound" content="org.eclipse.debug.ui.RegisterView"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
 </mainWindow>
 </layout>
 </perspective>
-<perspective editorAreaVisible="1" fixed="0" version="0.016">
-<descriptor class="org.eclipse.jdt.internal.ui.JavaPerspectiveFactory" id="org.eclipse.jdt.ui.JavaPerspective" label="Java"/>
+<perspective version="0.016" editorAreaVisible="1" fixed="0">
+<descriptor id="org.eclipse.jdt.ui.JavaPerspective" label="Java" class="org.eclipse.jdt.internal.ui.JavaPerspectiveFactory"/>
 <alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
 <alwaysOnActionSet id="org.eclipse.search.searchActionSet"/>
 <alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.openExternalFile"/>
@@ -248,6 +303,7 @@
 <perspective_action id="org.eclipse.jdt.ui.JavaBrowsingPerspective"/>
 <view id="org.eclipse.jdt.ui.JavadocView"/>
 <view id="org.eclipse.jdt.ui.SourceView"/>
+<view id="org.eclipse.search.ui.views.SearchView"/>
 <view id="org.eclipse.ui.console.ConsoleView"/>
 <view id="org.eclipse.jdt.debug.ui.DisplayView"/>
 <view id="org.eclipse.debug.ui.DebugView"/>
@@ -255,62 +311,184 @@
 <view id="org.eclipse.jdt.ui.PackageExplorer"/>
 <layout>
 <mainWindow>
-<info folder="true" part="left">
-<folder activePageID="org.eclipse.jdt.ui.PackageExplorer" appearance="2" expanded="2">
-<page content="org.eclipse.jdt.ui.PackageExplorer" label="Package Explorer"/>
-<page content="org.eclipse.jdt.ui.TypeHierarchy" label="LabelNotFound"/>
-<page content="org.eclipse.ui.views.ResourceNavigator" label="LabelNotFound"/>
-<page content="org.eclipse.jdt.junit.ResultView" label="LabelNotFound"/>
+<info part="left" folder="true">
+<folder activePageID="org.eclipse.jdt.ui.PackageExplorer" expanded="2" appearance="2">
+<page label="Package Explorer" content="org.eclipse.jdt.ui.PackageExplorer"/>
+<page label="LabelNotFound" content="org.eclipse.jdt.ui.TypeHierarchy"/>
+<page label="LabelNotFound" content="org.eclipse.ui.views.ResourceNavigator"/>
+<page label="LabelNotFound" content="org.eclipse.jdt.junit.ResultView"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
 </presentation>
 </folder>
 </info>
-<info folder="true" part="stickyFolderRight" ratio="0.7495069" ratioLeft="760" ratioRight="254" relationship="2" relative="left">
-<folder appearance="2" expanded="2">
-<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
-<page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
-<page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
-<page content="org.eclipse.ui.navigator.ProjectExplorer" label="LabelNotFound"/>
+<info part="stickyFolderRight" relative="left" relationship="2" ratioLeft="760" ratioRight="254" ratio="0.7495069" folder="true">
+<folder expanded="2" appearance="2">
+<page label="LabelNotFound" content="org.eclipse.help.ui.HelpView"/>
+<page label="LabelNotFound" content="org.eclipse.ui.internal.introview"/>
+<page label="LabelNotFound" content="org.eclipse.ui.cheatsheets.views.CheatSheetView"/>
+<page label="LabelNotFound" content="org.eclipse.ui.navigator.ProjectExplorer"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@12c69c0" ratio="0.19287834" ratioLeft="195" ratioRight="816" relationship="2" relative="left">
-<folder activePageID="org.eclipse.debug.ui.VariableView" appearance="2" expanded="2">
-<page content="org.eclipse.debug.ui.VariableView" label="Variables"/>
+<info part="org.eclipse.ui.internal.ViewStack@12c69c0" relative="left" relationship="2" ratioLeft="227" ratioRight="784" ratio="0.22453018" folder="true">
+<folder activePageID="org.eclipse.debug.ui.VariableView" expanded="2" appearance="2">
+<page label="Variables" content="org.eclipse.debug.ui.VariableView"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
 </presentation>
 </folder>
 </info>
-<info folder="true" part="bottom" ratio="0.8059937" ratioLeft="511" ratioRight="123" relationship="4" relative="org.eclipse.ui.internal.ViewStack@12c69c0">
-<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
-<page content="org.eclipse.ui.views.ProblemView" label="LabelNotFound"/>
-<page content="org.eclipse.jdt.ui.JavadocView" label="Javadoc"/>
-<page content="org.eclipse.jdt.ui.SourceView" label="Declaration"/>
-<page content="org.eclipse.search.ui.views.SearchView" label="LabelNotFound"/>
-<page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
-<page content="org.eclipse.ui.views.BookmarkView" label="LabelNotFound"/>
-<page content="org.eclipse.ui.views.ProgressView" label="LabelNotFound"/>
-<page content="org.eclipse.jdt.debug.ui.DisplayView" label="Display"/>
-<page content="org.eclipse.debug.ui.DebugView" label="Debug"/>
+<info part="bottom" relative="org.eclipse.ui.internal.ViewStack@12c69c0" relationship="4" ratioLeft="511" ratioRight="123" ratio="0.8059937" folder="true">
+<folder activePageID="org.eclipse.ui.console.ConsoleView" expanded="2" appearance="2">
+<page label="LabelNotFound" content="org.eclipse.ui.views.ProblemView"/>
+<page label="Javadoc" content="org.eclipse.jdt.ui.JavadocView"/>
+<page label="Declaration" content="org.eclipse.jdt.ui.SourceView"/>
+<page label="Search" content="org.eclipse.search.ui.views.SearchView"/>
+<page label="Console" content="org.eclipse.ui.console.ConsoleView"/>
+<page label="LabelNotFound" content="org.eclipse.ui.views.BookmarkView"/>
+<page label="LabelNotFound" content="org.eclipse.ui.views.ProgressView"/>
+<page label="Display" content="org.eclipse.jdt.debug.ui.DisplayView"/>
+<page label="Debug" content="org.eclipse.debug.ui.DebugView"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
 <part id="1"/>
 <part id="2"/>
 <part id="3"/>
 <part id="4"/>
+<part id="5"/>
 </presentation>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@1096c16" ratio="0.74901444" ratioLeft="570" ratioRight="191" relationship="2" relative="org.eclipse.ui.internal.ViewStack@12c69c0">
-<folder appearance="2" expanded="2">
-<page content="org.eclipse.ui.views.ContentOutline" label="LabelNotFound"/>
-<page content="org.eclipse.ant.ui.views.AntView" label="LabelNotFound"/>
+<info part="org.eclipse.ui.internal.ViewStack@1096c16" relative="org.eclipse.ui.internal.ViewStack@12c69c0" relationship="2" ratioLeft="570" ratioRight="191" ratio="0.74901444" folder="true">
+<folder expanded="2" appearance="2">
+<page label="LabelNotFound" content="org.eclipse.ui.views.ContentOutline"/>
+<page label="LabelNotFound" content="org.eclipse.ant.ui.views.AntView"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info part="org.eclipse.ui.editorss" ratio="0.11092715" ratioLeft="67" ratioRight="537" relationship="4" relative="org.eclipse.ui.internal.ViewStack@12c69c0"/>
+<info part="org.eclipse.ui.editorss" relative="org.eclipse.ui.internal.ViewStack@12c69c0" relationship="4" ratioLeft="94" ratioRight="414" ratio="0.18503937"/>
+</mainWindow>
+</layout>
+</perspective>
+<perspective version="0.016" editorAreaVisible="1" fixed="0">
+<descriptor id="org.eclipse.jdt.ui.JavaBrowsingPerspective" label="Java Browsing" class="org.eclipse.jdt.internal.ui.browsing.JavaBrowsingPerspectiveFactory"/>
+<alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.search.searchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.openExternalFile"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.annotationNavigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.navigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo"/>
+<alwaysOnActionSet id="org.eclipse.ui.externaltools.ExternalToolsSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.keyBindings"/>
+<alwaysOnActionSet id="org.eclipse.ui.WorkingSetActionSet"/>
+<alwaysOnActionSet id="org.eclipse.update.ui.softwareUpdates"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.launchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.jdt.ui.JavaActionSet"/>
+<alwaysOnActionSet id="org.eclipse.jdt.ui.JavaElementCreationActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.NavigateActionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.breakpointActionSet"/>
+<alwaysOnActionSet id="org.eclipse.jdt.debug.ui.JDTDebugActionSet"/>
+<alwaysOnActionSet id="org.eclipse.jdt.junit.JUnitActionSet"/>
+<show_view_action id="org.eclipse.jdt.ui.TypeHierarchy"/>
+<show_view_action id="org.eclipse.jdt.ui.PackageExplorer"/>
+<show_view_action id="org.eclipse.jdt.ui.ProjectsView"/>
+<show_view_action id="org.eclipse.jdt.ui.PackagesView"/>
+<show_view_action id="org.eclipse.jdt.ui.TypesView"/>
+<show_view_action id="org.eclipse.jdt.ui.MembersView"/>
+<show_view_action id="org.eclipse.jdt.ui.SourceView"/>
+<show_view_action id="org.eclipse.jdt.ui.JavadocView"/>
+<show_view_action id="org.eclipse.search.ui.views.SearchView"/>
+<show_view_action id="org.eclipse.ui.console.ConsoleView"/>
+<show_view_action id="org.eclipse.ui.views.ContentOutline"/>
+<show_view_action id="org.eclipse.ui.views.ProblemView"/>
+<show_view_action id="org.eclipse.ui.views.ResourceNavigator"/>
+<show_view_action id="org.eclipse.ui.views.TaskList"/>
+<show_view_action id="org.eclipse.ui.views.ProgressView"/>
+<show_view_action id="org.eclipse.ant.ui.views.AntView"/>
+<show_view_action id="org.eclipse.pde.runtime.LogView"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewPackageCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewClassCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewInterfaceCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewEnumCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewAnnotationCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewSourceFolderCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewSnippetFileCreationWizard"/>
+<new_wizard_action id="org.eclipse.ui.wizards.new.folder"/>
+<new_wizard_action id="org.eclipse.ui.wizards.new.file"/>
+<new_wizard_action id="org.eclipse.ui.editors.wizards.UntitledTextFileWizard"/>
+<new_wizard_action id="org.eclipse.jdt.junit.wizards.NewTestCaseCreationWizard"/>
+<perspective_action id="org.eclipse.jdt.ui.JavaBrowsingPerspective"/>
+<perspective_action id="org.eclipse.jdt.ui.JavaPerspective"/>
+<perspective_action id="org.eclipse.debug.ui.DebugPerspective"/>
+<view id="org.eclipse.jdt.ui.TypesView"/>
+<view id="org.eclipse.jdt.ui.MembersView"/>
+<view id="org.eclipse.jdt.ui.PackageExplorer"/>
+<view id="org.eclipse.ui.console.ConsoleView"/>
+<layout>
+<mainWindow>
+<info part="org.eclipse.ui.internal.ViewStack@dbbb9f" folder="true">
+<folder expanded="2" appearance="2">
+<page label="LabelNotFound" content="org.eclipse.jdt.ui.ProjectsView"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
+</folder>
+</info>
+<info part="stickyFolderRight" relative="org.eclipse.ui.internal.ViewStack@dbbb9f" relationship="2" ratioLeft="760" ratioRight="254" ratio="0.7495069" folder="true">
+<folder expanded="2" appearance="2">
+<page label="LabelNotFound" content="org.eclipse.help.ui.HelpView"/>
+<page label="LabelNotFound" content="org.eclipse.ui.internal.introview"/>
+<page label="LabelNotFound" content="org.eclipse.ui.cheatsheets.views.CheatSheetView"/>
+</folder>
+</info>
+<info part="left" relative="org.eclipse.ui.internal.ViewStack@dbbb9f" relationship="4" ratioLeft="159" ratioRight="478" ratio="0.24960753" folder="true">
+<folder activePageID="org.eclipse.jdt.ui.PackageExplorer" expanded="2" appearance="2">
+<page label="LabelNotFound" content="org.eclipse.jdt.ui.TypeHierarchy"/>
+<page label="LabelNotFound" content="org.eclipse.ui.views.ContentOutline"/>
+<page label="Package Explorer" content="org.eclipse.jdt.ui.PackageExplorer"/>
+<page label="LabelNotFound" content="org.eclipse.ui.views.ResourceNavigator"/>
+<page label="LabelNotFound" content="org.eclipse.ant.ui.views.AntView"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
+<info part="org.eclipse.ui.editorss" relative="left" relationship="2" ratioLeft="253" ratioRight="761" ratio="0.2495069"/>
+<info part="bottom" relative="org.eclipse.ui.editorss" relationship="4" ratioLeft="358" ratioRight="120" ratio="0.748954" folder="true">
+<folder activePageID="org.eclipse.ui.console.ConsoleView" expanded="2" appearance="2">
+<page label="LabelNotFound" content="org.eclipse.ui.views.ProblemView"/>
+<page label="LabelNotFound" content="org.eclipse.search.ui.views.SearchView"/>
+<page label="Console" content="org.eclipse.ui.console.ConsoleView"/>
+<page label="LabelNotFound" content="org.eclipse.ui.views.BookmarkView"/>
+<page label="LabelNotFound" content="org.eclipse.jdt.ui.SourceView"/>
+<page label="LabelNotFound" content="org.eclipse.jdt.ui.JavadocView"/>
+<page label="LabelNotFound" content="org.eclipse.ui.views.ProgressView"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
+<info part="org.eclipse.ui.internal.ViewStack@1fac636" relative="org.eclipse.ui.internal.ViewStack@dbbb9f" relationship="2" ratioLeft="253" ratioRight="761" ratio="0.2495069" folder="true">
+<folder expanded="2" appearance="2">
+<page label="LabelNotFound" content="org.eclipse.jdt.ui.PackagesView"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
+</folder>
+</info>
+<info part="org.eclipse.ui.internal.ViewStack@eb3fbd" relative="org.eclipse.ui.internal.ViewStack@1fac636" relationship="2" ratioLeft="251" ratioRight="510" ratio="0.3298292" folder="true">
+<folder activePageID="org.eclipse.jdt.ui.TypesView" expanded="2" appearance="2">
+<page label="Types" content="org.eclipse.jdt.ui.TypesView"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
+<info part="org.eclipse.ui.internal.ViewStack@a5a334" relative="org.eclipse.ui.internal.ViewStack@eb3fbd" relationship="2" ratioLeft="255" ratioRight="255" ratio="0.5" folder="true">
+<folder activePageID="org.eclipse.jdt.ui.MembersView" expanded="2" appearance="2">
+<page label="Members" content="org.eclipse.jdt.ui.MembersView"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
 </mainWindow>
 </layout>
 </perspective>
@@ -318,180 +496,162 @@
 <workingSets/>
 <navigationHistory>
 <editors>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeDataAspect.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeHandler.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeRoutes.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeStops.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeStopTimes.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeTrips.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/ValueList.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Transxchange2GoogleTransit/Transxchange2GoogleTransit.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeCalendar.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeCalendar.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeAgency.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeCalendarDates.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeDataAspect.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeHandler.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeRoutes.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeStops.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeStopTimes.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeTrips.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/ValueList.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeDataAspect.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Transxchange2GoogleTransit/Transxchange2GoogleTransit.java"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeHandler.java"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeAgency.java"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Transxchange2GoogleTransit/Transxchange2GoogleTransit.java"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeDataAspect.java"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/ValueList.java"/>
 </editors>
-<item historyLabel="TransxchangeDataAspect.java" index="0">
-<position info="not_deleted" x="4" y="0"/>
+<item historyLabel="TransxchangeAgency.java" index="1">
+<position x="3566" y="0" info="not_deleted"/>
 </item>
-<item historyLabel="TransxchangeHandler.java" index="1">
-<position info="not_deleted" x="4" y="0"/>
+<item historyLabel="TransxchangeAgency.java" index="1">
+<position x="3842" y="0" info="not_deleted"/>
 </item>
-<item historyLabel="TransxchangeRoutes.java" index="2">
-<position info="not_deleted" x="4" y="0"/>
+<item historyLabel="TransxchangeAgency.java" index="1">
+<position x="3259" y="7" info="not_deleted"/>
 </item>
-<item historyLabel="TransxchangeStops.java" index="3">
-<position info="not_deleted" x="4" y="0"/>
+<item historyLabel="TransxchangeAgency.java" index="1">
+<position x="4177" y="0" info="not_deleted"/>
 </item>
-<item historyLabel="TransxchangeStopTimes.java" index="4">
-<position info="not_deleted" x="4" y="0"/>
+<item historyLabel="TransxchangeAgency.java" index="1">
+<position x="4224" y="0" info="not_deleted"/>
 </item>
-<item historyLabel="TransxchangeTrips.java" index="5">
-<position info="not_deleted" x="4" y="0"/>
+<item historyLabel="TransxchangeAgency.java" index="1">
+<position x="4270" y="0" info="not_deleted"/>
 </item>
-<item historyLabel="ValueList.java" index="6">
+<item historyLabel="TransxchangeAgency.java" index="1">
+<position x="4321" y="0" info="not_deleted"/>
+</item>
+<item historyLabel="Transxchange2GoogleTransit.java" index="2">
+<position x="4392" y="0" info="not_deleted"/>
+</item>
+<item historyLabel="Transxchange2GoogleTransit.java" index="2">
+<position x="4484" y="0" info="not_deleted"/>
+</item>
+<item historyLabel="Transxchange2GoogleTransit.java" index="2">
+<position x="4542" y="0" info="not_deleted"/>
+</item>
+<item historyLabel="Transxchange2GoogleTransit.java" index="2">
+<position x="4607" y="0" info="not_deleted"/>
+</item>
+<item historyLabel="Transxchange2GoogleTransit.java" index="2">
+<position x="4703" y="0" info="not_deleted"/>
+</item>
+<item historyLabel="TransxchangeHandler.java" index="0">
+<position x="2198" y="0" info="not_deleted"/>
+</item>
+<item historyLabel="TransxchangeDataAspect.java" index="3">
+<position x="4" y="0" info="not_deleted"/>
+</item>
+<item historyLabel="TransxchangeHandler.java" index="0">
+<position x="2198" y="0" info="not_deleted"/>
+</item>
+<item historyLabel="Transxchange2GoogleTransit.java" index="2">
+<position x="4703" y="0" info="not_deleted"/>
+</item>
+<item historyLabel="TransxchangeAgency.java" index="1">
+<position x="4321" y="0" info="not_deleted"/>
+</item>
+<item historyLabel="TransxchangeHandler.java" index="0">
 <position/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="7">
-<position info="not_deleted" x="88" y="0"/>
+<item historyLabel="TransxchangeAgency.java" index="1">
+<position x="4321" y="0" info="not_deleted"/>
 </item>
-<item historyLabel="TransxchangeCalendar.java" index="8">
-<position info="not_deleted" x="5927" y="0"/>
+<item historyLabel="Transxchange2GoogleTransit.java" index="2">
+<position x="4703" y="0" info="not_deleted"/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="7">
+<item historyLabel="TransxchangeHandler.java" index="0">
 <position/>
 </item>
-<item historyLabel="TransxchangeCalendar.java" index="9">
-<position/>
+<item historyLabel="TransxchangeAgency.java" index="1">
+<position x="4321" y="0" info="not_deleted"/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="7">
-<position/>
+<item historyLabel="Transxchange2GoogleTransit.java" index="2">
+<position x="4703" y="0" info="not_deleted"/>
 </item>
-<item historyLabel="TransxchangeAgency.java" index="10">
-<position info="not_deleted" x="85" y="0"/>
+<item historyLabel="Transxchange2GoogleTransit.java" index="2">
+<position x="4607" y="0" info="not_deleted"/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="7">
-<position/>
+<item historyLabel="TransxchangeHandler.java" index="0">
+<position x="2198" y="0" info="not_deleted"/>
 </item>
-<item historyLabel="TransxchangeAgency.java" index="10">
-<position/>
+<item historyLabel="Transxchange2GoogleTransit.java" index="2">
+<position x="4607" y="0" info="not_deleted"/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="7">
-<position info="not_deleted" x="6" y="77"/>
+<item historyLabel="TransxchangeAgency.java" index="1">
+<position x="1913" y="0" info="not_deleted"/>
 </item>
-<item historyLabel="TransxchangeAgency.java" index="10">
-<position info="not_deleted" x="83" y="0"/>
+<item historyLabel="Transxchange2GoogleTransit.java" index="2">
+<position x="4607" y="0" info="not_deleted"/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="7">
-<position info="not_deleted" x="6" y="77"/>
+<item historyLabel="Transxchange2GoogleTransit.java" index="2">
+<position x="4703" y="0" info="not_deleted"/>
 </item>
-<item historyLabel="TransxchangeAgency.java" index="10">
-<position info="not_deleted" x="97" y="0"/>
+<item historyLabel="TransxchangeHandler.java" index="0">
+<position x="2198" y="0" info="not_deleted"/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="7">
-<position info="not_deleted" x="6" y="77"/>
+<item historyLabel="Transxchange2GoogleTransit.java" index="2">
+<position x="4703" y="0" info="not_deleted"/>
 </item>
-<item historyLabel="TransxchangeAgency.java" index="10">
-<position info="not_deleted" x="151" y="0"/>
+<item historyLabel="TransxchangeAgency.java" index="1">
+<position x="1913" y="0" info="not_deleted"/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="7">
-<position info="not_deleted" x="162" y="0"/>
+<item historyLabel="Transxchange2GoogleTransit.java" index="2">
+<position x="4703" y="0" info="not_deleted"/>
 </item>
-<item historyLabel="TransxchangeAgency.java" index="10">
-<position info="not_deleted" x="151" y="0"/>
+<item historyLabel="ValueList.java" index="4">
+<position x="1242" y="0" info="not_deleted"/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="7">
-<position info="not_deleted" x="162" y="0"/>
+<item historyLabel="ValueList.java" index="4">
+<position x="1299" y="0" info="not_deleted"/>
 </item>
-<item historyLabel="TransxchangeAgency.java" index="10">
-<position info="not_deleted" x="97" y="0"/>
+<item historyLabel="Transxchange2GoogleTransit.java" index="2">
+<position x="4703" y="0" info="not_deleted"/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="7">
-<position info="not_deleted" x="100" y="0"/>
+<item historyLabel="Transxchange2GoogleTransit.java" index="2">
+<position x="5491" y="0" info="not_deleted"/>
 </item>
-<item historyLabel="TransxchangeAgency.java" index="10">
-<position info="not_deleted" x="97" y="0"/>
+<item historyLabel="Transxchange2GoogleTransit.java" index="2">
+<position x="4703" y="0" info="not_deleted"/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="7">
-<position info="not_deleted" x="100" y="0"/>
+<item historyLabel="ValueList.java" index="4">
+<position x="1299" y="0" info="not_deleted"/>
 </item>
-<item historyLabel="TransxchangeCalendar.java" index="9">
-<position info="not_deleted" x="86" y="0"/>
+<item historyLabel="ValueList.java" index="4">
+<position x="1242" y="0" info="not_deleted"/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="7">
-<position info="not_deleted" x="100" y="0"/>
+<item historyLabel="ValueList.java" index="4">
+<position x="1299" y="0" info="not_deleted"/>
 </item>
-<item historyLabel="TransxchangeCalendarDates.java" index="11">
-<position info="not_deleted" x="85" y="0"/>
+<item historyLabel="Transxchange2GoogleTransit.java" index="2">
+<position x="4703" y="0" info="not_deleted"/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="7">
-<position info="not_deleted" x="6" y="77"/>
+<item historyLabel="Transxchange2GoogleTransit.java" index="2">
+<position x="5689" y="0" info="not_deleted"/>
 </item>
-<item historyLabel="TransxchangeCalendarDates.java" index="11">
-<position info="not_deleted" x="85" y="0"/>
+<item historyLabel="ValueList.java" index="4">
+<position x="1242" y="0" info="not_deleted"/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="7">
-<position info="not_deleted" x="6" y="77"/>
+<item historyLabel="Transxchange2GoogleTransit.java" index="2">
+<position x="4703" y="0" info="not_deleted"/>
 </item>
-<item historyLabel="TransxchangeDataAspect.java" index="12">
-<position info="not_deleted" x="85" y="0"/>
+<item historyLabel="Transxchange2GoogleTransit.java" index="2">
+<position x="5680" y="0" info="not_deleted"/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="7">
-<position info="not_deleted" x="6" y="77"/>
+<item historyLabel="TransxchangeAgency.java" index="1">
+<position x="3266" y="0" info="not_deleted"/>
 </item>
-<item historyLabel="TransxchangeHandler.java" index="13">
-<position info="not_deleted" x="85" y="0"/>
+<item historyLabel="TransxchangeHandler.java" index="0">
+<position x="4893" y="0" info="not_deleted"/>
 </item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="7">
-<position info="not_deleted" x="6" y="77"/>
-</item>
-<item historyLabel="TransxchangeRoutes.java" index="14">
-<position info="not_deleted" x="80" y="0"/>
-</item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="7">
-<position info="not_deleted" x="6" y="77"/>
-</item>
-<item historyLabel="TransxchangeStops.java" index="15">
-<position info="not_deleted" x="85" y="0"/>
-</item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="7">
-<position info="not_deleted" x="6" y="77"/>
-</item>
-<item historyLabel="TransxchangeStopTimes.java" index="16">
-<position info="not_deleted" x="85" y="0"/>
-</item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="7">
-<position info="not_deleted" x="6" y="77"/>
-</item>
-<item historyLabel="TransxchangeTrips.java" index="17">
-<position info="not_deleted" x="85" y="0"/>
-</item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="7">
-<position info="not_deleted" x="6" y="77"/>
-</item>
-<item historyLabel="ValueList.java" index="18">
-<position info="not_deleted" x="85" y="0"/>
-</item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="7">
-<position info="not_deleted" x="6" y="77"/>
-</item>
-<item historyLabel="TransxchangeDataAspect.java" index="19">
-<position/>
-</item>
-<item active="true" historyLabel="Transxchange2GoogleTransit.java" index="20">
-<position/>
+<item active="true" historyLabel="Transxchange2GoogleTransit.java" index="2">
+<position x="5680" y="0" info="not_deleted"/>
 </item>
 </navigationHistory>
 <stickyState>
+<perspective IMemento.internal.id="org.eclipse.jdt.ui.JavaBrowsingPerspective"/>
 <perspective IMemento.internal.id="org.eclipse.jdt.ui.JavaPerspective"/>
 <perspective IMemento.internal.id="org.eclipse.debug.ui.DebugPerspective"/>
 </stickyState>
@@ -511,14 +671,20 @@
 </trimLayout>
 </window>
 <mruList>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Transxchange2GoogleTransit.java" tooltip="Transxchange2GoogleTransit/Transxchange2GoogleTransit.java">
-<persistable path="/Transxchange2GoogleTransit/Transxchange2GoogleTransit.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ValueList.java" tooltip="Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/ValueList.java">
+<persistable path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/ValueList.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="TransxchangeHandler.java" tooltip="Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeHandler.java">
+<persistable path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeHandler.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="TransxchangeDataAspect.java" tooltip="Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeDataAspect.java">
 <persistable path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeDataAspect.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ValueList.java" tooltip="Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/ValueList.java">
-<persistable path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/ValueList.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="TransxchangeAgency.java" tooltip="Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeAgency.java">
+<persistable path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeAgency.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Transxchange2GoogleTransit.java" tooltip="Transxchange2GoogleTransit/Transxchange2GoogleTransit.java">
+<persistable path="/Transxchange2GoogleTransit/Transxchange2GoogleTransit.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="TransxchangeTrips.java" tooltip="Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeTrips.java">
 <persistable path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeTrips.java"/>
@@ -526,32 +692,26 @@
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="TransxchangeStopTimes.java" tooltip="Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeStopTimes.java">
 <persistable path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeStopTimes.java"/>
 </file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="TransxchangeCalendarDates.java" tooltip="Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeCalendarDates.java">
+<persistable path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeCalendarDates.java"/>
+</file>
+<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="String.class" tooltip="java.lang.String">
+<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=Transxchange2GoogleTransit/C:\/Program Files\/Java\/j2re1.4.2_13\/lib\/rt.jar&lt;java.lang(String.class"/>
+</file>
+<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="PrintWriter.class" tooltip="java.io.PrintWriter">
+<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=Transxchange2GoogleTransit/C:\/Program Files\/Java\/j2re1.4.2_13\/lib\/rt.jar&lt;java.io(PrintWriter.class"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="TransxchangeStops.java" tooltip="Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeStops.java">
 <persistable path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeStops.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="TransxchangeRoutes.java" tooltip="Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeRoutes.java">
 <persistable path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeRoutes.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="TransxchangeHandler.java" tooltip="Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeHandler.java">
-<persistable path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeHandler.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="TransxchangeCalendarDates.java" tooltip="Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeCalendarDates.java">
-<persistable path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeCalendarDates.java"/>
-</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="TransxchangeCalendar.java" tooltip="Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeCalendar.java">
 <persistable path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeCalendar.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="TransxchangeAgency.java" tooltip="Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeAgency.java">
-<persistable path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeAgency.java"/>
-</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Transxchange2GoogleTransitApplet.java" tooltip="Transxchange2GoogleTransitApplet/Transxchange2GoogleTransitApplet.java">
 <persistable path="/Transxchange2GoogleTransitApplet/Transxchange2GoogleTransitApplet.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" name=".project" tooltip="Transxchange2GoogleTransitApplet/.project">
-<persistable path="/Transxchange2GoogleTransitApplet/.project"/>
-</file>
-<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="FileInputStream.class" tooltip="java.io.FileInputStream">
-<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=Transxchange2GoogleTransit/C:\/Program Files\/Java\/jre1.5.0_06\/lib\/rt.jar&lt;java.io(FileInputStream.class"/>
 </file>
 </mruList>
 </workbench>
