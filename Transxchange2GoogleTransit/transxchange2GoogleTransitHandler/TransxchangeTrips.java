@@ -4,10 +4,10 @@
  * TransXChange2GoogleTransit
  *
  * File:    TransxchangeTrips.java 
- * Version:	1.0
- * Date: 	17-Oct-2006
+ * Version:	1.1
+ * Date: 	22-Feb-2007
  * 
- * Copyright (C) 2006, Joachim Pfeiffer
+ * Copyright (C) 2007, Joachim Pfeiffer
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License

@@ -5,10 +5,10 @@
  * TransXChange2GoogleTransit
  * 
  * File:    Transxchange2GoogleTransit.java
- * Version:	1.0
- * Date: 	17-Oct-2006
+ * Version:	1.1
+ * Date: 	22-Feb-2007
  * 
- * Copyright (C) 2006, Joachim Pfeiffer
+ * Copyright (C) 2007, Joachim Pfeiffer
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -70,7 +70,7 @@ public class Transxchange2GoogleTransit {
          * Process input file name and output directory
          */ 
     	System.out.println();
-        System.out.println("transxchange2GoogleTransit 1.0");
+        System.out.println("transxchange2GoogleTransit 1.1");
         if (args.length < 4 || args.length > 5) {
         	System.out.println();
         	System.out.println("Usage: $ transxchange2GoogleTransit <transxchange input filename> -");
