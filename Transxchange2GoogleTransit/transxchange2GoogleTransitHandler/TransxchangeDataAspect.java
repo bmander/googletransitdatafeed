@@ -3,8 +3,8 @@
  * 
  * TransXChange2GoogleTransit
  *
- * Version:	1.1
- * Date: 	22-Feb-2007
+ * Version:	1.2
+ * Date: 	23-Feb-2007
  * 
  * Copyright (C) 2007, Joachim Pfeiffer
  *
@@ -27,12 +27,9 @@
  */
 
 package transxchange2GoogleTransitHandler;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 import org.xml.sax.Attributes;
-
-
 
 /*
  * Abstract superclass to cover transxchange data aspects (subclasses: TransxchangeAgency, TransxchangeStops etc.

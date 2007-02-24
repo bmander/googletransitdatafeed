@@ -8,18 +8,18 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="date"/>
+		<item key="selection" value="qualifierIx"/>
 		<item key="wrap" value="false"/>
 		<item key="casesensitive" value="false"/>
 		<list key="findhistory">
+			<item value="qualifierIx"/>
+			<item value="agencyfilename"/>
+			<item value="fact"/>
 			<item value="date"/>
 			<item value="calendar_start_date"/>
 			<item value="key_routes__route_type[2]"/>
 			<item value="_listTripsTimingLinkRunTime"/>
 			<item value="Override"/>
-			<item value="override"/>
-			<item value="\&quot;"/>
-			<item value="completedata"/>
 		</list>
 		<list key="replacehistory">
 			<item value=""/>

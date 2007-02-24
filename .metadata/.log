@@ -4310,3 +4310,38 @@ org.eclipse.debug.core.DebugException: Unable to retrieve types - VM disconnecte
 	at org.eclipse.jface.text.TextViewerHoverManager$4.run(TextViewerHoverManager.java:160)
 !SUBENTRY 1 org.eclipse.jdt.debug 4 5012 2006-09-17 09:43:36.434
 !MESSAGE Unable to retrieve types - VM disconnected.
+!SESSION 2007-02-23 18:09:04.435 -----------------------------------------------
+eclipse.buildId=M20070212-1330
+java.version=1.4.2_13
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86
+
+!ENTRY org.eclipse.core.resources 4 2 2007-02-23 20:58:02.873
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.core.resources".
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.debug.internal.core.LaunchManager.terminateMappedConfigurations(LaunchManager.java:1984)
+	at org.eclipse.debug.internal.core.LaunchManager.projectClosed(LaunchManager.java:1803)
+	at org.eclipse.debug.internal.core.LaunchManager$LaunchManagerVisitor.visit(LaunchManager.java:346)
+	at org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:67)
+	at org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:76)
+	at org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:48)
+	at org.eclipse.debug.internal.core.LaunchManager.resourceChanged(LaunchManager.java:1923)
+	at org.eclipse.core.internal.events.NotificationManager$2.run(NotificationManager.java:280)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:37)
+	at org.eclipse.core.internal.events.NotificationManager.notify(NotificationManager.java:274)
+	at org.eclipse.core.internal.events.NotificationManager.broadcastChanges(NotificationManager.java:148)
+	at org.eclipse.core.internal.resources.Workspace.broadcastPostChange(Workspace.java:256)
+	at org.eclipse.core.internal.resources.Workspace.endOperation(Workspace.java:958)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:45)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:58)
+!SESSION 2007-02-23 22:42:51.045 -----------------------------------------------
+eclipse.buildId=M20070212-1330
+java.version=1.4.2_13
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86
+
+!ENTRY org.eclipse.jdt.ui 2 0 2007-02-24 00:57:08.992
+!MESSAGE The 'org.eclipse.jdt.ui.JavaTypeCompletionProposalComputer' proposal computer from the 'org.eclipse.jdt.ui' plug-in did not complete normally. The extension took too long to return from the 'computeCompletionProposals()' operation.

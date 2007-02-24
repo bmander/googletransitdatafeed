@@ -4,8 +4,8 @@
  * TransXChange2GoogleTransit
  * 
  * File:    TransxchangeCalendar.java
- * Version:	1.1
- * Date: 	22-Feb-2007
+ * Version:	1.3
+ * Date: 	23-Feb-2007
  * 
  * Copyright (C) 2007, Joachim Pfeiffer
  *
