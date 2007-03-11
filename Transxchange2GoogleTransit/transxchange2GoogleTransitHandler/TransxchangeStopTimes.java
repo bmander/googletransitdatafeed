@@ -4,8 +4,8 @@
  * TransXChange2GoogleTransit
  *
  * File:    TransxchangeStopTimes.java 
- * Version:	1.2
- * Date: 	23-Feb-2007
+ * Version:	1.3
+ * Date: 	11-Mar-2007
  * 
  * Copyright (C) 2007, Joachim Pfeiffer
  *

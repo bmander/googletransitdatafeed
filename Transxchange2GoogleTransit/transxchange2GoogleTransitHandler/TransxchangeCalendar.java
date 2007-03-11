@@ -5,7 +5,7 @@
  * 
  * File:    TransxchangeCalendar.java
  * Version:	1.3
- * Date: 	23-Feb-2007
+ * Date: 	11-Mar-2007
  * 
  * Copyright (C) 2007, Joachim Pfeiffer
  *

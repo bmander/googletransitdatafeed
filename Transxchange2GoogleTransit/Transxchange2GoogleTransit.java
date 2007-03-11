@@ -5,8 +5,8 @@
  * TransXChange2GoogleTransit
  * 
  * File:    Transxchange2GoogleTransit.java
- * Version:	1.2
- * Date: 	23-Feb-2007
+ * Version:	1.3
+ * Date: 	11-Mar-2007
  * 
  * Copyright (C) 2007, Joachim Pfeiffer
  *
@@ -40,10 +40,8 @@ public class Transxchange2GoogleTransit {
 
 	public static void main(String[] args) {
 
-		String outdir = "";
-		
 		System.out.println();
-        System.out.println("transxchange2GoogleTransit 1.2");
+        System.out.println("transxchange2GoogleTransit 1.3");
         System.out.println("Please refer to License directory for licensing information");
         if (args.length < 4 || args.length > 5) {
         	System.out.println();
@@ -57,18 +55,12 @@ public class Transxchange2GoogleTransit {
         	System.exit(1);
         }
         
-        if (args.length == 5)
-        	outdir = args[4];
- 
         /*
          * Parse transxchange input file
          */ 
         TransxchangeHandler handler = new TransxchangeHandler();
-        handler.setUrl(args[1]);
-        handler.setTimezone(args[2]);
-        handler.setDefaultRouteType(args[3]);
         try {
-        	handler.parse(args[0]);
+        	handler.parse(args[0], args[1], args[2], args[3]);
         } catch (Exception e) {
         	System.out.println("transxchange2GoogleTransit parse error:");
         	System.out.println(e.getMessage());
@@ -78,6 +70,9 @@ public class Transxchange2GoogleTransit {
         /*
          * Create Google Transit output files
          */
+		String outdir = "";
+        if (args.length == 5)
+        	outdir = args[4];
         try {
         	handler.writeOutput(outdir);
         } catch (Exception e) {

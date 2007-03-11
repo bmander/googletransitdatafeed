@@ -3,8 +3,8 @@
  * 
  * TransXChange2GoogleTransit
  *
- * Version:	1.2
- * Date: 	24-Feb-2007
+ * Version:	1.3
+ * Date: 	11-Mar-2007
  * 
  * Copyright (C) 2007, Joachim Pfeiffer
  *
@@ -28,10 +28,7 @@
 
 package transxchange2GoogleTransitHandler;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -40,11 +37,15 @@ import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.*;
 import org.xml.sax.helpers.*;
 
+import java.util.zip.*;
+import java.util.ArrayList;
+
+
 
 // This class extends DefaultHandler to parse an transxchange xml file
 // and generate corresponding Google Transit data feed structures
 public class TransxchangeHandler extends DefaultHandler {
-	
+
 	TransxchangeAgency agencies;
 	TransxchangeStops stops;
 	TransxchangeRoutes routes;
@@ -71,13 +72,16 @@ public class TransxchangeHandler extends DefaultHandler {
 
 	static File outfile = null;
 	static PrintWriter out = null;
-
-	public void parse(String filename)
+	
+	public void parse(String filename, String url, String timezone, String defaultRouteType)
 	    throws SAXException, IOException, ParserConfigurationException
 	{
-        SAXParserFactory parserFactory = SAXParserFactory.newInstance();
+		this.setUrl(url);
+		this.setTimezone(timezone);
+		this.setDefaultRouteType(defaultRouteType);
+		SAXParserFactory parserFactory = SAXParserFactory.newInstance();
         SAXParser parser = parserFactory.newSAXParser();
-    	parser.parse(new File(filename), this);
+    	parser.parse(new File(filename), this);	
 	}
 	
 	public void setUrl(String url) {
@@ -136,7 +140,6 @@ public class TransxchangeHandler extends DefaultHandler {
 	 * start element
 	 */   	
 	public void startElement(String uri, String name, String qName, Attributes atts) {
-	
 	    agencies.startElement(uri, name, qName, atts);
 	    stops.startElement(uri, name, qName, atts);
 	    routes.startElement(uri, name, qName, atts);
@@ -163,6 +166,7 @@ public class TransxchangeHandler extends DefaultHandler {
  	 * end element
  	 */   	
 	public void endElement (String uri, String name, String qName) {
+
 		// take care of element
 		agencies.endElement(uri, name, qName);
 		stops.endElement(uri, name, qName);
@@ -220,12 +224,18 @@ public class TransxchangeHandler extends DefaultHandler {
 
 	public void writeOutput(String outdir) 
 	throws IOException
-	{
-        // Service start date - append to file names
-        serviceStartDate = "_" + (String)((ValueList)this.getCalendar().getListCalendar__start_date().get(0)).getValue(0);
-            
+	{		
+		ArrayList filenames = new ArrayList();
+		String outfileName;
+		                 
+		// Service start date - append to file names and use to create directory for outfiles
+        serviceStartDate = (String)((ValueList)this.getCalendar().getListCalendar__start_date().get(0)).getValue(0);        
+        new File(outdir + "/" + serviceStartDate).mkdir();
+      
     	// agency.txt
-        outfile = new File(outdir + "/" + agencyFilename + serviceStartDate + extension);
+        outfileName = agencyFilename + "_" + serviceStartDate + extension;
+        outfile = new File(outdir + "/" + serviceStartDate + "/" + outfileName);
+        filenames.add(outfileName);
         out = new PrintWriter(new FileWriter(outfile));
         out.println("agency_name,agency_url,agency_timezone");
         for (int i = 0; i < this.getAgencies().getListAgency__agency_name().size(); i++) {
@@ -244,7 +254,9 @@ public class TransxchangeHandler extends DefaultHandler {
         out.close();
        
         // stops.txt
-        outfile = new File(outdir + "/" + stopsFilename + serviceStartDate + extension);
+        outfileName = stopsFilename + "_" + serviceStartDate + extension;
+        outfile = new File(outdir + "/" + serviceStartDate + "/" + outfileName);
+        filenames.add(outfileName);
         out = new PrintWriter(new FileWriter(outfile));
         out.println("stop_id,stop_name,stop_desc,stop_lat,stop_lon,stop_street,stop_city,stop_region,stop_postcode,stop_country");
         for (int i = 0; i < this.getStops().getListStops__stop_id().size(); i++) {
@@ -285,7 +297,9 @@ public class TransxchangeHandler extends DefaultHandler {
         out.close();
        
         // routes.txt
-        outfile = new File(outdir + "/" + routesFilename + serviceStartDate + extension);
+        outfileName = routesFilename + "_" + serviceStartDate + extension;
+        outfile = new File(outdir + "/" + serviceStartDate + "/" + outfileName);
+        filenames.add(outfileName);      
         out = new PrintWriter(new FileWriter(outfile));
         out.println("route_id,route_short_name,route_long_name,route_desc,route_type");
         for (int i = 0; i < this.getRoutes().getListRoutes__route_id().size(); i++) {
@@ -311,8 +325,10 @@ public class TransxchangeHandler extends DefaultHandler {
         out.close();
 
         // trips.txt
-        outfile = new File(outdir + "/" + tripsFilename + serviceStartDate + extension);
+        outfileName = tripsFilename + "_" + serviceStartDate + extension;
+        outfile = new File(outdir + "/" + serviceStartDate + "/" + outfileName);
         out = new PrintWriter(new FileWriter(outfile));
+        filenames.add(outfileName);      
         out.println("route_id,service_id,trip_id,trip_headsign,block_id");
         for (int i = 0; i < this.getTrips().getListTrips__route_id().size(); i++) {
         	out.print(((ValueList)this.getTrips().getListTrips__route_id().get(i)).getValue(0));
@@ -337,7 +353,9 @@ public class TransxchangeHandler extends DefaultHandler {
         out.close();
 
         // stop_times.txt
-        outfile = new File(outdir + "/" + stop_timesFilename + serviceStartDate + extension);
+        outfileName = stop_timesFilename + "_" + serviceStartDate + extension;
+        outfile = new File(outdir + "/" + serviceStartDate + "/" + outfileName);
+        filenames.add(outfileName);      
         out = new PrintWriter(new FileWriter(outfile));
         out.println("trip_id,arrival_time,departure_time,stop_id,stop_sequence,pickup_type,drop_off_type");
         for (int i = 0; i < this.getStopTimes().getListStoptimes__trip_id().size(); i++) {
@@ -369,7 +387,9 @@ public class TransxchangeHandler extends DefaultHandler {
         out.close();
         
         // calendar.txt
-        outfile = new File(outdir + "/" + calendarFilename + serviceStartDate + extension);
+        outfileName = calendarFilename + "_" + serviceStartDate + extension;
+        outfile = new File(outdir + "/" + serviceStartDate + "/" + outfileName);
+        filenames.add(outfileName);
         out = new PrintWriter(new FileWriter(outfile));
         out.println("service_id,monday,tuesday,wednesday,thursday,friday,saturday,sunday,start_date,end_date");
         for (int i = 0; i < this.getCalendar().getListCalendar__service_id().size(); i++) {
@@ -410,8 +430,10 @@ public class TransxchangeHandler extends DefaultHandler {
         out.close();
 
         // calendar_dates.txt
-        outfile = new File(outdir + "/" + calendar_datesFilename + serviceStartDate + extension);
+        outfileName = calendar_datesFilename + "_" + serviceStartDate + extension;
+        outfile = new File(outdir + "/" + serviceStartDate + "/" + outfileName);
         out = new PrintWriter(new FileWriter(outfile));
+        filenames.add(outfileName);
         out.println("service_id,date,exception_type");
         for (int i = 0; i < this.getCalendarDates().getListCalendarDates__service_id().size(); i++) {
         	out.print(((ValueList)this.getCalendarDates().getListCalendarDates__service_id().get(i)).getValue(0));
@@ -427,9 +449,32 @@ public class TransxchangeHandler extends DefaultHandler {
 /*        		out.println();
 */
         }       
-        out.close();          
+        out.close();
+      
+        // Compress the files
+        ZipOutputStream out = new ZipOutputStream(new FileOutputStream(outdir + "/" + serviceStartDate + "/" + "google_transit.zip"));
+        byte[] buf = new byte[1024]; // Create a buffer for reading the files
+        for (int i = 0; i < filenames.size(); i++) {
+            FileInputStream in = new FileInputStream(outdir + "/" + serviceStartDate + "/" + (String)filenames.get(i));
+    
+            // Add ZIP entry to output stream.
+            out.putNextEntry(new ZipEntry((String)filenames.get(i)));
+    
+            // Transfer bytes from the file to the ZIP file
+            int len;
+            while ((len = in.read(buf)) > 0) {
+                out.write(buf, 0, len);
+            }
+    
+            // Complete the entry
+            out.closeEntry();
+            in.close();
+        }
+    
+        // Complete the ZIP file
+        out.close();
 	}
-	
+		
 	public TransxchangeHandler () {
 		agencies = new TransxchangeAgency(this);
 		stops = new TransxchangeStops(this);

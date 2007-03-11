@@ -13,7 +13,7 @@
 		<item key="DIALOG_X_ORIGIN" value="291"/>
 		<item key="DIALOG_HEIGHT" value="377"/>
 		<item key="DIALOG_Y_ORIGIN" value="118"/>
-		<item key="TOGGLE_SELECTED" value="false"/>
+		<item key="TOGGLE_SELECTED" value="true"/>
 		<item key="DIALOG_WIDTH" value="443"/>
 	</section>
 	<section name="NewWizardAction">
