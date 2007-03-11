@@ -457,37 +457,11 @@
 <editor id="org.eclipse.jdt.ui.CompilationUnitEditor" factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeStopTimes.java"/>
 <editor id="org.eclipse.jdt.ui.CompilationUnitEditor" factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeTrips.java"/>
 <editor id="org.eclipse.jdt.ui.CompilationUnitEditor" factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/ValueList.java"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/GWT_Transxchange2GoogleTransit/src/com/GTDF/server/FileUploadServlet.java"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/GWT_Transxchange2GoogleTransit/src/com/GTDF/client/GWT_Transxchange2GoogleTransit.java"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/GWT_Transxchange2GoogleTransit/src/com/GTDF/client/Transxchange2GoogleTransitService.java"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/GWT_Transxchange2GoogleTransit/src/com/GTDF/server/Transxchange2GoogleTransitServiceImpl.java"/>
 </editors>
-<item historyLabel="Transxchange2GoogleTransitServiceImpl.java" index="3">
-<position x="2532" y="0" info="not_deleted"/>
-</item>
-<item historyLabel="TransxchangeHandler.java" index="0">
-<position/>
-</item>
-<item historyLabel="FileUploadServlet.java" index="2">
-<position/>
-</item>
-<item historyLabel="TransxchangeHandler.java" index="0">
-<position/>
-</item>
-<item historyLabel="TransxchangeHandler.java" index="0">
-<position/>
-</item>
-<item historyLabel="TransxchangeHandler.java" index="0">
-<position/>
-</item>
-<item historyLabel="Transxchange2GoogleTransit.java" index="1">
-<position/>
-</item>
-<item historyLabel="TransxchangeHandler.java" index="0">
-<position/>
-</item>
-<item historyLabel="TransxchangeHandler.java" index="0">
-<position/>
-</item>
-<item historyLabel="TransxchangeHandler.java" index="0">
-<position/>
-</item>
 <item historyLabel="TransxchangeHandler.java" index="0">
 <position/>
 </item>
@@ -605,7 +579,37 @@
 <item historyLabel="TransxchangeTrips.java" index="11">
 <position x="4" y="0" info="not_deleted"/>
 </item>
-<item active="true" historyLabel="ValueList.java" index="12">
+<item historyLabel="ValueList.java" index="12">
+<position x="4" y="0" info="not_deleted"/>
+</item>
+<item historyLabel="FileUploadServlet.java" index="13">
+<position/>
+</item>
+<item historyLabel="GWT_Transxchange2GoogleTransit.java" index="14">
+<position/>
+</item>
+<item historyLabel="FileUploadServlet.java" index="13">
+<position/>
+</item>
+<item historyLabel="GWT_Transxchange2GoogleTransit.java" index="14">
+<position x="0" y="973" info="not_deleted"/>
+</item>
+<item historyLabel="FileUploadServlet.java" index="13">
+<position/>
+</item>
+<item historyLabel="GWT_Transxchange2GoogleTransit.java" index="14">
+<position x="203" y="0" info="not_deleted"/>
+</item>
+<item historyLabel="Transxchange2GoogleTransitService.java" index="15">
+<position x="4" y="0" info="not_deleted"/>
+</item>
+<item historyLabel="GWT_Transxchange2GoogleTransit.java" index="14">
+<position x="203" y="0" info="not_deleted"/>
+</item>
+<item historyLabel="FileUploadServlet.java" index="13">
+<position x="119" y="0" info="not_deleted"/>
+</item>
+<item active="true" historyLabel="Transxchange2GoogleTransitServiceImpl.java" index="16">
 <position x="4" y="0" info="not_deleted"/>
 </item>
 </navigationHistory>
@@ -630,6 +634,21 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Transxchange2GoogleTransitServiceImpl.java" tooltip="GWT_Transxchange2GoogleTransit/src/com/GTDF/server/Transxchange2GoogleTransitServiceImpl.java">
+<persistable path="/GWT_Transxchange2GoogleTransit/src/com/GTDF/server/Transxchange2GoogleTransitServiceImpl.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Transxchange2GoogleTransitServiceAsync.java" tooltip="GWT_Transxchange2GoogleTransit/src/com/GTDF/client/Transxchange2GoogleTransitServiceAsync.java">
+<persistable path="/GWT_Transxchange2GoogleTransit/src/com/GTDF/client/Transxchange2GoogleTransitServiceAsync.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Transxchange2GoogleTransitService.java" tooltip="GWT_Transxchange2GoogleTransit/src/com/GTDF/client/Transxchange2GoogleTransitService.java">
+<persistable path="/GWT_Transxchange2GoogleTransit/src/com/GTDF/client/Transxchange2GoogleTransitService.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GWT_Transxchange2GoogleTransit.java" tooltip="GWT_Transxchange2GoogleTransit/src/com/GTDF/client/GWT_Transxchange2GoogleTransit.java">
+<persistable path="/GWT_Transxchange2GoogleTransit/src/com/GTDF/client/GWT_Transxchange2GoogleTransit.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="FileUploadServlet.java" tooltip="GWT_Transxchange2GoogleTransit/src/com/GTDF/server/FileUploadServlet.java">
+<persistable path="/GWT_Transxchange2GoogleTransit/src/com/GTDF/server/FileUploadServlet.java"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ValueList.java" tooltip="Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/ValueList.java">
 <persistable path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/ValueList.java"/>
 </file>
@@ -659,21 +678,6 @@
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="TransxchangeAgency.java" tooltip="Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeAgency.java">
 <persistable path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/TransxchangeAgency.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Transxchange2GoogleTransit.java" tooltip="Transxchange2GoogleTransit/Transxchange2GoogleTransit.java">
-<persistable path="/Transxchange2GoogleTransit/Transxchange2GoogleTransit.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="FileUploadServlet.java" tooltip="GWT_Transxchange2GoogleTransit/src/com/GTDF/server/FileUploadServlet.java">
-<persistable path="/GWT_Transxchange2GoogleTransit/src/com/GTDF/server/FileUploadServlet.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="transxchange2GoogleTransitHandler.jar" tooltip="Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/transxchange2GoogleTransitHandler.jar">
-<persistable path="/Transxchange2GoogleTransit/transxchange2GoogleTransitHandler/transxchange2GoogleTransitHandler.jar"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Transxchange2GoogleTransitServiceImpl.java" tooltip="GWT_Transxchange2GoogleTransit/src/com/GTDF/server/Transxchange2GoogleTransitServiceImpl.java">
-<persistable path="/GWT_Transxchange2GoogleTransit/src/com/GTDF/server/Transxchange2GoogleTransitServiceImpl.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GWT_Transxchange2GoogleTransit.java" tooltip="GWT_Transxchange2GoogleTransit/src/com/GTDF/client/GWT_Transxchange2GoogleTransit.java">
-<persistable path="/GWT_Transxchange2GoogleTransit/src/com/GTDF/client/GWT_Transxchange2GoogleTransit.java"/>
 </file>
 </mruList>
 </workbench>

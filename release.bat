@@ -13,6 +13,8 @@ xcopy Transxchange2GoogleTransit\License\*.txt C:\SD\TransXChange2GoogleTransit_
 xcopy Transxchange2GoogleTransit\dist\*.jar C:\SD\TransXChange2GoogleTransit_%1%2\dist
 xcopy Transxchange2GoogleTransit\examplesInput\*.xml C:\SD\TransXChange2GoogleTransit_%1%2\examplesInput /S 
 
+xcopy GWT_Transxchange2GoogleTransit\GWT_Transxchange2GoogleTransit.war C:\SD\TransXChange2GoogleTransit_%1%2\dist
+
 if "%2" NEQ "dev" GOTO END
 mkdir C:\SD\TransXChange2GoogleTransit_%1%2\transxchange2GoogleTransitHandler
 mkdir C:\SD\TransXChange2GoogleTransit_%1%2\ValidatorFiles
