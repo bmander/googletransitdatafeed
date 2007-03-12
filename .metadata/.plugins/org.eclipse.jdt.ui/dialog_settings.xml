@@ -3,10 +3,10 @@
 	<item key="org.eclipse.jdt.ui.lastextjar" value="C:\commons-fileupload-1.2\lib"/>
 	<item key="CallHierarchyViewPart.ratio1" value="500"/>
 	<item key="CallHierarchyViewPart.orientation" value="3"/>
-	<item key="SearchScopeActionGroup.search_scope_type" value="1"/>
 	<item key="TypeHierarchyViewPart.hierarchyview" value="2"/>
-	<item key="CallHierarchyViewPart.ratio3" value="500"/>
+	<item key="SearchScopeActionGroup.search_scope_type" value="1"/>
 	<item key="CallHierarchyViewPart.call_mode" value="0"/>
+	<item key="CallHierarchyViewPart.ratio3" value="500"/>
 	<item key="TypeHierarchyViewPart.orientation" value="0"/>
 	<item key="UserLibraryLoadSaveDialog.size" value="400,442"/>
 	<list key="SearchScopeActionGroup.working_set">
@@ -65,8 +65,8 @@
 	</section>
 	<section name="DialogBounds_SuperInterfaceSelectionDialog">
 		<item key="DIALOG_X_ORIGIN" value="49"/>
-		<item key="DIALOG_FONT_NAME" value="1|Tahoma|8|0|WINDOWS|1|-11|0|0|0|400|0|0|0|1|0|0|0|0|Tahoma"/>
 		<item key="DIALOG_HEIGHT" value="355"/>
+		<item key="DIALOG_FONT_NAME" value="1|Tahoma|8|0|WINDOWS|1|-11|0|0|0|400|0|0|0|1|0|0|0|0|Tahoma"/>
 		<item key="DIALOG_Y_ORIGIN" value="63"/>
 		<item key="DIALOG_WIDTH" value="397"/>
 	</section>
@@ -124,24 +124,24 @@
 	<section name="OptionalMessageDialog.hide.">
 		<item key="org.eclipse.jdt.ui.typecomment.deprecated" value="true"/>
 	</section>
-	<section name="">
-		<item key="expanded2" value="false"/>
-		<item key="expanded6" value="false"/>
-		<item key="expanded4" value="false"/>
-		<item key="expanded1" value="false"/>
-		<item key="expanded0" value="true"/>
-		<item key="expanded5" value="false"/>
-		<item key="expanded3" value="false"/>
+	<section name="org.eclipse.jdt.internal.ui.wizards.buildpaths.NewVariableEntryDialog">
+		<item key="DIALOG_X_ORIGIN" value="111"/>
+		<item key="DIALOG_FONT_NAME" value="1|Tahoma|8|0|WINDOWS|1|-11|0|0|0|400|0|0|0|1|0|0|0|0|Tahoma"/>
+		<item key="DIALOG_HEIGHT" value="326"/>
+		<item key="DIALOG_Y_ORIGIN" value="197"/>
+		<item key="DIALOG_WIDTH" value="478"/>
 	</section>
 	<section name="completion_proposal_size">
 		<item key="size.y" value="175"/>
 		<item key="size.x" value="323"/>
 	</section>
-	<section name="org.eclipse.jdt.internal.ui.wizards.buildpaths.NewVariableEntryDialog">
-		<item key="DIALOG_X_ORIGIN" value="111"/>
-		<item key="DIALOG_HEIGHT" value="326"/>
-		<item key="DIALOG_FONT_NAME" value="1|Tahoma|8|0|WINDOWS|1|-11|0|0|0|400|0|0|0|1|0|0|0|0|Tahoma"/>
-		<item key="DIALOG_Y_ORIGIN" value="197"/>
-		<item key="DIALOG_WIDTH" value="478"/>
+	<section name="">
+		<item key="expanded2" value="false"/>
+		<item key="expanded6" value="false"/>
+		<item key="expanded1" value="false"/>
+		<item key="expanded4" value="false"/>
+		<item key="expanded0" value="true"/>
+		<item key="expanded5" value="false"/>
+		<item key="expanded3" value="false"/>
 	</section>
 </section>
