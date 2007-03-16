@@ -23,7 +23,7 @@
 <coolItem id="org.eclipse.ui.DefaultTextEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" itemType="typePlaceholder" x="116" y="22"/>
 <coolItem id="org.eclipse.jdt.ui.ClassFileEditor" itemType="typePlaceholder" x="-1" y="-1"/>
-<coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typePlaceholder" x="-1" y="-1"/>
+<coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="group.help" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
 </coolbarLayout>
@@ -32,10 +32,15 @@
 <editorArea activeWorkbook="DefaultEditorWorkbook">
 <info part="DefaultEditorWorkbook">
 <folder expanded="2" appearance="1">
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
 </folder>
 </info>
 </editorArea>
+<editor title="GWT_Transxchange2GoogleTransit.java" name="GWT_Transxchange2GoogleTransit.java" id="org.eclipse.jdt.ui.CompilationUnitEditor" tooltip="GWT_Transxchange2GoogleTransit/src/com/GTDF/client/GWT_Transxchange2GoogleTransit.java" partName="GWT_Transxchange2GoogleTransit.java" workbook="DefaultEditorWorkbook" activePart="true" focus="true" path="C:/cygwin/home/JoachimPfeiffer/googletransitdatafeed/GWT_Transxchange2GoogleTransit/src/com/GTDF/client/GWT_Transxchange2GoogleTransit.java">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/GWT_Transxchange2GoogleTransit/src/com/GTDF/client/GWT_Transxchange2GoogleTransit.java"/>
+</editor>
 </editors>
 <views>
 <view id="org.eclipse.jdt.callhierarchy.view" partName="Call Hierarchy">
@@ -122,7 +127,7 @@
 <viewState CommonNavigator.LINKING_ENABLED="0" org.eclipse.ui.navigator.resources.workingSets.showTopLevelWorkingSets="0"/>
 </view>
 </views>
-<perspectives activePerspective="org.eclipse.debug.ui.DebugPerspective" activePart="org.eclipse.ui.navigator.ProjectExplorer">
+<perspectives activePerspective="org.eclipse.debug.ui.DebugPerspective" activePart="org.eclipse.jdt.ui.CompilationUnitEditor">
 <perspective version="0.016" editorAreaVisible="1" fixed="0">
 <descriptor id="org.eclipse.debug.ui.DebugPerspective" label="Debug" class="org.eclipse.debug.internal.ui.DebugPerspectiveFactory"/>
 <alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
@@ -170,7 +175,7 @@
 </presentation>
 </folder>
 </info>
-<info part="org.eclipse.debug.internal.ui.NavigatorFolderView" relative="org.eclipse.ui.internal.ViewStack@ab543e" relationship="2" ratioLeft="239" ratioRight="772" ratio="0.2363996" folder="true">
+<info part="org.eclipse.debug.internal.ui.NavigatorFolderView" relative="org.eclipse.ui.internal.ViewStack@ab543e" relationship="2" ratioLeft="324" ratioRight="687" ratio="0.32047477" folder="true">
 <folder activePageID="org.eclipse.debug.ui.DebugView" expanded="2" appearance="2">
 <page label="Debug" content="org.eclipse.debug.ui.DebugView"/>
 <page label="LabelNotFound" content="org.eclipse.ui.views.ResourceNavigator"/>
@@ -461,10 +466,8 @@
 <editor id="org.eclipse.jdt.ui.CompilationUnitEditor" factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/GWT_Transxchange2GoogleTransit/src/com/GTDF/client/GWT_Transxchange2GoogleTransit.java"/>
 <editor id="org.eclipse.jdt.ui.CompilationUnitEditor" factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/GWT_Transxchange2GoogleTransit/src/com/GTDF/client/Transxchange2GoogleTransitService.java"/>
 <editor id="org.eclipse.jdt.ui.CompilationUnitEditor" factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/GWT_Transxchange2GoogleTransit/src/com/GTDF/server/Transxchange2GoogleTransitServiceImpl.java"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/GWT_Transxchange2GoogleTransit/src/com/GTDF/client/GWT_Transxchange2GoogleTransit.java"/>
 </editors>
-<item historyLabel="TransxchangeHandler.java" index="0">
-<position/>
-</item>
 <item historyLabel="TransxchangeHandler.java" index="0">
 <position/>
 </item>
@@ -609,8 +612,11 @@
 <item historyLabel="FileUploadServlet.java" index="13">
 <position x="119" y="0" info="not_deleted"/>
 </item>
-<item active="true" historyLabel="Transxchange2GoogleTransitServiceImpl.java" index="16">
+<item historyLabel="Transxchange2GoogleTransitServiceImpl.java" index="16">
 <position x="4" y="0" info="not_deleted"/>
+</item>
+<item active="true" historyLabel="GWT_Transxchange2GoogleTransit.java" index="17">
+<position x="3" y="0" info="not_deleted"/>
 </item>
 </navigationHistory>
 <stickyState>
@@ -634,6 +640,9 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GWT_Transxchange2GoogleTransit.java" tooltip="GWT_Transxchange2GoogleTransit/src/com/GTDF/client/GWT_Transxchange2GoogleTransit.java">
+<persistable path="/GWT_Transxchange2GoogleTransit/src/com/GTDF/client/GWT_Transxchange2GoogleTransit.java"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Transxchange2GoogleTransitServiceImpl.java" tooltip="GWT_Transxchange2GoogleTransit/src/com/GTDF/server/Transxchange2GoogleTransitServiceImpl.java">
 <persistable path="/GWT_Transxchange2GoogleTransit/src/com/GTDF/server/Transxchange2GoogleTransitServiceImpl.java"/>
 </file>
@@ -642,9 +651,6 @@
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Transxchange2GoogleTransitService.java" tooltip="GWT_Transxchange2GoogleTransit/src/com/GTDF/client/Transxchange2GoogleTransitService.java">
 <persistable path="/GWT_Transxchange2GoogleTransit/src/com/GTDF/client/Transxchange2GoogleTransitService.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GWT_Transxchange2GoogleTransit.java" tooltip="GWT_Transxchange2GoogleTransit/src/com/GTDF/client/GWT_Transxchange2GoogleTransit.java">
-<persistable path="/GWT_Transxchange2GoogleTransit/src/com/GTDF/client/GWT_Transxchange2GoogleTransit.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="FileUploadServlet.java" tooltip="GWT_Transxchange2GoogleTransit/src/com/GTDF/server/FileUploadServlet.java">
 <persistable path="/GWT_Transxchange2GoogleTransit/src/com/GTDF/server/FileUploadServlet.java"/>
