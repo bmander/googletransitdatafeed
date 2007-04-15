@@ -222,15 +222,17 @@ public class TransxchangeHandler extends DefaultHandler {
 */
 	}
 
-	public void writeOutput(String outdir) 
+	public String writeOutput(String rootDirectory, String workDirectory)
 	throws IOException
 	{		
 		ArrayList filenames = new ArrayList();
 		String outfileName;
-		                 
+		
+		String outdir = rootDirectory + workDirectory;
+	
 		// Service start date - append to file names and use to create directory for outfiles
         serviceStartDate = (String)((ValueList)this.getCalendar().getListCalendar__start_date().get(0)).getValue(0);        
-        new File(outdir + "/" + serviceStartDate).mkdir();
+        new File(outdir + "/" + serviceStartDate).mkdirs();
       
     	// agency.txt
         outfileName = agencyFilename + "_" + serviceStartDate + extension;
@@ -473,6 +475,8 @@ public class TransxchangeHandler extends DefaultHandler {
     
         // Complete the ZIP file
         out.close();
+        
+        return workDirectory+ "/" + serviceStartDate + "/" + "google_transit.zip";
 	}
 		
 	public TransxchangeHandler () {

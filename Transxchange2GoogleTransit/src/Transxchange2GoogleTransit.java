@@ -74,7 +74,7 @@ public class Transxchange2GoogleTransit {
         if (args.length == 5)
         	outdir = args[4];
         try {
-        	handler.writeOutput(outdir);
+        	handler.writeOutput(outdir, "");
         } catch (Exception e) {
         	System.out.println("transxchange2GoogleTransit write error:");
         	System.out.println(e.getMessage());
