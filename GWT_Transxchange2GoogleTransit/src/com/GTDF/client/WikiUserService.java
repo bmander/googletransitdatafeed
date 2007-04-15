@@ -16,8 +16,9 @@
 
 package com.GTDF.client;
 
-import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.rpc.RemoteService;
 
-public interface Transxchange2GoogleTransitServiceAsync {
-	  public void transxchange2GoogleTransit_transform(String s, AsyncCallback callback);
+public interface WikiUserService extends RemoteService {
+	public String wikiUserVerify(String s);
 }
+

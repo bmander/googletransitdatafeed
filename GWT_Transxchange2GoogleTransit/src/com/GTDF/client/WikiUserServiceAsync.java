@@ -18,6 +18,6 @@ package com.GTDF.client;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-public interface Transxchange2GoogleTransitServiceAsync {
-	  public void transxchange2GoogleTransit_transform(String s, AsyncCallback callback);
+public interface WikiUserServiceAsync {
+	  public void wikiUserVerify(String s, AsyncCallback callback);
 }
