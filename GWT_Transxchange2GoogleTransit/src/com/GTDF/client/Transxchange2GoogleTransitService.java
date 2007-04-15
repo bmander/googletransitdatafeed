@@ -27,7 +27,6 @@
  * 
  */package com.GTDF.client;
 
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.RemoteService;
 
 public interface Transxchange2GoogleTransitService extends RemoteService {

@@ -25,7 +25,9 @@
  * 
  * http://www.gnu.org
  * 
- */package com.GTDF.server;
+ */
+
+package com.GTDF.server;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.GTDF.client.Transxchange2GoogleTransitService;
@@ -36,35 +38,38 @@ import org.apache.commons.io.FilenameUtils;
 
 import transxchange2GoogleTransitHandler.TransxchangeHandler;
 
-public class Transxchange2GoogleTransitServiceImpl extends RemoteServiceServlet implements
-Transxchange2GoogleTransitService {
+public class Transxchange2GoogleTransitServiceImpl extends RemoteServiceServlet implements Transxchange2GoogleTransitService {
 
-	public String transxchange2GoogleTransit_transform(String s) {
+	static final long serialVersionUID = 0;
+	
+	public String transxchange2GoogleTransit_transform(String inArgs) {
 		
 		String rootDirectory = getServletConfig().getInitParameter("TRANSFORM_HOME");
-
+		String workDirectory = getServletConfig().getInitParameter("TRANSFORM_DIR");
 		int maxargs = 5;
 		String[] args = new String[maxargs];
 		int argv = 0;
-		
+		String result = "";
+
 		/*
 		 * Parse input string to extract arguments (similar command line arguments)
 		 */ 
-		StringTokenizer st = new StringTokenizer(s, " ");
+		StringTokenizer st = new StringTokenizer(inArgs, " ");
 		while (st.hasMoreTokens() && argv < maxargs) {
 			args[argv] = st.nextToken();
 			argv++;
 		}
-		s = "Success";
-		
-        /*
+		if (argv < maxargs) // Don't let in if too few arguments
+			return "Not enough arguments. Required: <url> <timezone> <default route type> <output-directory>";
+	
+		/*
          * Parse transxchange input file
          */ 
   	    String fileName = FilenameUtils.getName(args[0]); 
 		
 		TransxchangeHandler handler = new TransxchangeHandler();
         try {
-        	handler.parse(rootDirectory + '/' + fileName, args[1], args[2], args[3]);
+        	handler.parse(rootDirectory + workDirectory + '/' + args[4] + '/' + fileName, args[1], args[2], args[3]);
         } catch (Exception e) {
         	return e.getMessage();
         }
@@ -76,11 +81,15 @@ Transxchange2GoogleTransitService {
         if (argv == 5)
         	outdir = args[4];
         try {
-        	handler.writeOutput(rootDirectory + '/' + outdir);
+        	result = handler.writeOutput(rootDirectory, workDirectory + '/' + outdir);
         } catch (Exception e) {
         	return e.getMessage();
         }
 		
-		return s;
+        /*
+         * Succes - create return message
+         */
+		String hostedOn = getServletConfig().getInitParameter("HOSTED_ON");
+		return "Created Google Transit Data Feed Spec archive at: " + hostedOn + result;
 	}
 }

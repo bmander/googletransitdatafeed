@@ -33,7 +33,6 @@ import java.io.*;
 import java.util.Iterator; 
 import java.util.List; 
 
-
 import javax.servlet.ServletException; 
 import javax.servlet.http.HttpServlet; 
 import javax.servlet.http.HttpServletRequest; 
@@ -45,26 +44,34 @@ import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileUploadException; 
 import org.apache.commons.fileupload.disk.DiskFileItemFactory; 
 import org.apache.commons.fileupload.servlet.ServletFileUpload; 
-import org.apache.commons.io.FilenameUtils; 
+import org.apache.commons.io.FilenameUtils;
+
+import com.GTDF.server.WikiUserImpl;
 
 public class FileUploadServlet extends HttpServlet{ 
-           protected void doPost(HttpServletRequest request, 
-               HttpServletResponse response) 
+
+	static final long serialVersionUID = 0;
+	
+protected void doPost(HttpServletRequest request, 
+    HttpServletResponse response) 
 throws ServletException, IOException { 
 
-   String rootDirectory = getServletConfig().getInitParameter("TRANSFORM_HOME");
-   boolean writeToFile = true; 
-   String returnOKMessage = "OK"; 
 
+    String rootDirectory = getServletConfig().getInitParameter("TRANSFORM_HOME");
+	String workDirectory = getServletConfig().getInitParameter("TRANSFORM_DIR");
+	String prefixDirectory = "";
+    boolean writeToFile = true; 
+    String returnOKMessage = "OK"; 
+    String username = "";
 
-   boolean isMultipart = ServletFileUpload.isMultipartContent(request); 
+    boolean isMultipart = ServletFileUpload.isMultipartContent(request); 
 
-   PrintWriter out = response.getWriter(); 
-   		   
-   // Create a factory for disk-based file items 
-   if (isMultipart) { 
+    PrintWriter out = response.getWriter(); 
 
-	   		// We are uploading a file (deletes are performed by on multipart requests) 
+    // Create a factory for disk-based file items 
+    if (isMultipart) { 
+
+    	// We are uploading a file (deletes are performed by non multipart requests) 
            FileItemFactory factory = new DiskFileItemFactory(); 
 
            // Create a new file upload handler 
@@ -77,18 +84,40 @@ throws ServletException, IOException {
                    // Process the uploaded items 
                    Iterator iter = items.iterator(); 
                    while (iter.hasNext()) { 
+                 	   FileItem item = (FileItem) iter.next(); 
+                           if (item.isFormField()) {
+                        	   
+                        	   // Hidden field containing username - check authorization
+                        	   if (item.getFieldName().equals("username")) {
+                        		   username = item.getString();
+                        		   String wikiDb = getServletConfig().getInitParameter("WIKIDB");
+                        		   String wikiDbUser = getServletConfig().getInitParameter("WIKIDB_USER");
+                        		   String wikiDbPassword = getServletConfig().getInitParameter("WIKIDB_PASSWORD");
+                        		   WikiUserImpl wikiUser = new WikiUserImpl();
+                        		   String authResult = wikiUser.wikiUserVerifyDb(username, wikiDb, wikiDbUser, wikiDbPassword);
+                        		   if (authResult != "LOGGED") {
+                      		      		out.print(authResult);
+                        		      	return;
+                        		   } else
+                        		        new File(rootDirectory + workDirectory + '/' + username).mkdirs();
+                        	   }
 
-                	   FileItem item = (FileItem) iter.next(); 
-                           if (item.isFormField()) { 
+                        	   // Hidden field containing file prefix to create subdirectory
+                        	   if (item.getFieldName().equals("prefix")) {
+                        		   prefixDirectory = item.getString();
+                        		   new File(rootDirectory + workDirectory + '/' + username + '/' + prefixDirectory).mkdirs();
+                        		   prefixDirectory += '/';
+                        	   }                           
                            } else { 
                                    if (writeToFile) { 
                                            String fileName = item.getName(); 
                                            if (fileName != null && !fileName.equals("")) { 
                                                    fileName = FilenameUtils.getName(fileName); 
-                                                   File uploadedFile = new File(rootDirectory + '/' + fileName); 
+                                                   File uploadedFile = new File(rootDirectory + workDirectory + '/' + username + '/'+ prefixDirectory + fileName); 
                                                    try { 
                                                            item.write(uploadedFile); 
-                                                           out.print(returnOKMessage); 
+                                                           String hostedOn = getServletConfig().getInitParameter("HOSTED_ON");
+                                                           out.print("Infile at: " + hostedOn + workDirectory + '/' + username + '/'+ prefixDirectory + fileName); 
                                                    } catch (Exception e) { 
                                                            e.printStackTrace(); 
                                                    } 
@@ -106,7 +135,7 @@ throws ServletException, IOException {
            String[] paramValues = request.getParameterValues("uploadFormElement"); 
            for (int i=0;i<paramValues.length;i++){ 
                    String fileName = FilenameUtils.getName(paramValues[i]); 
-                   File deleteFile = new File(rootDirectory+fileName); 
+                   File deleteFile = new File(rootDirectory + workDirectory + fileName); 
                    if(deleteFile.delete()){ 
                            out.print(returnOKMessage); 
                    } 

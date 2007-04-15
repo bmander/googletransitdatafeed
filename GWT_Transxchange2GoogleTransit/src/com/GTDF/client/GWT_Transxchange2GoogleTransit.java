@@ -52,11 +52,12 @@ public class GWT_Transxchange2GoogleTransit implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-		final Label labelInfile = new Label("Infile");
-		final Label labelUrl = new Label("Url");
+
+		String wikiUserName = readUsername(); 
+
+		final TextBox textBoxServiceStartGz = new TextBox();
 		final TextBox textBoxUrl = new TextBox();
 		textBoxUrl.setText("www.aagency.org");
-		final Label labelTimezone = new Label("Timezone");
 		final ListBox listBoxTimezoneP = new ListBox();
 		listBoxTimezoneP.addItem("Africa");
 		listBoxTimezoneP.addItem("America");
@@ -71,7 +72,6 @@ public class GWT_Transxchange2GoogleTransit implements EntryPoint {
 		listBoxTimezoneP.setVisibleItemCount(1);
 		final ListBox listBoxTimezoneS = new ListBox();
 		switchTimezone(listBoxTimezoneS, 0);
-		final Label labelDefaultRouteType = new Label("Default Route Type");
 		final ListBox listBoxDefaultRouteType = new ListBox();
 		listBoxDefaultRouteType.addItem("Tram");
 		listBoxDefaultRouteType.addItem("Subway");
@@ -79,35 +79,127 @@ public class GWT_Transxchange2GoogleTransit implements EntryPoint {
 		listBoxDefaultRouteType.addItem("Bus");
 		listBoxDefaultRouteType.addItem("Ferry");
 		listBoxDefaultRouteType.setVisibleItemCount(1);
-//		final Label labelOutdir = new Label("Outdir");
-		final TextBox textBoxOutdir = new TextBox();
+		final Label labelOutdir = new Label(); // Displays wikiuser
+		final Label labelResultGz = new Label();    
 		final Label labelResult = new Label();    
+		final Label labelResultUser = new Label();    
 
-	    // Add file upload
+	    /*
+	     * Add zip file upload
+	     */ 
+   	 	final FormPanel uploadFormGz = new FormPanel();
+	    uploadFormGz.setAction(GWT.getModuleBaseURL() + "upload");
+	    uploadFormGz.setEncoding(FormPanel.ENCODING_MULTIPART); 
+	    uploadFormGz.setMethod(FormPanel.METHOD_POST);
+	    final VerticalPanel uploadPanelGz = new VerticalPanel();
+	    uploadFormGz.setWidget(uploadPanelGz);
+
+	    // Add hidden widget to pass user name to FileUploadServlet for verification against wiki user table
+	    final Hidden hwGz = new Hidden("username", wikiUserName);  
+	    uploadPanelGz.add(hwGz);
+
+	    // Add hidden widget to pass service start to FileUploadServlet
+	    final Hidden ssGz = new Hidden("prefix");  
+	    uploadPanelGz.add(ssGz);
+
+	    final FileUpload uploadGz = new FileUpload();
+	    uploadGz.setName("uploadFormElement");
+	    uploadPanelGz.add(uploadGz);
+
+	    /*
+	     * Add Transxchange2GoogleTransit file upload
+	     */ 
    	 	final FormPanel uploadForm = new FormPanel();
 	    uploadForm.setAction(GWT.getModuleBaseURL() + "upload");
-
-	    // Because we're going to add a FileUpload widget, we'll need to set the
-	    // form to use the POST method, and multipart MIME encoding.
 	    uploadForm.setEncoding(FormPanel.ENCODING_MULTIPART); 
 	    uploadForm.setMethod(FormPanel.METHOD_POST);
-	    VerticalPanel uploadPanel = new VerticalPanel();
+	    final VerticalPanel uploadPanel = new VerticalPanel();
 	    uploadForm.setWidget(uploadPanel);
-    
+
+		// Add hidden widget to pass user name to FileUploadServlet for verification against wiki user table
+	    final Hidden hw = new Hidden("username", wikiUserName);  
+	    uploadPanel.add(hw);
+
 	    final FileUpload upload = new FileUpload();
 	    upload.setName("uploadFormElement");
 	    uploadPanel.add(upload);
     
-		uploadPanel.add(new Button("Transform", new ClickListener() {
-			public void onClick(Widget sender) {
-				// Upload selected infile to server
-				uploadForm.submit();
+		/*
+		 * Verify user and enable action buttons if user exists
+		 */
+		WikiUserServiceAsync wikiUserService = (WikiUserServiceAsync)GWT.create(WikiUserService.class);
+
+		ServiceDefTarget endpoint = (ServiceDefTarget)wikiUserService;
+		String moduleRelativeURL = GWT.getModuleBaseURL() + "WikiUser";
+		endpoint.setServiceEntryPoint(moduleRelativeURL);    	  
+
+		AsyncCallback callback = new AsyncCallback() {
+			public void onSuccess(Object result) {
+				Button buttonGz = new Button("Upload", new ClickListener() {
+					public void onClick(Widget sender) {
+						// Extract service start and pass as prefix
+						String serviceStart = textBoxServiceStartGz.getText();
+						ssGz.setValue(serviceStart);
+						// Upload selected infile to server
+						uploadFormGz.submit();
+					}
+				} );
+				Button button = new Button("Transform", new ClickListener() {
+					public void onClick(Widget sender) {
+						// Upload selected infile to server
+						uploadForm.submit();
+					}
+				} );
+				
+				if (result != "LOGGED") {
+					button.setEnabled(false);
+					buttonGz.setEnabled(false);
+					labelResultUser.setText((String)result);
+				}
+				uploadPanel.add(button);
+				uploadPanelGz.add(buttonGz);
 			}
-		} ));
+
+			public void onFailure(Throwable caught) {
+		 		try {
+		 			throw caught;
+		 		} catch (InvocationException e) {
+					labelResult.setText("InvocationException: " + e.getMessage());
+		 		} catch (Throwable e) {
+					labelResult.setText("callback failed: " + e.getMessage());
+		 		}
+		 	}
+		};
+		wikiUserService.wikiUserVerify(wikiUserName, callback);	  
 	
+		/*
+		 * Upload google_transit.zip file
+		 */
+		uploadFormGz.addFormHandler(new FormHandler() {
+			public void onSubmitComplete(FormSubmitCompleteEvent event) {
+
+				labelResultGz.setText((String)event.getResults());
+								
+			}
+		
+			public void onSubmit(FormSubmitEvent event) {
+				// Upload infile to server
+				String inFilename = uploadGz.getFilename();
+				if (inFilename.length() == 0) {
+			          Window.alert("Infile required");
+			          return;
+				}
+			}
+		});
+    
+		/*
+		 * Upload TransXChange file and call Transxchange2GoogleTransit servlet when "transform" button is pushed
+		 */
 		uploadForm.addFormHandler(new FormHandler() {
 			public void onSubmitComplete(FormSubmitCompleteEvent event) {
-			
+
+				labelResult.setText((String)event.getResults());
+				
 				// Start transformation
 				String parseArgs = upload.getFilename();
 				parseArgs = parseArgs + " " + textBoxUrl.getText();
@@ -115,7 +207,7 @@ public class GWT_Transxchange2GoogleTransit implements EntryPoint {
 				String helpString = listBoxTimezoneS.getItemText(listBoxTimezoneS.getSelectedIndex());
 				parseArgs = parseArgs + "/" + helpString.substring(0, helpString.indexOf(' '));
 				parseArgs = parseArgs + " " + listBoxDefaultRouteType.getSelectedIndex();
-				parseArgs = parseArgs + " " + textBoxOutdir.getText();
+				parseArgs = parseArgs + " " + labelOutdir.getText();
 			
 				// call server through GWT asynchronous RPC
 				Transxchange2GoogleTransitServiceAsync transxchange2GoogleTransitService = (Transxchange2GoogleTransitServiceAsync)GWT.create(Transxchange2GoogleTransitService.class);
@@ -139,7 +231,7 @@ public class GWT_Transxchange2GoogleTransit implements EntryPoint {
 				 		}
 				 	}
 				};
-				transxchange2GoogleTransitService.transxchange2GoogleTransit_transform(parseArgs, callback);	  
+				transxchange2GoogleTransitService.transxchange2GoogleTransit_transform(parseArgs, callback);		
 			}
 		
 			public void onSubmit(FormSubmitEvent event) {
@@ -156,16 +248,16 @@ public class GWT_Transxchange2GoogleTransit implements EntryPoint {
 		 * Add UI elements
 		 * 		Better practice (for future reference): use CSS
 		 */
-		RootPanel.get("l_infile").add(labelInfile);
-		RootPanel.get("l_url").add(labelUrl);
+	    RootPanel.get("gz_servicestart").add(textBoxServiceStartGz);    
+	    RootPanel.get("gz_infile").add(uploadFormGz);    
 		RootPanel.get("url").add(textBoxUrl);
-		RootPanel.get("l_timezone").add(labelTimezone);
 		RootPanel.get("timezoneP").add(listBoxTimezoneP);
 		RootPanel.get("timezoneS").add(listBoxTimezoneS);
-		RootPanel.get("l_defaultroutetype").add(labelDefaultRouteType);
 		RootPanel.get("defaultroutetype").add(listBoxDefaultRouteType);
-//		RootPanel.get("l_outdir").add(labelOutdir);
-//		RootPanel.get("outdir").add(textBoxOutdir); 
+		RootPanel.get("outdir").add(labelOutdir);
+		labelOutdir.setText(wikiUserName);
+		RootPanel.get("user_result").add(labelResultUser);
+		RootPanel.get("gz_result").add(labelResultGz);
 		RootPanel.get("result").add(labelResult);
 	    RootPanel.get("infile").add(uploadForm);    
 
@@ -176,6 +268,13 @@ public class GWT_Transxchange2GoogleTransit implements EntryPoint {
 			}
 		});
 	}	
+
+	/*
+	 * function wrapper for JSNI script to read username from GWT_Transxchange2GoogleTransit.html
+	 */
+	public static native String readUsername() /*-{
+	  return $doc.converter.toastring.value;
+	}-*/;
 	
 	/* 
 	 * Switch timezone by  selected continent
