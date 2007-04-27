@@ -223,7 +223,7 @@ public class TransxchangeHandler extends DefaultHandler {
         new File(outdir + "/" + serviceStartDate).mkdirs();
       
     	// agency.txt
-        outfileName = agencyFilename + "_" + serviceStartDate + extension;
+        outfileName = agencyFilename + /* "_" + serviceStartDate + */ extension;
         outfile = new File(outdir + "/" + serviceStartDate + "/" + outfileName);
         filenames.add(outfileName);
         out = new PrintWriter(new FileWriter(outfile));
@@ -244,7 +244,7 @@ public class TransxchangeHandler extends DefaultHandler {
         out.close();
        
         // stops.txt
-        outfileName = stopsFilename + "_" + serviceStartDate + extension;
+        outfileName = stopsFilename + /* "_" + serviceStartDate + */ extension;
         outfile = new File(outdir + "/" + serviceStartDate + "/" + outfileName);
         filenames.add(outfileName);
         out = new PrintWriter(new FileWriter(outfile));
@@ -287,7 +287,7 @@ public class TransxchangeHandler extends DefaultHandler {
         out.close();
        
         // routes.txt
-        outfileName = routesFilename + "_" + serviceStartDate + extension;
+        outfileName = routesFilename + /* "_" + serviceStartDate + */ extension;
         outfile = new File(outdir + "/" + serviceStartDate + "/" + outfileName);
         filenames.add(outfileName);      
         out = new PrintWriter(new FileWriter(outfile));
@@ -315,7 +315,7 @@ public class TransxchangeHandler extends DefaultHandler {
         out.close();
 
         // trips.txt
-        outfileName = tripsFilename + "_" + serviceStartDate + extension;
+        outfileName = tripsFilename + /* "_" + serviceStartDate + */ extension;
         outfile = new File(outdir + "/" + serviceStartDate + "/" + outfileName);
         out = new PrintWriter(new FileWriter(outfile));
         filenames.add(outfileName);      
@@ -343,7 +343,7 @@ public class TransxchangeHandler extends DefaultHandler {
         out.close();
 
         // stop_times.txt
-        outfileName = stop_timesFilename + "_" + serviceStartDate + extension;
+        outfileName = stop_timesFilename + /* "_" + serviceStartDate + */ extension;
         outfile = new File(outdir + "/" + serviceStartDate + "/" + outfileName);
         filenames.add(outfileName);      
         out = new PrintWriter(new FileWriter(outfile));
@@ -377,7 +377,7 @@ public class TransxchangeHandler extends DefaultHandler {
         out.close();
         
         // calendar.txt
-        outfileName = calendarFilename + "_" + serviceStartDate + extension;
+        outfileName = calendarFilename + /* "_" + serviceStartDate + */ extension;
         outfile = new File(outdir + "/" + serviceStartDate + "/" + outfileName);
         filenames.add(outfileName);
         out = new PrintWriter(new FileWriter(outfile));
@@ -420,7 +420,7 @@ public class TransxchangeHandler extends DefaultHandler {
         out.close();
 
         // calendar_dates.txt
-        outfileName = calendar_datesFilename + "_" + serviceStartDate + extension;
+        outfileName = calendar_datesFilename + /* "_" + serviceStartDate + */ extension;
         outfile = new File(outdir + "/" + serviceStartDate + "/" + outfileName);
         out = new PrintWriter(new FileWriter(outfile));
         filenames.add(outfileName);
