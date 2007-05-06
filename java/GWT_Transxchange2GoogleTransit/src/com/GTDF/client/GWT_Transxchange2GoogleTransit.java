@@ -65,6 +65,9 @@ public class GWT_Transxchange2GoogleTransit implements EntryPoint {
 		listBoxDefaultRouteType.addItem("Rail");
 		listBoxDefaultRouteType.addItem("Bus");
 		listBoxDefaultRouteType.addItem("Ferry");
+		listBoxDefaultRouteType.addItem("Cable car");
+		listBoxDefaultRouteType.addItem("Gondola");
+		listBoxDefaultRouteType.addItem("Funicular");
 		listBoxDefaultRouteType.setVisibleItemCount(1);
 		final Label labelOutdir = new Label(); // Displays wikiuser
 		final Label labelResultGz = new Label();    

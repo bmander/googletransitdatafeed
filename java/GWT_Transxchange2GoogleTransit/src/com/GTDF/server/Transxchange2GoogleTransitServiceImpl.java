@@ -74,7 +74,7 @@ public class Transxchange2GoogleTransitServiceImpl extends RemoteServiceServlet 
         }
 		
         /*
-         * Succes - create return message
+         * Success - create return message
          */
 		String hostedOn = getServletConfig().getInitParameter("HOSTED_ON");
 		return "Created Google Transit Data Feed Spec archive at: " + hostedOn + result;
