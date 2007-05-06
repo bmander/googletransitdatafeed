@@ -17,20 +17,27 @@
 package transxchange2GoogleTransitHandler;
 import java.util.List;
 import java.util.StringTokenizer;
+
 import org.xml.sax.Attributes;
+import org.xml.sax.SAXParseException;
 
 /*
  * Abstract superclass to cover transxchange data aspects (subclasses: TransxchangeAgency, TransxchangeStops etc.
  */ 
-
 public abstract class TransxchangeDataAspect {
 
 	String key = ""; // general key
 	String keyNested = ""; // nested key
 	String niceString = ""; // parsed string
 	boolean activeStartElement = false; // control flag to skip characters outside start/endElement()
+
+	TransxchangeHandler handler;
 	
-	public void startElement(String uri, String name, String qName, Attributes atts) {
+	public void startElement(String uri, String name, String qName, Attributes atts)
+		throws SAXParseException
+	{    
+		if (handler.getParseError().length() > 0)
+			throw new SAXParseException(handler.getParseError(), null);
 		niceString = "";
 	}
 	
@@ -43,7 +50,7 @@ public abstract class TransxchangeDataAspect {
 	public void characters (char ch[], int start, int length) {
 		if (key.length() > 0) {
 			for (int i = start; i < start + length; i++)
-					niceString = niceString + ch[i];
+				niceString = niceString + ch[i];
 		}		
 	}
 	
@@ -60,8 +67,7 @@ public abstract class TransxchangeDataAspect {
 	/*
 	 * Read time in transxchange specific format
 	 */
-/* Java 1.5	static void readTransxchangeTime(Integer[] timehhmmss, String inString) {
-*/static void readTransxchangeTime(int[] timehhmmss, String inString) {
+	static void readTransxchangeTime(int[] timehhmmss, String inString) {
 		StringTokenizer st = new StringTokenizer(inString, ":");
 		int i = 0;
 		while (st.hasMoreTokens() && i < 3) {
@@ -177,4 +183,7 @@ public abstract class TransxchangeDataAspect {
 		return result;
 	}
 
+	TransxchangeDataAspect(TransxchangeHandler owner) {
+		handler = owner;
+	}
 }

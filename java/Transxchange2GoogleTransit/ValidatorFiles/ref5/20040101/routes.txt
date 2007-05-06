@@ -1,0 +1,2 @@
+route_id,agency_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_color,route_text_color
+L1,,1,1,"Line 1, the round Tweeham gyratory service. Daily Service all year round.",3,,,

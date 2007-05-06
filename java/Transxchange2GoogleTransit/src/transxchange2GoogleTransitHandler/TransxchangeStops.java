@@ -15,12 +15,17 @@
  */
 
 package transxchange2GoogleTransitHandler;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import org.xml.sax.Attributes;
+import org.xml.sax.SAXParseException;
 
-
-
+/* 
+ * This class handles the TransXChange xml input file under the aspect of 
+ * 	stops
+ */
 public class TransxchangeStops extends TransxchangeDataAspect{
 
 	// xml keys and output field fillers
@@ -112,7 +117,9 @@ public class TransxchangeStops extends TransxchangeDataAspect{
 		return listStops__stop_country;
 	}
 
-	public void startElement(String uri, String name, String qName, Attributes atts) {
+	public void startElement(String uri, String name, String qName, Attributes atts)
+		throws SAXParseException {
+	
 		super.startElement(uri, name, qName, atts);
 		if (key.equals(key_stops__stop_id[0])) 
 			if (qName.equals(key_stops__stop_id[1])) {
@@ -430,6 +437,7 @@ public class TransxchangeStops extends TransxchangeDataAspect{
 	}
 
 	public TransxchangeStops(TransxchangeHandler owner) {
+		super(owner);
 		listStops__stop_id = new ArrayList();
 		listStops__stop_name = new ArrayList();
 		listStops__stop_desc = new ArrayList();

@@ -1,0 +1,3 @@
+route_id,agency_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_color,route_text_color
+LN1,,1C,1C,Ash to Framham outbound services. Summer timetable. Services go daily via either Crumley or Dotheboys.  ,3,,,
+LN2,,1D,1D,Ash to Framham outbound services. Summer timetable. Services go daily via either Crumley or Dotheboys.  ,3,,,

@@ -1,0 +1,6 @@
+stop_id,stop_name,stop_desc,stop_lat,stop_lon,zone_id,stop_url
+260010966,Suborn Bus Station,,442914,295186,,
+260010967,"Suborn, Garden Village Shops, o/s",,443012,295090,,
+260010374,"Robridge, Plough, o/s",,443285,295191,,
+260070132,"Barford, Red Lion",,443693,294958,,
+260010944,"Egham, Golden Lion",,443965,295151,,

@@ -1,0 +1,10 @@
+stop_id,stop_name,stop_desc,stop_lat,stop_lon,zone_id,stop_url
+260048015,"Bus Station, Bay Area",,458107,300197,,
+260048017,"Bus Station, Main Entrance",,458375,300292,,
+260048018,"Bus Station, Bay 1",,458720,300313,,
+260048019,"Bus Station, Bay 2",,458944,300279,,
+260054010,"Bus Station, Bay 3",,459758,300483,,
+260054043,"Tweeham, High St",,OpenRequired,OpenRequired,,
+260054044,"Tweeham, Market St",,OpenRequired,OpenRequired,,
+260016821,"Tweeham, School",,OpenRequired,OpenRequired,,
+260016829,"Tweeham, Hospital",,OpenRequired,OpenRequired,,

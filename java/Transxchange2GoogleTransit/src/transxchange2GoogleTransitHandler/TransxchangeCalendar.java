@@ -15,12 +15,17 @@
  */
 
 package transxchange2GoogleTransitHandler;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import org.xml.sax.Attributes;
+import org.xml.sax.SAXParseException;
 
-
-
+/* 
+ * This class handles the TransXChange xml input file under the aspect of 
+ * 	calendar dates associates with services
+ */
 public class TransxchangeCalendar extends TransxchangeDataAspect {
 
 	// xml keys and output field fillers
@@ -120,8 +125,8 @@ public class TransxchangeCalendar extends TransxchangeDataAspect {
 		return service;
 	}
 	
-	public void startElement(String uri, String name, String qName, Attributes atts) {
-
+	public void startElement(String uri, String name, String qName, Attributes atts)
+		throws SAXParseException {
 	    super.startElement(uri, name, qName, atts);
 	    if (qName.equals(key_calendar__service_id[0])) 
 			key = key_calendar__service_id[0];
@@ -389,6 +394,7 @@ public class TransxchangeCalendar extends TransxchangeDataAspect {
 	}
 
 	public TransxchangeCalendar(TransxchangeHandler owner) {
+		super(owner);
 		listCalendar__service_id = new ArrayList();
 		listCalendar__monday = new ArrayList();
 		listCalendar__tuesday = new ArrayList();

@@ -15,11 +15,17 @@
  */
 
 package transxchange2GoogleTransitHandler;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import org.xml.sax.Attributes;
+import org.xml.sax.SAXParseException;
 
-
+/* 
+ * This class handles the TransXChange xml input file under the aspect of 
+ * 	trips
+ */
 public class TransxchangeTrips extends TransxchangeDataAspect {
 
 	// xml keys and output field fillers
@@ -93,7 +99,9 @@ public class TransxchangeTrips extends TransxchangeDataAspect {
 		return _departureTime;
 	}
 
-	public void startElement(String uri, String name, String qName, Attributes atts) {
+	public void startElement(String uri, String name, String qName, Attributes atts)
+		throws SAXParseException {
+	
 	    int qualifierIx;
 
 	    super.startElement(uri, name, qName, atts);
@@ -330,6 +338,7 @@ public class TransxchangeTrips extends TransxchangeDataAspect {
 	}
 	
 	public TransxchangeTrips(TransxchangeHandler owner) {
+		super(owner);
 		listTrips__route_id = new ArrayList();
 		listTrips__service_id = new ArrayList();
 		listTrips__trip_id = new ArrayList();

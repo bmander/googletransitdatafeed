@@ -15,12 +15,17 @@
  */
 
 package transxchange2GoogleTransitHandler;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import org.xml.sax.Attributes;
+import org.xml.sax.SAXParseException;
 
-
-
+/* 
+ * This class handles the TransXChange xml input file under the aspect of 
+ * 	agencies
+ */
 public class TransxchangeAgency extends TransxchangeDataAspect {
 
 	// xml keys and output field fillers
@@ -45,10 +50,10 @@ public class TransxchangeAgency extends TransxchangeDataAspect {
 	public List getListAgency__agency_timezone() {
 		return listAgency__agency_timezone;
 	}
-
-	TransxchangeHandler handler;
 	
-	public void startElement(String uri, String name, String qName, Attributes atts) {
+	public void startElement(String uri, String name, String qName, Attributes atts)
+		throws SAXParseException {
+	
 		super.startElement(uri, name, qName, atts);
 		if (qName.equals(key_agency__agency_name[0])) 
 			key = key_agency__agency_name[0];
@@ -126,10 +131,9 @@ public class TransxchangeAgency extends TransxchangeDataAspect {
 	}
 	 
 	public TransxchangeAgency(TransxchangeHandler owner) {
+		super (owner);
 		listAgency__agency_name = new ArrayList();
 		listAgency__agency_url = new ArrayList();
 		listAgency__agency_timezone = new ArrayList();
-		
-		handler = owner;
 	}
 }

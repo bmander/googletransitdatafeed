@@ -16,18 +16,18 @@
 
 import transxchange2GoogleTransitHandler.*;
 
+/*
+ * Transxchange2GoogleTransit 
+ * 	$ transxchange2GoogleTransit <transxchange input filename> <url> <timezone> <default route type> [<output-directory>]
+ * 
+ * <default route type>: 0 - Tram, 1 - Subway, 2 - Rail, 3 - Bus, 4 - Ferry, 5 - Cable car, 6 - Gondola, 7 - Funicular
+ */
 public class Transxchange2GoogleTransit {
-	/**
-	 * Transxchange2GoogleTransit 
-	 * 	$ transxchange2GoogleTransit <transxchange input filename> <url> <timezone> <default route type> [<output-directory>]
-	 * 
-	 * <default route type>: 0 - Tram, 1 - Subway, 2 - Rail, 3 - Bus, 4 - Ferry (global default value)
-	 */
 
 	public static void main(String[] args) {
 
 		System.out.println();
-        System.out.println("transxchange2GoogleTransit 1.4");
+        System.out.println("transxchange2GoogleTransit 1.5");
         System.out.println("Please refer to LICENSE file for licensing information");
         if (args.length < 4 || args.length > 5) {
         	System.out.println();
@@ -37,13 +37,11 @@ public class Transxchange2GoogleTransit {
         	System.out.println("         <timezone>: Please refer to ");
         	System.out.println("             http://en.wikipedia.org/wiki/List_of_tz_zones");
         	System.out.println("         <default route type>:");
-        	System.out.println("             0 - Tram, 1 - Subway, 2 - Rail, 3 - Bus, 4 - Ferry");
+        	System.out.println("             0 - Tram, 1 - Subway, 2 - Rail, 3 - Bus, 4 - Ferry, 5 - Cable car, 6 - Gondola, 7 - Funicular");
         	System.exit(1);
         }
         
-        /*
-         * Parse transxchange input file
-         */ 
+        // Parse transxchange input file
         TransxchangeHandler handler = new TransxchangeHandler();
         try {
         	handler.parse(args[0], args[1], args[2], args[3]);
@@ -53,9 +51,7 @@ public class Transxchange2GoogleTransit {
         	System.exit(1);
         }
      
-        /*
-         * Create Google Transit output files
-         */
+        // Create Google Transit output files
 		String outdir = "";
         if (args.length == 5)
         	outdir = args[4];
