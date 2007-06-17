@@ -17,6 +17,7 @@
 package transxchange2GoogleTransitHandler;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.xml.sax.Attributes;
@@ -54,6 +55,7 @@ public class TransxchangeTrips extends TransxchangeDataAspect {
 	ValueList newJourneyPatternRef;
 	List _listJourneyPatternSectionRefs;
 	ValueList newJourneyPatternSectionRefs;
+
 	String _journeyPattern = "";
 	
 	static final String[] _key_trips_departure_time = new String [] {"VehicleJourney", "DepartureTime"};
@@ -98,6 +100,12 @@ public class TransxchangeTrips extends TransxchangeDataAspect {
 	String getDepartureTime() {
 		return _departureTime;
 	}
+	String getJourneyPattern() {
+		return _journeyPattern;
+	}
+	void setJourneyPattern(String jp) {
+		_journeyPattern = jp;
+	}
 
 	public void startElement(String uri, String name, String qName, Attributes atts)
 		throws SAXParseException {
@@ -140,6 +148,141 @@ public class TransxchangeTrips extends TransxchangeDataAspect {
 	public void endElement (String uri, String name, String qName) {
 	    boolean hot;
 
+	    /*
+	     * v1.5: Local class to create trip structure either for single trip, or unrolled based on frequency (called further below)
+	     */
+	    class TripStructure {
+	    	 void createTripStructure() {
+
+	    		/*
+	    		 * Identify VehicleJourney-specific OperatingDates, create generic service id consisting of service and vehicle journey code, 
+	    		 * 	and backfill service id in VehicleJourney-specific OperatingDays with generic service id 
+	    		 */
+	    		 /* Altlast; ausgerollte calendar dates war der falsche Ansatz; lies spezielle Datenstruktur, die in TransxchangeCalendarDates aufgebaut wurde	    		
+	    		int i;
+	    		ValueList iterator;
+	    		List values;
+	    		Iterator jterator;
+	    			
+ * 				List listCalendarDates__service_id = handler.getCalendarDates().getListCalendarDates__service_id();
+    		    for (i = 0; i < listCalendarDates__service_id.size(); i++) {
+    		    	iterator = (ValueList)listCalendarDates__service_id.get(i);
+    				values = iterator.getValues();
+    				jterator = values.iterator();
+    				while (jterator.hasNext()) {
+    					System.out.println(">>> " + iterator.getKeyName() + " " + jterator.next());
+    				}
+    		    }
+*/
+	    		 
+	    		 /*
+	    		  * v1.5: Find out if out-of-line calendar dates where picked up earlier and assign to current VehicleJourney
+	    		  */
+	    		 List oolStart = handler.getCalendarDates().getListOOLDates_start();
+	    		 List oolEnd = handler.getCalendarDates().getListOOLDates_end();
+	    		 int i;
+	    		 boolean found;
+	    		 ValueList iteratorStart;
+	    		 ValueList iteratorEnd;
+
+	    		 if (oolStart != null) {
+	    			 // found out-of-line dates
+	    			 List calendarServices = handler.getCalendar().getListCalendar__service_id();
+	    			 i = 0;
+	    			 found = false;
+	    			 
+	    			 // find matching service in calendar data structure. This assumes the service has already been defined in XML file. This is normally the case
+	    			 while (i < calendarServices.size() && !found) {
+	    				 if (((ValueList)calendarServices.get(i)).getValue(0).equals(_serviceCode))
+	    					 found = true;
+	    				 else
+	    					 i++;
+	    			 }
+	    			 if (found) {
+	    				 // matching service found
+	    				 // generate service key specifically for current VehicleJourney
+
+		    			 _serviceCode = _serviceCode + "_" + _vehicleJourneyCode + "@" + _departureTime;
+	    			 }
+	    			 
+	    			 for (i = 0; i < oolStart.size(); i++) {
+		    			 List calendarMondays = handler.getCalendar().getListCalendar__monday();
+		    			 List calendarTuesdays = handler.getCalendar().getListCalendar__tuesday();
+		    			 List calendarWednesdays = handler.getCalendar().getListCalendar__wednesday();
+		    			 List calendarThursdays = handler.getCalendar().getListCalendar__thursday();
+		    			 List calendarFridays = handler.getCalendar().getListCalendar__friday();
+		    			 List calendarSaturdays = handler.getCalendar().getListCalendar__saturday();
+		    			 List calendarSundays = handler.getCalendar().getListCalendar__sunday();
+		    			 List calendarStartDates = handler.getCalendar().getListCalendar__start_date();
+		    			 List calendarEndDates = handler.getCalendar().getListCalendar__end_date();
+		    			 ValueList newCalendar__service_id;
+		    			 ValueList newCalendar__monday;
+		    			 ValueList newCalendar__tuesday;
+		    			 ValueList newCalendar__wednesday;
+		    			 ValueList newCalendar__thursday;
+		    			 ValueList newCalendar__friday;
+		    			 ValueList newCalendar__saturday;
+		    			 ValueList newCalendar__sunday;
+		    			 ValueList newCalendar__start_date;
+		    			 ValueList newCalendar__end_date;
+/*
+		    			 newCalendar__service_id = new ValueList("SpecialOperatingDayFromJourneyPattern");
+	    				 calendarServices.add(newCalendar__service_id);
+	    				 newCalendar__service_id.addValue(_serviceCode);
+	    				 newCalendar__monday = new ValueList("SpecialOperatingDayFromJourneyPattern");
+	    				 calendarMondays.add(newCalendar__monday);
+	    				 newCalendar__monday.addValue((String)((ValueList)calendarMondays.get(i)).getValue(0));
+	    				 newCalendar__tuesday = new ValueList("SpecialOperatingDayFromJourneyPattern");
+	    				 calendarTuesdays.add(newCalendar__tuesday);
+	    				 newCalendar__tuesday.addValue((String)((ValueList)calendarTuesdays.get(i)).getValue(0));
+	    				 newCalendar__wednesday = new ValueList("SpecialOperatingDayFromJourneyPattern");
+	    				 calendarWednesdays.add(newCalendar__wednesday);
+	    				 newCalendar__wednesday.addValue((String)((ValueList)calendarWednesdays.get(i)).getValue(0));
+	    				 newCalendar__thursday = new ValueList("SpecialOperatingDayFromJourneyPattern");
+	    				 calendarThursdays.add(newCalendar__thursday);
+	    				 newCalendar__thursday.addValue((String)((ValueList)calendarThursdays.get(i)).getValue(0));
+	    				 newCalendar__friday = new ValueList("SpecialOperatingDayFromJourneyPattern");
+	    				 calendarFridays.add(newCalendar__friday);
+	    				 newCalendar__friday.addValue((String)((ValueList)calendarFridays.get(i)).getValue(0));
+	    				 newCalendar__saturday = new ValueList("SpecialOperatingDayFromJourneyPattern");
+	    				 calendarSaturdays.add(newCalendar__saturday);
+	    				 newCalendar__saturday.addValue((String)((ValueList)calendarSaturdays.get(i)).getValue(0));
+	    				 newCalendar__sunday = new ValueList("SpecialOperatingDayFromJourneyPattern");
+	    				 calendarSundays.add(newCalendar__sunday);
+	    				 newCalendar__sunday.addValue((String)((ValueList)calendarSundays.get(i)).getValue(0));
+	    				 iteratorStart = (ValueList)oolStart.get(i);
+	    				 newCalendar__start_date = new ValueList("SpecialOperatingDayFromJourneyPattern");
+	    				 calendarStartDates.add(newCalendar__start_date);
+	    				 newCalendar__start_date.addValue((String)iteratorStart.getValue(0));    				 
+	    				 iteratorEnd = (ValueList)oolEnd.get(i);
+	    				 newCalendar__end_date = new ValueList("SpecialOperatingDayFromJourneyPattern");
+	    				 calendarEndDates.add(newCalendar__end_date);
+	    				 newCalendar__end_date.addValue((String)iteratorEnd.getValue(0));
+*/
+	    			 }
+
+	    			 handler.getCalendarDates().resetOOLDates_start();
+	    			 handler.getCalendarDates().resetOOLDates_end();
+	    		 }
+	    		 
+	    		 newTrips__trip_id = new ValueList(_vehicleJourneyCode + "@" + _departureTime);
+	    		 listTrips__trip_id.add(newTrips__trip_id);
+	    		 newTrips__trip_id.addValue(_departureTime);
+	    		 newTrips__route_id = new ValueList(_vehicleJourneyCode + "@" + _departureTime);
+	    		 listTrips__route_id.add(newTrips__route_id);
+	    		 newTrips__route_id.addValue(_lineName);
+	    		 newTrips__service_id = new ValueList(_vehicleJourneyCode + "@" + _departureTime);
+	    		 listTrips__service_id.add(newTrips__service_id);
+	    		 newTrips__service_id.addValue(_serviceCode);
+	    		 newJourneyPatternRef = new ValueList(_vehicleJourneyCode + "@" + _departureTime);
+	    		 _listJourneyPatternRef.add(newJourneyPatternRef);
+	    		 newJourneyPatternRef.addValue(_journeyPatternRef);
+	    		 newTrips__block_id = new ValueList(_vehicleJourneyCode + "@" + _departureTime);
+	    		 listTrips__block_id.add(newTrips__block_id);
+	    		 newTrips__block_id.addValue(key_trips__block_id[2]);
+	    	 }
+	    };
+	    
 		if (niceString.length() == 0) 
 	    	return;
 	    
@@ -165,21 +308,7 @@ public class TransxchangeTrips extends TransxchangeDataAspect {
         }
         if (key.equals(_key_trips_departure_time[0]) && keyNested.equals(_key_trips_departure_time[1])) {
 			_departureTime = niceString;
-			newTrips__trip_id = new ValueList(_vehicleJourneyCode + "@" + _departureTime);
-			listTrips__trip_id.add(newTrips__trip_id);
-			newTrips__trip_id.addValue(_departureTime);
-			newTrips__route_id = new ValueList(_vehicleJourneyCode + "@" + _departureTime);
-			listTrips__route_id.add(newTrips__route_id);
-			newTrips__route_id.addValue(_lineName);
-			newTrips__service_id = new ValueList(_vehicleJourneyCode + "@" + _departureTime);
-			listTrips__service_id.add(newTrips__service_id);
-			newTrips__service_id.addValue(_serviceCode);
-			newJourneyPatternRef = new ValueList(_vehicleJourneyCode + "@" + _departureTime);
-			_listJourneyPatternRef.add(newJourneyPatternRef);
-			newJourneyPatternRef.addValue(_journeyPatternRef);
-			newTrips__block_id = new ValueList(_vehicleJourneyCode + "@" + _departureTime);
-			listTrips__block_id.add(newTrips__block_id);
-			newTrips__block_id.addValue(key_trips__block_id[2]);
+			new TripStructure().createTripStructure();
 			keyNested = "";
         }
         if (key.equals(_key_trips_endtime[0]) && keyNested.equals(_key_trips_endtime[1])) {
@@ -188,11 +317,9 @@ public class TransxchangeTrips extends TransxchangeDataAspect {
         }
         if (key.equals(_key_trips_frequency[0]) && keyNested.equals(_key_trips_frequency[1])) {
         	_scheduledFrequency = niceString;
-        	// Unroll transxchange:vehicle journeys with frequency to google transit:descrete trips
+        	// Unroll transxchange:vehicle journeys with frequency to google transit:descrete trips. In the first few versions of GTFS, there did not exist frequency.txt
         	int frequency = 0;
-/* Java 1.5        	Integer[] departureTimehhmmss = {-1, -1, -1};
-        	Integer[] endTimehhmmss = {-1, -1, -1};
-*/        	int[] departureTimehhmmss = {-1, -1, -1};
+        	int[] departureTimehhmmss = {-1, -1, -1};
 			int[] endTimehhmmss = {-1, -1, -1};
         	readTransxchangeTime(departureTimehhmmss, _departureTime);
         	readTransxchangeTime(endTimehhmmss, _endTime);
@@ -211,23 +338,8 @@ public class TransxchangeTrips extends TransxchangeDataAspect {
         				if (departureTimehhmmss[1] > endTimehhmmss[1])
         					hot = false;
         		if (hot) {
-/* Java 1.5        			_departureTime = String.format("%02d:%02d:00", departureTimehhmmss[0], departureTimehhmmss[1]);
-*/        			_departureTime = TransxchangeDataAspect.formatTime(departureTimehhmmss[0], departureTimehhmmss[1]);
-        			newTrips__trip_id = new ValueList(_vehicleJourneyCode + "@" + _departureTime);
-        			listTrips__trip_id.add(newTrips__trip_id);
-        			newTrips__trip_id.addValue(_departureTime);
-        			newTrips__route_id = new ValueList(_vehicleJourneyCode + "@" + _departureTime);
-        			listTrips__route_id.add(newTrips__route_id);
-        			newTrips__route_id.addValue(_lineName);
-        			newTrips__service_id = new ValueList(_vehicleJourneyCode + "@" + _departureTime);
-        			listTrips__service_id.add(newTrips__service_id);
-        			newTrips__service_id.addValue(_serviceCode);
-        			newJourneyPatternRef = new ValueList(_vehicleJourneyCode + "@" + _departureTime);
-        			_listJourneyPatternRef.add(newJourneyPatternRef);
-        			newJourneyPatternRef.addValue(_journeyPatternRef);
-        			newTrips__block_id = new ValueList(_vehicleJourneyCode + "@" + _departureTime);
-        			listTrips__block_id.add(newTrips__block_id);
-        			newTrips__block_id.addValue(key_trips__block_id[2]);
+        			_departureTime = TransxchangeDataAspect.formatTime(departureTimehhmmss[0], departureTimehhmmss[1]);
+        			new TripStructure().createTripStructure();
         		}
         	}
         	keyNested = "";
@@ -243,7 +355,6 @@ public class TransxchangeTrips extends TransxchangeDataAspect {
         	newJourneyPatternSectionRefs.addValue(niceString);
 		}
 	}
-	
 	
 	public void clearKeys (String qName) {
 		if (qName.equals(key_trips__trip_headsign[1])) 
@@ -303,7 +414,6 @@ public class TransxchangeTrips extends TransxchangeDataAspect {
   	    csvProofList(listTrips__trip_id);
   	    csvProofList(listTrips__trip_headsign);
   	    csvProofList(listTrips__block_id);
-  	    
 	}
 	
 	public void dumpValues() {
@@ -334,7 +444,7 @@ public class TransxchangeTrips extends TransxchangeDataAspect {
 		for (i = 0; i < _listJourneyPatternRef.size(); i++) {
 		    iterator = (ValueList)_listJourneyPatternRef.get(i);
 		    iterator.dumpValues();
-		}
+		} 
 	}
 	
 	public TransxchangeTrips(TransxchangeHandler owner) {

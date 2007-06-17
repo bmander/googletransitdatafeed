@@ -32,7 +32,9 @@ public class TransxchangeRoutes extends TransxchangeDataAspect {
 	static final String[] key_routes__route_id = new String[] {"Service", "Line", "OpenRequired"}; // Google Transit required
 	static final String[] key_routes__route_short_name = new String[] {"Service", "LineName", "OpenRequired"}; // Google Transit required
 	static final String[] key_routes__route_long_name = new String[] {"__transxchange2GoogleTransit_drawDefault", "", "OpenRequired"}; // Google Transit required
-	static final String[] key_routes__route_desc = new String[] {"Service", "Description", "n/a"};
+	static final String[] key_routes__route_desc = new String[] {"Service", "Description", ""};
+	static final String[] key_routes__route_origin = new String[] {"Service", "Origin", ""}; // v1.5: user Origin - Destination as route description if there is no service description in the TransXChange file
+	static final String[] key_routes__route_destination = new String[] {"Service", "Destination", ""};
 	static final String[] key_routes__route_type = new String[] {"__transxchange2GoogleTransit_drawDefault", "", "3"}; // Google Transit required
 
 	// Parsed data 
@@ -48,6 +50,7 @@ public class TransxchangeRoutes extends TransxchangeDataAspect {
 	ValueList newRoutes__route_type;
 
 	String service = "";
+	String _origin = "";
 	List _listRouteDesc;
 	ValueList _newRouteDesc;
 
@@ -78,20 +81,25 @@ public class TransxchangeRoutes extends TransxchangeDataAspect {
 	        qualifierIx = atts.getIndex("id");
 	        qualifierString = atts.getValue(qualifierIx);
 	        newRoutes__route_id = new ValueList(service);
-
 	        listRoutes__route_id.add(newRoutes__route_id);
 	    	newRoutes__route_id.addValue(qualifierString);
 	    }
 		if (qName.equals(key_routes__route_short_name[0])) 
 			key = key_routes__route_short_name[0];
-		if (key.equals(key_routes__route_short_name[0]) && qName.equals(key_routes__route_short_name[1])) {
+		if (key.equals(key_routes__route_short_name[0]) && qName.equals(key_routes__route_short_name[1]))
 			keyNested = key_routes__route_short_name[1];
-		}
 		if (qName.equals(key_routes__route_desc[0])) 
 			key = key_routes__route_desc[0];
-		if (key.equals(key_routes__route_desc[0]) && qName.equals(key_routes__route_desc[1])) {
+		if (key.equals(key_routes__route_desc[0]) && qName.equals(key_routes__route_desc[1]))
 			keyNested = key_routes__route_desc[1];
-		}
+		if (qName.equals(key_routes__route_origin[0])) // v1.5: origin
+			key = key_routes__route_origin[0];
+		if (key.equals(key_routes__route_origin[0]) && qName.equals(key_routes__route_origin[1]))
+			keyNested = key_routes__route_origin[1];
+		if (qName.equals(key_routes__route_destination[0])) // v1.5: destination
+			key = key_routes__route_destination[0];
+		if (key.equals(key_routes__route_destination[0]) && qName.equals(key_routes__route_destination[1]))
+			keyNested = key_routes__route_destination[1];	
 	}
 	
 	public void endElement (String uri, String name, String qName) {
@@ -103,15 +111,25 @@ public class TransxchangeRoutes extends TransxchangeDataAspect {
 			listRoutes__route_short_name.add(newRoutes__route_short_name);
         	newRoutes__route_short_name.addValue(niceString);
 			newRoutes__route_long_name = new ValueList(key_routes__route_long_name[1]);
-			listRoutes__route_long_name.add(newRoutes__route_short_name);
-        	newRoutes__route_long_name.addValue(niceString);
+			listRoutes__route_long_name.add(newRoutes__route_long_name);
+//        	newRoutes__route_long_name.addValue(niceString);
+        	newRoutes__route_long_name.addValue(""); // no long name if not different from short name
         	keyNested = "";
 			newRoutes__route_type = new ValueList(key_routes__route_type[0]); // Default for _type
 			listRoutes__route_type.add(newRoutes__route_type);
 //			newRoutes__route_type.addValue(key_routes__route_type[2]);
 			newRoutes__route_type.addValue(handler.getDefaultRouteType());
 		}
-        if (key.equals(key_routes__route_desc[0]) && keyNested.equals(key_routes__route_desc[1])) {
+		if (key.equals(key_routes__route_origin[0]) && keyNested.equals(key_routes__route_origin[1])) { // v1.5: Origin/Destination
+			_origin = niceString;
+		}		
+		if (key.equals(key_routes__route_destination[0]) && keyNested.equals(key_routes__route_destination[1])) { // v1.5: Origin/Destination
+			_newRouteDesc = new ValueList(service);
+			_listRouteDesc.add(_newRouteDesc);
+			_newRouteDesc.addValue(_origin + " - " + niceString);
+        	keyNested = "";
+		}		
+		if (key.equals(key_routes__route_desc[0]) && keyNested.equals(key_routes__route_desc[1])) {
 			_newRouteDesc = new ValueList(service);
 			_listRouteDesc.add(_newRouteDesc);
 			_newRouteDesc.addValue(niceString);
@@ -127,6 +145,16 @@ public class TransxchangeRoutes extends TransxchangeDataAspect {
 		if (key.equals(key_routes__route_desc[0]))
 			keyNested = "";
 		if (qName.equals(key_routes__route_desc[0])) 
+			key = "";
+		if (key.equals(key_routes__route_origin[1])) // v1.5: Origin
+			keyNested = "";
+		if (qName.equals(key_routes__route_origin[0])) 
+			key = "";
+		if (key.equals(key_routes__route_destination[1])) { // v1.5: Destination
+			keyNested = "";
+			_origin = "";
+		}
+		if (qName.equals(key_routes__route_destination[0])) 
 			key = "";
 	}
 

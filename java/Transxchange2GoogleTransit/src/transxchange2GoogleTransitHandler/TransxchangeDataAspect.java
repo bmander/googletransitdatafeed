@@ -72,7 +72,7 @@ public abstract class TransxchangeDataAspect {
 		int i = 0;
 		while (st.hasMoreTokens() && i < 3) {
 			timehhmmss[i] = Integer.parseInt(st.nextToken());
-			i ++;
+			i++;
 		}
 	}
 
@@ -83,12 +83,22 @@ public abstract class TransxchangeDataAspect {
 	 * 
 	 */
 	static int readTransxchangeFrequency(String inString) {
-		inString = inString.substring(2, inString.length());
-		StringTokenizer st = new StringTokenizer(inString, "M");
 		int freq = 0;
-		int i = 0;
-		while (st.hasMoreTokens() && i < 1) {
-			freq = Integer.parseInt(st.nextToken());
+
+		inString = inString.substring(2, inString.length());
+		if (inString.charAt(inString.length() - 1) == 'S') { // v1.5: Cover seconds
+			StringTokenizer st = new StringTokenizer(inString, "S");
+			int i = 0;
+			while (st.hasMoreTokens() && i < 1) {
+				freq = Integer.parseInt(st.nextToken()) / 60;
+			}
+
+		} else { // v1.5: From previous versions: Minutes still default
+			StringTokenizer st = new StringTokenizer(inString, "M");
+			int i = 0;
+			while (st.hasMoreTokens() && i < 1) {
+				freq = Integer.parseInt(st.nextToken());
+			}
 		}
 		return freq;
 	}

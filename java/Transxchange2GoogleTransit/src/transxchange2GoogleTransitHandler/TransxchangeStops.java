@@ -18,6 +18,11 @@ package transxchange2GoogleTransitHandler;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
+import java.util.Map;
+import java.util.HashMap;
+import java.io.*;
+import java.net.*;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXParseException;
@@ -60,10 +65,13 @@ public class TransxchangeStops extends TransxchangeDataAspect{
 	String stopPointToLat = ""; // Store current lat of stop-to to maintain lat of last stop in route link
 	String stopPointToLon = ""; // same for lon
 	
+	Map lat; // v1.5 lat, lon
+	Map lon; // v1.5 lat, lon
+	
 	static final String[] _key_stops_alternative_descriptor = new String[] {"StopPoints", "AlternativeDescriptors", "CommonName"};
 
 	String keyRef = "";
-	
+		
 	// Parsed data 
 	List listStops__stop_id;
 	ValueList newStops__stop_id;
@@ -353,11 +361,13 @@ public class TransxchangeStops extends TransxchangeDataAspect{
 	    	if (hot) {
 	       		newStops__stop_lat = new ValueList(stopId);
 				listStops__stop_lat.add(i, newStops__stop_lat);
-				newStops__stop_lat.addValue(key_stops__stop_lat[2]);
+//				newStops__stop_lat.addValue(key_stops__stop_lat[2]);
+				newStops__stop_lat.addValue(getLat(stopId));
 	       		newStops__stop_lon = new ValueList(stopId);
 				listStops__stop_lon.add(i, newStops__stop_lon);
-				newStops__stop_lon.addValue(key_stops__stop_lon[2]);
-	    	}
+//				newStops__stop_lon.addValue(key_stops__stop_lon[2]);
+				newStops__stop_lon.addValue(getLon(stopId));
+	    	} 
 	    }
 	    
 	    // Roll stop locality and indicator into stopname
@@ -436,7 +446,21 @@ public class TransxchangeStops extends TransxchangeDataAspect{
 	    
 	}
 
-	public TransxchangeStops(TransxchangeHandler owner) {
+	public String getLat(String stop) { // v1.5: Return lat
+		if (lat.containsKey(stop))
+			return (String)lat.get(stop);
+		else
+			return key_stops__stop_lat[2];
+	}
+	public String getLon(String stop) { // v1.5: Return lon
+		if (lon.containsKey(stop))
+			return (String)lon.get(stop);
+		else
+			return key_stops__stop_lon[2];
+	}
+
+	public TransxchangeStops(TransxchangeHandler owner) 
+		throws UnsupportedEncodingException, IOException {
 		super(owner);
 		listStops__stop_id = new ArrayList();
 		listStops__stop_name = new ArrayList();
@@ -451,5 +475,34 @@ public class TransxchangeStops extends TransxchangeDataAspect{
 		
 		_listStops__stop_locality = new ArrayList();
 		_listStops__stop_indicator = new ArrayList();
+		
+		/*
+		 * v1.5: Read stop coordinates from uk stop file
+		 */
+		String ukStopsFileName = "/data/ukstops.csv";
+		URL urlFileName = getClass().getResource(ukStopsFileName);
+		URLDecoder.decode(urlFileName.getFile(), "UTF-8");
+		InputStream inStream = urlFileName.openStream();
+		InputStreamReader inStreamReader = new InputStreamReader(inStream);
+		BufferedReader bufFileIn = new BufferedReader(inStreamReader);
+
+		lat = new HashMap();		
+		lon = new HashMap();		
+		String line;
+		String tokens[] = {"", "", ""};
+		while((line = bufFileIn.readLine()) != null) {
+			StringTokenizer st = new StringTokenizer(line, ",");
+			int i = 0;
+			while (st.hasMoreTokens() && i < 3) {
+				tokens[i] = st.nextToken();
+				i++;
+			}
+			lat.put(tokens[0], tokens[1]);
+			lon.put(tokens[0], tokens[2]);
+			tokens[0] = "";
+			tokens[1] = "";
+			tokens[2] = "";
+		}
+		inStream.close();
 	}
 }

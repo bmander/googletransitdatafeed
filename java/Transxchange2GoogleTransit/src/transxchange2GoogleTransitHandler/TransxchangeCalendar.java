@@ -30,11 +30,11 @@ public class TransxchangeCalendar extends TransxchangeDataAspect {
 
 	// xml keys and output field fillers
 	static final String[] key_calendar__service_id = new String[] {"Service", "ServiceCode", "OpenRequired"}; // Google Transit required
-	static final String[] key_calendar__monday = new String[] {"__transxchange2GoogleTransit_drawDefault", "", "1"}; // Google Transit required
-	static final String[] key_calendar__tuesday = new String[] {"__transxchange2GoogleTransit_drawDefault", "", "1"}; // Google Transit required
-	static final String[] key_calendar__wednesday = new String[] {"__transxchange2GoogleTransit_drawDefault", "", "1"}; // Google Transit required
-	static final String[] key_calendar__thursday = new String[] {"__transxchange2GoogleTransit_drawDefault", "", "1"}; // Google Transit required
-	static final String[] key_calendar__friday = new String[] {"__transxchange2GoogleTransit_drawDefault", "", "1"}; // Google Transit required
+	static final String[] key_calendar__monday = new String[] {"__transxchange2GoogleTransit_drawDefault", "", "0"}; // Google Transit required
+	static final String[] key_calendar__tuesday = new String[] {"__transxchange2GoogleTransit_drawDefault", "", "0"}; // Google Transit required
+	static final String[] key_calendar__wednesday = new String[] {"__transxchange2GoogleTransit_drawDefault", "", "0"}; // Google Transit required
+	static final String[] key_calendar__thursday = new String[] {"__transxchange2GoogleTransit_drawDefault", "", "0"}; // Google Transit required
+	static final String[] key_calendar__friday = new String[] {"__transxchange2GoogleTransit_drawDefault", "", "0"}; // Google Transit required
 	static final String[] key_calendar__saturday = new String[] {"__transxchange2GoogleTransit_drawDefault", "", "0"}; // Google Transit required
 	static final String[] key_calendar__sunday = new String[] {"__transxchange2GoogleTransit_drawDefault", "", "0"}; // Google Transit required
 	static final String[] key_calendar__start_date = new String[] {"Service", "StartDate", "20060901"}; // Google Transit required
@@ -89,6 +89,7 @@ public class TransxchangeCalendar extends TransxchangeDataAspect {
 	String friday = "";
 	String saturday = "";
 	String sunday = "";
+	boolean watchForNotDays = false; // v1.5: This works in conjunction with keyDaysOfWeek. If not-day like </NotTuesday> occurs without prior definition of daytype, reverse initial 0000000 Mon-Sun 
 
 	public List getListCalendar__service_id() {
 		return listCalendar__service_id;
@@ -128,7 +129,8 @@ public class TransxchangeCalendar extends TransxchangeDataAspect {
 	public void startElement(String uri, String name, String qName, Attributes atts)
 		throws SAXParseException {
 	    super.startElement(uri, name, qName, atts);
-	    if (qName.equals(key_calendar__service_id[0])) 
+	    
+    	if (qName.equals(key_calendar__service_id[0])) 
 			key = key_calendar__service_id[0];
 	    if (key.equals(key_calendar__service_id[0]) && qName.equals(key_calendar__service_id[1])) { // && keyOperationDays.length() == 0) {
 	    	keyNested = key_calendar__service_id[1];
@@ -155,6 +157,7 @@ public class TransxchangeCalendar extends TransxchangeDataAspect {
 	    	friday = key_calendar__friday[2];
 	    	saturday = key_calendar__saturday[2];
 	    	sunday = key_calendar__sunday[2];
+	    	watchForNotDays = true; // v1.5: This works in conjunction with keyDaysOfWeek. If not-day like </NotTuesday> occurs without prior definition of daytype, reverse initial 0000000 Mon-Sun
 	    }
 	}
 
@@ -227,48 +230,126 @@ public class TransxchangeCalendar extends TransxchangeDataAspect {
 			sunday = "1";
 		}
 		if (keyDaysOfWeek.equals(_key_daytype_not_mo[2]) && qName.equals(_key_daytype_not_mo[3])) {
+			if (watchForNotDays) {
+				tuesday = "1"; // v1.5: For first not-day </NotMonday>: reverse initial 0000000 Mon-Sun
+				wednesday = "1";
+				thursday = "1";
+				friday = "1";
+				saturday = "1";
+				sunday = "1";
+				watchForNotDays = false;
+			}
 			monday = "0";
 		}
 		if (keyDaysOfWeek.equals(_key_daytype_not_tu[2]) && qName.equals(_key_daytype_not_tu[3])) {
+			if (watchForNotDays) {
+				monday = "1"; // v1.5: For first not-day </NotTuesday>: reverse initial 0000000 Mon-Sun
+				wednesday = "1";
+				thursday = "1";
+				friday = "1";
+				saturday = "1";
+				sunday = "1";
+				watchForNotDays = false;
+			}
 			tuesday = "0";
 		}
 		if (keyDaysOfWeek.equals(_key_daytype_not_we[2]) && qName.equals(_key_daytype_not_we[3])) {
+			if (watchForNotDays) {
+				monday = "1"; // v1.5: For first not-day </NotWednesday>: reverse initial 0000000 Mon-Sun
+				tuesday = "1";
+				thursday = "1";
+				friday = "1";
+				saturday = "1";
+				sunday = "1";
+				watchForNotDays = false;
+			}
 			wednesday = "0";
 		}
 		if (keyDaysOfWeek.equals(_key_daytype_not_th[2]) && qName.equals(_key_daytype_not_th[3])) {
+			if (watchForNotDays) {
+				monday = "1"; // v1.5: For first not-day </NotThursday>: reverse initial 0000000 Mon-Sun
+				tuesday = "1";
+				wednesday = "1";
+				friday = "1";
+				saturday = "1";
+				sunday = "1";
+				watchForNotDays = false;
+			}
 			thursday = "0";
 		}
 		if (keyDaysOfWeek.equals(_key_daytype_not_fr[2]) && qName.equals(_key_daytype_not_fr[3])) {
+			if (watchForNotDays) {
+				monday = "1"; // v1.5: For first not-day </NotFriday>: reverse initial 0000000 Mon-Sun
+				tuesday = "1";
+				wednesday = "1";
+				thursday = "1";
+				saturday = "1";
+				sunday = "1";
+				watchForNotDays = false;
+			}
 			friday = "0";
 		}
 		if (keyDaysOfWeek.equals(_key_daytype_not_sa[2]) && qName.equals(_key_daytype_not_sa[3])) {
+			if (watchForNotDays) {
+				monday = "1"; // v1.5: For first not-day </NotSaturday>: reverse initial 0000000 Mon-Sun
+				tuesday = "1";
+				wednesday = "1";
+				thursday = "1";
+				friday = "1";
+				sunday = "1";
+				watchForNotDays = false;
+			}
 			saturday = "0";
 		}
 		if (keyDaysOfWeek.equals(_key_daytype_not_su[2]) && qName.equals(_key_daytype_not_su[3])) {
+			if (watchForNotDays) {
+				monday = "1"; // v1.5: For first not-day </NotSunday>: reverse initial 0000000 Mon-Sun
+				tuesday = "1";
+				wednesday = "1";
+				thursday = "1";
+				friday = "1";
+				saturday = "1";
+				watchForNotDays = false;
+			}
 			sunday = "0";
 		}
 		if (qName.equals(keyDaysOfWeek)) {
+			watchForNotDays = false; // v1.5 we found a daytype definition - run with it for the rest of the <DaysOfWeek>
 	   		newCalendar__monday = new ValueList(key_calendar__monday[0]);
 	   		listCalendar__monday.add(newCalendar__monday);
 	   		newCalendar__monday.addValue(monday);
+	   		newCalendar__monday.addValue(handler.getTrips().getJourneyPattern()); // v1.5: capture JourneyPattern specific OperatingProfile
+	   		newCalendar__monday.addValue(service); // and service
 	   		newCalendar__tuesday = new ValueList(key_calendar__tuesday[0]);
 	   		listCalendar__tuesday.add(newCalendar__tuesday);
 	   		newCalendar__tuesday.addValue(tuesday);
+	   		newCalendar__tuesday.addValue(handler.getTrips().getJourneyPattern()); // v1.5: capture JourneyPattern specific OperatingProfile
+	   		newCalendar__tuesday.addValue(service); // and service
 	   		newCalendar__wednesday = new ValueList(key_calendar__wednesday[0]);
 	   		listCalendar__wednesday.add(newCalendar__wednesday);
 	   		newCalendar__wednesday.addValue(wednesday);
+	   		newCalendar__wednesday.addValue(handler.getTrips().getJourneyPattern()); // v1.5: capture JourneyPattern specific OperatingProfile
+	   		newCalendar__wednesday.addValue(service); // and service
 	   		newCalendar__thursday = new ValueList(key_calendar__thursday[0]);
 	   		listCalendar__thursday.add(newCalendar__thursday);
 	   		newCalendar__thursday.addValue(thursday);
+	   		newCalendar__thursday.addValue(handler.getTrips().getJourneyPattern()); // v1.5: capture JourneyPattern specific OperatingProfile
+	   		newCalendar__thursday.addValue(service); // and service
 	   		newCalendar__friday = new ValueList(key_calendar__friday[0]);
 	   		listCalendar__friday.add(newCalendar__friday);
 	   		newCalendar__friday.addValue(friday);
+	   		newCalendar__friday.addValue(handler.getTrips().getJourneyPattern()); // v1.5: capture JourneyPattern specific OperatingProfile
+	   		newCalendar__friday.addValue(service); // and service
 	   		newCalendar__saturday = new ValueList(key_calendar__saturday[0]);
 	   		listCalendar__saturday.add(newCalendar__saturday);
 	   		newCalendar__saturday.addValue(saturday);
+	   		newCalendar__saturday.addValue(handler.getTrips().getJourneyPattern()); // v1.5: capture JourneyPattern specific OperatingProfile
+	   		newCalendar__saturday.addValue(service); // and service
 	   		newCalendar__sunday = new ValueList(key_calendar__sunday[0]);
 	   		listCalendar__sunday.add(newCalendar__sunday);
 	   		newCalendar__sunday.addValue(sunday);
+	   		newCalendar__sunday.addValue(handler.getTrips().getJourneyPattern()); // v1.5: capture JourneyPattern specific OperatingProfile
+	   		newCalendar__sunday.addValue(service); // and service
 		}
 	}
 
@@ -282,9 +363,12 @@ public class TransxchangeCalendar extends TransxchangeDataAspect {
 		if (qName.equals(key_calendar__service_id[0])) {
 			key = "";
 			service = "";
+			handler.getTrips().setJourneyPattern(""); // v1.5: clear JourneyPattern at end of service
 		}
-		if (qName.equals(keyDaysOfWeek))
+		if (qName.equals(keyDaysOfWeek)) {
 			keyDaysOfWeek = "";
+			watchForNotDays = false; // v1.5: This works in conjunction with keyDaysOfWeek. If not-day like </NotTuesday> occurs without prior definition of daytype, reverse initial 0000000 Mon-Sun
+		}
 	}
 
 	public void completeData() {
@@ -351,42 +435,52 @@ public class TransxchangeCalendar extends TransxchangeDataAspect {
 		ValueList iterator;
 		
 	    System.out.println("*** Calendar");
+	    System.out.println("***** Service ID");
 	    for (i = 0; i < listCalendar__service_id.size(); i++) {
 	    	iterator = (ValueList)listCalendar__service_id.get(i);
 	    	iterator.dumpValues();
 	    }
+	    System.out.println("***** Start date");
 	    for (i = 0; i < listCalendar__start_date.size(); i++) {
 	    	iterator = (ValueList)listCalendar__start_date.get(i);
 	    	iterator.dumpValues();
 	    }
+	    System.out.println("***** End date");
 	    for (i = 0; i < listCalendar__end_date.size(); i++) {
 	    	iterator = (ValueList)listCalendar__end_date.get(i);
 	    	iterator.dumpValues();
 	    }
+	    System.out.println("***** Mondays");
 	    for (i = 0; i < listCalendar__monday.size(); i++) {
 	    	iterator = (ValueList)listCalendar__monday.get(i);
 	    	iterator.dumpValues();
 	    }
+	    System.out.println("***** Tuesdays");
 	    for (i = 0; i < listCalendar__tuesday.size(); i++) {
 	    	iterator = (ValueList)listCalendar__tuesday.get(i);
 	    	iterator.dumpValues();
 	    }
+	    System.out.println("***** Wednesdays");
 	    for (i = 0; i < listCalendar__wednesday.size(); i++) {
 	    	iterator = (ValueList)listCalendar__wednesday.get(i);
 	    	iterator.dumpValues();
 	    }
+	    System.out.println("***** Thursdays");
 	    for (i = 0; i < listCalendar__thursday.size(); i++) {
 	    	iterator = (ValueList)listCalendar__thursday.get(i);
 	    	iterator.dumpValues();
 	    }
+	    System.out.println("***** Fridays");  
 	    for (i = 0; i < listCalendar__friday.size(); i++) {
 	    	iterator = (ValueList)listCalendar__friday.get(i);
 	    	iterator.dumpValues();
 	    }
+	    System.out.println("***** Saturdays");
 	    for (i = 0; i < listCalendar__saturday.size(); i++) {
 	    	iterator = (ValueList)listCalendar__saturday.get(i);
 	    	iterator.dumpValues();
 	    }
+	    System.out.println("***** Sundays");
 	    for (i = 0; i < listCalendar__sunday.size(); i++) {
 	    	iterator = (ValueList)listCalendar__sunday.get(i);
 	    	iterator.dumpValues();

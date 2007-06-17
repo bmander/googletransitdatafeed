@@ -45,6 +45,11 @@ public class TransxchangeCalendarDates extends TransxchangeDataAspect {
 	ValueList newCalendarDates__date;
 	List listCalendarDates__exception_type;
 	ValueList newCalendarDates__exception_type;
+	List listCalendar_OOL_start_date = null; // v1.5: Out-of-line date range start date. A out-of-line date range is a date range which is not associated to a service
+	ValueList newCalendar_OOL_start_date;
+	List listCalendar_OOL_end_date = null;  // v1.5: Out-of-line date range end date
+	ValueList newCalendar_OOL_end_date;
+	
 
 	// XML markups
 	static final String[] _key_calendar_dates_start = {"Service", "SpecialDaysOperation", "DaysOfOperation", "StartDate", "1"};
@@ -57,7 +62,7 @@ public class TransxchangeCalendarDates extends TransxchangeDataAspect {
 	String keyOperationDaysStart = "";
 
 	// Some support variables
-	String calendarDatesOperationDaysStart = "";
+	String calendarDateOperationDayStart = "";
 	boolean dayOfNoOperation = false;
 	
 	/*
@@ -73,6 +78,26 @@ public class TransxchangeCalendarDates extends TransxchangeDataAspect {
 
 	public List getListCalendarDates__exception_type() {
 		return listCalendarDates__exception_type;
+	}
+
+	// v1.5: Out-of-line dates start
+	public List getListOOLDates_start() {
+		return listCalendar_OOL_start_date;
+	}
+
+	// v1.5: Out-of-line dates end
+	public List getListOOLDates_end() {
+		return listCalendar_OOL_end_date;
+	}
+
+	// v1.5: Reset out-of-line date list
+	public void resetOOLDates_start() {
+		listCalendar_OOL_start_date = null;
+	}
+
+	// v1.5: Reset out-of-line date list
+	public void resetOOLDates_end() {
+		listCalendar_OOL_end_date = null;		
 	}
 
 	public void startElement(String uri, String name, String qName, Attributes atts)
@@ -118,34 +143,55 @@ public class TransxchangeCalendarDates extends TransxchangeDataAspect {
 			return;
 		
         if (key.equals(_key_calendar_dates_start[0]) && keyNested.equals(_key_calendar_dates_start[1]) && (keyOperationDays.equals(_key_calendar_dates_start[2]) || keyOperationDays.equals(_key_calendar_no_dates_end[2])) && keyOperationDaysStart.equals(_key_calendar_dates_start[3]))
-        	calendarDatesOperationDaysStart = niceString;
+        	calendarDateOperationDayStart = niceString;
         if (key.equals(_key_calendar_dates_end[0]) && keyNested.equals(_key_calendar_dates_end[1]) && (keyOperationDays.equals(_key_calendar_dates_end[2]) || keyOperationDays.equals(_key_calendar_no_dates_end[2])) && keyOperationDaysStart.equals(_key_calendar_dates_end[3])) {       		
         	try {
         		SimpleDateFormat sdfIn = new SimpleDateFormat("yyyy-MM-dd", Locale.US); // US - determined by location of Google Labs, not transit operator
         		sdfIn.setCalendar(Calendar.getInstance());
-            	Date calendarDatesOperationDay = sdfIn.parse(calendarDatesOperationDaysStart);
+            	Date calendarDatesOperationDay = sdfIn.parse(calendarDateOperationDayStart);
             	Date calendarDateOperationDayEnd = sdfIn.parse(niceString);
             	GregorianCalendar gcOperationDay = new GregorianCalendar();
            		gcOperationDay.setTime(calendarDatesOperationDay);           		
-           		while (calendarDatesOperationDay.compareTo(calendarDateOperationDayEnd) <= 0) {
-           			newCalendarDates__service_id = new ValueList(_key_calendar_dates_start[0]);
-           			listCalendarDates__service_id.add(newCalendarDates__service_id);
-           			service = handler.getCalendar().getService();
-           			if (service.length() == 0) // Out-of-line OperatingProfile? E.g. special operations days for a single vehicle journey as opposed for a service. This is not compliant with TransXChange 2.1 as well as Google Transit Feed Specification
-           				throw new SAXParseException("Out of line SpecialDaysOperation: " + calendarDatesOperationDaysStart + " must be associated to a service.", null);
-           			newCalendarDates__service_id.addValue(handler.getCalendar().getService());
-           			newCalendarDates__date = new ValueList(_key_calendar_dates_start[2]);
-           			listCalendarDates__date.add(newCalendarDates__date);
-					newCalendarDates__date.addValue(TransxchangeDataAspect.formatDate(gcOperationDay.get(Calendar.YEAR), gcOperationDay.get(Calendar.MONTH) + 1, gcOperationDay.get(Calendar.DAY_OF_MONTH)));
-           			newCalendarDates__exception_type = new ValueList(_key_calendar_dates_start[2]);
-           			listCalendarDates__exception_type.add(newCalendarDates__exception_type);
-                	if (dayOfNoOperation) {
-               			newCalendarDates__exception_type.addValue(_key_calendar_no_dates_start[4]);
-                	} else {
-               			newCalendarDates__exception_type.addValue(_key_calendar_dates_start[4]);
-                	}
-                	gcOperationDay.add(Calendar.DAY_OF_YEAR, 1);
-            		calendarDatesOperationDay = gcOperationDay.getTime();
+      			service = handler.getCalendar().getService();
+    			if (service.length() == 0) { // v1.5: Out-of-line OperatingProfile? E.g. special operations days for a single vehicle journey as opposed for a service. 
+    				if (listCalendar_OOL_start_date == null)
+    					listCalendar_OOL_start_date = new ArrayList(); // If previously found OOL dates were read and reset some place else, recreate list 
+    				if (listCalendar_OOL_end_date == null)
+    					listCalendar_OOL_end_date = new ArrayList(); 
+    				newCalendar_OOL_start_date = new ValueList(_key_calendar_dates_start[0]);
+    				listCalendar_OOL_start_date.add(newCalendar_OOL_start_date);
+    				newCalendar_OOL_start_date.addValue(TransxchangeDataAspect.formatDate(gcOperationDay.get(Calendar.YEAR), gcOperationDay.get(Calendar.MONTH) + 1, gcOperationDay.get(Calendar.DAY_OF_MONTH)));
+               		gcOperationDay.setTime(calendarDateOperationDayEnd);           		
+    				newCalendar_OOL_end_date = new ValueList(_key_calendar_dates_end[0]);
+    				listCalendar_OOL_end_date.add(newCalendar_OOL_end_date);
+    				newCalendar_OOL_end_date.addValue(TransxchangeDataAspect.formatDate(gcOperationDay.get(Calendar.YEAR), gcOperationDay.get(Calendar.MONTH) + 1, gcOperationDay.get(Calendar.DAY_OF_MONTH)));
+    				
+    				
+    				
+    				
+    				//       				System.out.println("Out of line SpecialDaysOperation. Start: " + calendarDateOperationDayStart + "End: " + calendarDateOperationDayEnd);
+//      				service = "hier geht's weiter - Spezielle Datenstruktur, die in TransxchangeTrips abgerufen wird"; // set flag in service. Resolved in TransxchangeTrips 
+//					throw new SAXParseException("Out of line SpecialDaysOperation: " + calendarDatesOperationDaysStart + " must be associated to a service.", null);
+    				
+    				
+    			} else {
+    				while (calendarDatesOperationDay.compareTo(calendarDateOperationDayEnd) <= 0) {
+    					newCalendarDates__service_id = new ValueList(_key_calendar_dates_start[0]);
+    					listCalendarDates__service_id.add(newCalendarDates__service_id);
+    					newCalendarDates__service_id.addValue(service); // handler.getCalendar().getService());
+    					newCalendarDates__date = new ValueList(_key_calendar_dates_start[2]);
+    					listCalendarDates__date.add(newCalendarDates__date);
+    					newCalendarDates__date.addValue(TransxchangeDataAspect.formatDate(gcOperationDay.get(Calendar.YEAR), gcOperationDay.get(Calendar.MONTH) + 1, gcOperationDay.get(Calendar.DAY_OF_MONTH)));
+    					newCalendarDates__exception_type = new ValueList(_key_calendar_dates_start[2]);
+    					listCalendarDates__exception_type.add(newCalendarDates__exception_type);
+    					if (dayOfNoOperation) {
+    						newCalendarDates__exception_type.addValue(_key_calendar_no_dates_start[4]);
+    					} else {
+    						newCalendarDates__exception_type.addValue(_key_calendar_dates_start[4]);
+    					}
+    					gcOperationDay.add(Calendar.DAY_OF_YEAR, 1);
+    					calendarDatesOperationDay = gcOperationDay.getTime();
+               		}
            		}
         	} catch (Exception e) {
         		handler.setParseError(e.getMessage()); //"Exception: Calendar start date does not read " + calendarDatesOperationDaysStart);
@@ -159,7 +205,7 @@ public class TransxchangeCalendarDates extends TransxchangeDataAspect {
 	    if (key.equals(_key_calendar_dates_end[0]) && keyNested.equals(_key_calendar_dates_end[1]) && (keyOperationDays.equals(_key_calendar_dates_end[2]) || keyOperationDays.equals(_key_calendar_no_dates_end[2]))&& keyOperationDaysStart.equals(_key_calendar_dates_end[3]))
 	    	keyOperationDaysStart = "";
 	    	else
-	    		if (key.equals(_key_calendar_dates_end[0]) && keyNested.equals(_key_calendar_dates_end[1]) && (keyOperationDays.equals(_key_calendar_dates_end[2]) || keyOperationDays.equals(_key_calendar_no_dates_end[2])) && keyOperationDaysStart.length() == 0)
+	    		if (key.equals(_key_calendar_dates_end[0]) && keyNested.equals(_key_calendar_dates_end[1]) && (keyOperationDays.equals(_key_calendar_dates_end[2]) || keyOperationDays.equals(_key_calendar_no_dates_end[2])) && keyOperationDaysStart.length() == 0 && (qName.equals(_key_calendar_dates_start[2]) || qName.equals(_key_calendar_no_dates_start[2])))
 	    			keyOperationDays = "";
 }
 

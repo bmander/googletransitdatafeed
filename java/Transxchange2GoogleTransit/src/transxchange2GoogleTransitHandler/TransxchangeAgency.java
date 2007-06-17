@@ -29,11 +29,16 @@ import org.xml.sax.SAXParseException;
 public class TransxchangeAgency extends TransxchangeDataAspect {
 
 	// xml keys and output field fillers
-	static final String[] key_agency__agency_name = new String[] {"OperatorShortName", "", "OpenRequired"}; // Google Transit required
+//	static final String[] key_agency__agency_name = new String[] {"OperatorShortName", "", "OpenRequired"}; // v1.5: Read OperatorNameOnLicense in place of OperatorShortName
+	static final String[] key_agency__agency_id = new String[] {"Operator", "", "OpenRequired"}; // v1.5: Read Operator id Google Transit required
+	static final String[] key_agency__agency_lid = new String[] {"LicensedOperator", "", "OpenRequired"}; // v1.5: Read Operator id Google Transit required
+	static final String[] key_agency__agency_name = new String[] {"OperatorNameOnLicence", "", "OpenRequired"}; // Google Transit required
 	static final String[] key_agency__agency_url = new String[] {"EmailAddress", "", "OpenRequired"}; // Google Transit required
 	static final String[] key_agency__agency_timezone = new String[] {"__transxchange2GoogleTransit_drawDefault", "", ""}; // Google Transit required
 
 	// Parsed data
+	List listAgency__agency_id; // v1.5: Read Operator ID
+	ValueList newAgency__agency_id;
 	List listAgency__agency_name;
 	ValueList newAgency__agency_name;
 	List listAgency__agency_url;
@@ -41,6 +46,9 @@ public class TransxchangeAgency extends TransxchangeDataAspect {
 	List listAgency__agency_timezone;
 	ValueList newAgency__agency_timezone;
 	
+	public List getListAgency__agency_id() { // v1.5: Read Operator ID
+		return listAgency__agency_id;
+	}
 	public List getListAgency__agency_name() {
 		return listAgency__agency_name;
 	}
@@ -53,8 +61,19 @@ public class TransxchangeAgency extends TransxchangeDataAspect {
 	
 	public void startElement(String uri, String name, String qName, Attributes atts)
 		throws SAXParseException {
+
+		int qualifierIx;
+	    String qualifierString;
 	
 		super.startElement(uri, name, qName, atts);
+
+		if (qName.equals(key_agency__agency_id[0]) || qName.equals(key_agency__agency_lid[0])) { // v1.5: new: agency id
+        	qualifierIx = atts.getIndex("id");
+        	qualifierString = atts.getValue(qualifierIx);
+        	newAgency__agency_id = new ValueList(key_agency__agency_id[0]);
+        	listAgency__agency_id.add(newAgency__agency_id);
+        	newAgency__agency_id.addValue(qualifierString);
+		}
 		if (qName.equals(key_agency__agency_name[0])) 
 			key = key_agency__agency_name[0];
 		if (qName.equals(key_agency__agency_url[0]))
@@ -72,6 +91,8 @@ public class TransxchangeAgency extends TransxchangeDataAspect {
 	}
 
 	public void clearKeys (String qName) {
+		if (qName.equals(key_agency__agency_id[0])) // v1.5: new: agency ID
+			key = "";
 		if (qName.equals(key_agency__agency_name[0])) 
 			key = "";
 		if (qName.equals(key_agency__agency_url[0])) 
@@ -106,6 +127,7 @@ public class TransxchangeAgency extends TransxchangeDataAspect {
   	    }
   	    
   	    // Add quotes if needed
+  	    csvProofList(listAgency__agency_id); // v1.5: new: agency id
   	    csvProofList(listAgency__agency_name);
   	    csvProofList(listAgency__agency_url);
   	    csvProofList(listAgency__agency_timezone);
@@ -116,6 +138,10 @@ public class TransxchangeAgency extends TransxchangeDataAspect {
 		ValueList iterator = null;
 		 
 		System.out.println("*** Agency");
+		for (i = 0; i < listAgency__agency_id.size(); i++) {
+		    iterator = (ValueList)listAgency__agency_id.get(i);
+		    iterator.dumpValues();
+		}
 		for (i = 0; i < listAgency__agency_name.size(); i++) {
 		    iterator = (ValueList)listAgency__agency_name.get(i);
 		    iterator.dumpValues();
@@ -132,6 +158,7 @@ public class TransxchangeAgency extends TransxchangeDataAspect {
 	 
 	public TransxchangeAgency(TransxchangeHandler owner) {
 		super (owner);
+		listAgency__agency_id = new ArrayList(); // v1.5: new: agency ID
 		listAgency__agency_name = new ArrayList();
 		listAgency__agency_url = new ArrayList();
 		listAgency__agency_timezone = new ArrayList();

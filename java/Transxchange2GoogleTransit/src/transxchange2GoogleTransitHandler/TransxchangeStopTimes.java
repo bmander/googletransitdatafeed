@@ -78,13 +78,16 @@ public class TransxchangeStopTimes extends TransxchangeDataAspect {
 	static final String[] _key_journeypattern_section = {"JourneyPatternSection"};
 	static final String[] _key_journeypattern_timinglink = {"JourneyPatternSection", "JourneyPatternTimingLink"};
 	static final String[] _key_stoptimes_from = new String [] {"JourneyPatternTimingLink", "From", "StopPointRef"};
-	static final String[] _key_stoptimes_waittime = new String [] {"JourneyPatternTimingLink", "From", "WaitTime"};
+	static final String[] _key_stoptimes_waittimeto = new String [] {"JourneyPatternTimingLink", "To", "WaitTime"}; // v1.5: waitTimeTo link
+	static final String[] _key_stoptimes_waittimefrom = new String [] {"JourneyPatternTimingLink", "From", "WaitTime"}; // v1.5: waitTimeFrom link
 	static final String[] _key_stoptimes_to = new String [] {"JourneyPatternTimingLink", "To", "StopPointRef"};
 	static final String[] _key_stoptimes_runtime = new String [] {"JourneyPatternTimingLink", "RunTime"};
 	boolean inJourneyPatternSection = false;
 	String keyNestedRunTime = "";
 	String runTime = "";
-	String waitTime = "";
+	String waitTimeTo = ""; // v1.5 waitTimeTo link
+	String waitTimeToDeferred = ""; // v1.5 deferred waitTimeTo - required to correecly assign wait time leading TO timing link, i.e. next TimingLink
+	String waitTimeFrom = ""; // v1.5 waitTimeFrom link
 	String journeyPatternTimingLink = "";
 	String journeyPatternSection = "";
 	List _listTimingLinksJourneyPatternTimingLink;
@@ -165,16 +168,20 @@ public class TransxchangeStopTimes extends TransxchangeDataAspect {
 		}
 		if (key.equals(_key_stoptimes_from[0]) && (keyNested.equals(_key_stoptimes_from[1])) && qName.equals(_key_stoptimes_from[2]))
 			keyNestedRunTime = _key_stoptimes_from[2];
-		if (key.equals(_key_stoptimes_waittime[0]) && (keyNested.equals(_key_stoptimes_waittime[1])) && qName.equals(_key_stoptimes_waittime[2]))
-			keyNestedRunTime = _key_stoptimes_waittime[2];
+		if (key.equals(_key_stoptimes_waittimeto[0]) && (keyNested.equals(_key_stoptimes_waittimeto[1])) && qName.equals(_key_stoptimes_waittimeto[2]))
+			keyNestedRunTime = _key_stoptimes_waittimeto[2];
+		if (key.equals(_key_stoptimes_waittimefrom[0]) && (keyNested.equals(_key_stoptimes_waittimefrom[1])) && qName.equals(_key_stoptimes_waittimefrom[2]))
+			keyNestedRunTime = _key_stoptimes_waittimefrom[2];
 		if (key.equals(_key_stoptimes_to[0]) && (keyNested.equals(_key_stoptimes_to[1])) && qName.equals(_key_stoptimes_to[2]))
 			keyNestedRunTime = _key_stoptimes_to[2];
 		if (key.equals(_key_stoptimes_to[0]) && qName.equals(_key_stoptimes_to[1]))
 			keyNested = _key_stoptimes_to[1];
 		if (key.equals(_key_stoptimes_from[0]) && qName.equals(_key_stoptimes_from[1]))
 			keyNested = _key_stoptimes_from[1];
-		if (key.equals(_key_stoptimes_waittime[0]) && qName.equals(_key_stoptimes_waittime[1]))
-			keyNested = _key_stoptimes_waittime[1];
+		if (key.equals(_key_stoptimes_waittimeto[0]) && qName.equals(_key_stoptimes_waittimeto[1]))
+			keyNested = _key_stoptimes_waittimeto[1];
+		if (key.equals(_key_stoptimes_waittimefrom[0]) && qName.equals(_key_stoptimes_waittimefrom[1]))
+			keyNested = _key_stoptimes_waittimefrom[1];
 		if (key.equals(_key_stoptimes_runtime[0]) && qName.equals(_key_stoptimes_runtime[1]))
 			keyNested = _key_stoptimes_runtime[1];
 		if (qName.equals(_key_stoptimes_from[0])) 	// this also covers _runtime and _waittime
@@ -225,8 +232,12 @@ public class TransxchangeStopTimes extends TransxchangeDataAspect {
 	    	stopPointFrom = niceString; 
 	    	keyNestedRunTime = "";
 	    }
-	    if (key.equals(_key_stoptimes_waittime[0]) && keyNested.equals(_key_stoptimes_waittime[1])&& keyNestedRunTime.equals(_key_stoptimes_waittime[2])) {
-	    	waitTime = niceString; 
+	    if (key.equals(_key_stoptimes_waittimeto[0]) && keyNested.equals(_key_stoptimes_waittimeto[1])&& keyNestedRunTime.equals(_key_stoptimes_waittimeto[2])) { // v1.5: Set waitTimeTo
+	    	waitTimeTo = niceString; 
+	    	keyNestedRunTime = "";
+	    }
+	    if (key.equals(_key_stoptimes_waittimefrom[0]) && keyNested.equals(_key_stoptimes_waittimefrom[1])&& keyNestedRunTime.equals(_key_stoptimes_waittimefrom[2])) {
+	    	waitTimeFrom = niceString; 
 	    	keyNestedRunTime = "";
 	    }
 	    if (key.equals(_key_stoptimes_to[0]) && keyNested.equals(_key_stoptimes_to[1])&& keyNestedRunTime.equals(_key_stoptimes_to[2])) {
@@ -247,9 +258,15 @@ public class TransxchangeStopTimes extends TransxchangeDataAspect {
 	    	newTimingLinksRunTime = new ValueList(stopPointFrom);
 	    	_listTimingLinksRunTime.add(newTimingLinksRunTime);
 	    	newTimingLinksRunTime.addValue(niceString);
-	    	if (waitTime.length() > 0) {
-	        	newTimingLinksRunTime.addValue(waitTime);
-	        	waitTime = "";
+	    	if (waitTimeToDeferred.length() > 0) { // v1.5: also add waitTime to link
+	        	newTimingLinksRunTime.addValue(waitTimeToDeferred);
+	        	waitTimeToDeferred = "";
+	      	}
+	    	waitTimeToDeferred = waitTimeTo; // Defer current wait time
+	    	waitTimeTo = "";
+	    	if (waitTimeFrom.length() > 0) {
+	        	newTimingLinksRunTime.addValue(waitTimeFrom);
+	        	waitTimeFrom = "";
 	      	}
 	    	stopPointFrom = "";
 	    	newTimingLinksJourneyPatternSection = new ValueList(_key_journeypattern_section[0]);
@@ -369,8 +386,16 @@ public class TransxchangeStopTimes extends TransxchangeDataAspect {
        							newStoptimes__arrival_time.addValue(TransxchangeDataAspect.formatTime(stopTimehhmmss[0], stopTimehhmmss[1]));
 	       						else
 	       							newStoptimes__arrival_time.addValue("");
-	       						if (((ValueList)_listTimingLinksRunTime.get(j)).getValue(1) != null) { // add wait time?
+	       						if (((ValueList)_listTimingLinksRunTime.get(j)).getValue(1) != null) { // add wait time #1 ?
 	       							waitTimeAdd = readTransxchangeFrequency((String)((ValueList)_listTimingLinksRunTime.get(j)).getValue(1));
+	           						stopTimehhmmss[1] += waitTimeAdd;
+	           						if (stopTimehhmmss[1] >= 60) {
+	           							stopTimehhmmss[1] -= 60;
+	           							stopTimehhmmss[0] += 1;
+	           						}
+	       						}
+	       						if (((ValueList)_listTimingLinksRunTime.get(j)).getValue(2) != null) { // add wait time # 2 ?
+	       							waitTimeAdd = readTransxchangeFrequency((String)((ValueList)_listTimingLinksRunTime.get(j)).getValue(2));
 	           						stopTimehhmmss[1] += waitTimeAdd;
 	           						if (stopTimehhmmss[1] >= 60) {
 	           							stopTimehhmmss[1] -= 60;

@@ -14,6 +14,13 @@
  * the License.
  */
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
 import transxchange2GoogleTransitHandler.*;
 
 /*
@@ -23,9 +30,11 @@ import transxchange2GoogleTransitHandler.*;
  * <default route type>: 0 - Tram, 1 - Subway, 2 - Rail, 3 - Bus, 4 - Ferry, 5 - Cable car, 6 - Gondola, 7 - Funicular
  */
 public class Transxchange2GoogleTransit {
-
+	
 	public static void main(String[] args) {
 
+		TransxchangeHandler handler = null;
+		
 		System.out.println();
         System.out.println("transxchange2GoogleTransit 1.5");
         System.out.println("Please refer to LICENSE file for licensing information");
@@ -42,15 +51,31 @@ public class Transxchange2GoogleTransit {
         }
         
         // Parse transxchange input file
-        TransxchangeHandler handler = new TransxchangeHandler();
         try {
+        	handler = new TransxchangeHandler();
         	handler.parse(args[0], args[1], args[2], args[3]);
-        } catch (Exception e) {
-        	System.out.println("transxchange2GoogleTransit parse error:");
+		} catch (ParserConfigurationException e) {
+        	System.out.println("transxchange2GoogleTransit ParserConfiguration parse error:");
         	System.out.println(e.getMessage());
-        	System.exit(1);
-        }
-     
+        	System.exit(1);			
+		}
+		catch (SAXException e) {
+			System.out.println("transxchange2GoogleTransit SAX parse error:");
+			System.out.println(e.getMessage());
+			System.out.println(e.getException());
+			System.exit(1);						
+		}
+		catch (UnsupportedEncodingException e) { // v1.5: resource file ukstops.txt incorrect encoding
+			System.out.println("transxchange2GoogleTransit ukstops.txt:");
+			System.out.println(e.getMessage());
+			System.exit(1);						
+		}
+ 		catch (IOException e) {
+			System.out.println("transxchange2GoogleTransit IO parse error:");
+			System.out.println(e.getMessage());
+			System.exit(1);						
+		}
+    
         // Create Google Transit output files
 		String outdir = "";
         if (args.length == 5)

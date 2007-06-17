@@ -228,13 +228,12 @@ public class TransxchangeHandler extends DefaultHandler {
 /* ... not
 		agencies.dumpValues();
 		stops.dumpValues();
-		routes.dumpValues();
-		trips.dumpValues();
-		stopTimes.dumpValues();
+		routes.dumpValues(); 
+		trips.dumpValues(); 
+		stopTimes.dumpValues(); 
 		calendar.dumpValues();
 		calendarDates.dumpValues();
-*/
-	}
+*/	}
 
 	/*
 	 * Create Google Transit Feed file set from Google Transit Feed data structures
@@ -257,8 +256,8 @@ public class TransxchangeHandler extends DefaultHandler {
         PrintWriter out = new PrintWriter(new FileWriter(outfile));
         out.println("agency_id,agency_name,agency_url,agency_timezone,agency_lang");
         for (int i = 0; i < this.getAgencies().getListAgency__agency_name().size(); i++) {
-        	out.print(","); // no agency id
-        	out.print(",");
+        	out.print(((ValueList)this.getAgencies().getListAgency__agency_id().get(i)).getValue(0)); // v1.5: new: agency id
+        	out.print(","); 
         	out.print(((ValueList)this.getAgencies().getListAgency__agency_name().get(i)).getValue(0));
         	out.print(",");
         	out.print(((ValueList)this.getAgencies().getListAgency__agency_url().get(i)).getValue(0));
@@ -369,28 +368,99 @@ public class TransxchangeHandler extends DefaultHandler {
         out.close();
         
         // calendar.txt
+        String daytypesJourneyPattern;
+        String daytypesService;
+        String serviceId;
+        
         outfileName = calendarFilename + /* "_" + serviceStartDate + */ extension;
         outfile = new File(outdir + "/" + serviceStartDate + "/" + outfileName);
         filenames.add(outfileName);
         out = new PrintWriter(new FileWriter(outfile));
         out.println("service_id,monday,tuesday,wednesday,thursday,friday,saturday,sunday,start_date,end_date");
         for (int i = 0; i < this.getCalendar().getListCalendar__service_id().size(); i++) {
-        	out.print(((ValueList)this.getCalendar().getListCalendar__service_id().get(i)).getValue(0));
+        	serviceId = (String)(((ValueList)this.getCalendar().getListCalendar__service_id().get(i))).getValue(0);
+        	out.print(serviceId);
         	out.print(",");
-        	out.print(((ValueList)this.getCalendar().getListCalendar__monday().get(i)).getValue(0));
+        	// v1.5: Service ID added to calendar data structure in class TransxchangeCalendar. 
+        	// 	If match and no journey pattern associated with daytype, 
+        	//  then daytype applies to service, not journey pattern. Otherwise daytpe is set to 0 as daytype applies to journey pattern, not service
+        	daytypesJourneyPattern = (String)((ValueList)this.getCalendar().getListCalendar__monday().get(i)).getValue(1); 
+        	daytypesService = (String)((ValueList)this.getCalendar().getListCalendar__monday().get(i)).getValue(2); 
+        	if (daytypesService == null)
+        		daytypesService = "";
+        	if (daytypesService.equals(serviceId) && daytypesJourneyPattern.length() == 0)
+        		out.print(((ValueList)this.getCalendar().getListCalendar__monday().get(i)).getValue(0));
+        	else
+        		out.print("0");
         	out.print(",");
-        	out.print(((ValueList)this.getCalendar().getListCalendar__tuesday().get(i)).getValue(0));
+
+        	// Tuesday
+           	daytypesJourneyPattern = (String)((ValueList)this.getCalendar().getListCalendar__tuesday().get(i)).getValue(1); 
+        	daytypesService = (String)((ValueList)this.getCalendar().getListCalendar__tuesday().get(i)).getValue(2); 
+        	if (daytypesService == null)
+        		daytypesService = "";
+        	if (daytypesService.equals(serviceId) && daytypesJourneyPattern.length() == 0)
+               	out.print(((ValueList)this.getCalendar().getListCalendar__tuesday().get(i)).getValue(0));
+        	else
+        		out.print("0");
         	out.print(",");
-        	out.print(((ValueList)this.getCalendar().getListCalendar__wednesday().get(i)).getValue(0));
+        	
+        	// Wednesday
+           	daytypesJourneyPattern = (String)((ValueList)this.getCalendar().getListCalendar__wednesday().get(i)).getValue(1); 
+        	daytypesService = (String)((ValueList)this.getCalendar().getListCalendar__wednesday().get(i)).getValue(2); 
+        	if (daytypesService == null)
+        		daytypesService = "";
+        	if (daytypesService.equals(serviceId) && daytypesJourneyPattern.length() == 0)
+            	out.print(((ValueList)this.getCalendar().getListCalendar__wednesday().get(i)).getValue(0));
+        	else
+        		out.print("0");
         	out.print(",");
-        	out.print(((ValueList)this.getCalendar().getListCalendar__thursday().get(i)).getValue(0));
+        	
+        	// Thursday
+           	daytypesJourneyPattern = (String)((ValueList)this.getCalendar().getListCalendar__thursday().get(i)).getValue(1); 
+        	daytypesService = (String)((ValueList)this.getCalendar().getListCalendar__thursday().get(i)).getValue(2); 
+        	if (daytypesService == null)
+        		daytypesService = "";
+        	if (daytypesService.equals(serviceId) && daytypesJourneyPattern.length() == 0)
+            	out.print(((ValueList)this.getCalendar().getListCalendar__thursday().get(i)).getValue(0));
+        	else
+        		out.print("0");
         	out.print(",");
-        	out.print(((ValueList)this.getCalendar().getListCalendar__friday().get(i)).getValue(0));
+
+        	// Friday
+          	daytypesJourneyPattern = (String)((ValueList)this.getCalendar().getListCalendar__friday().get(i)).getValue(1); 
+        	daytypesService = (String)((ValueList)this.getCalendar().getListCalendar__friday().get(i)).getValue(2); 
+        	if (daytypesService == null)
+        		daytypesService = "";
+        	if (daytypesService.equals(serviceId) && daytypesJourneyPattern.length() == 0)
+            	out.print(((ValueList)this.getCalendar().getListCalendar__friday().get(i)).getValue(0));
+        	else
+        		out.print("0");
         	out.print(",");
-        	out.print(((ValueList)this.getCalendar().getListCalendar__saturday().get(i)).getValue(0));
+
+        	// Saturday
+          	daytypesJourneyPattern = (String)((ValueList)this.getCalendar().getListCalendar__saturday().get(i)).getValue(1); 
+        	daytypesService = (String)((ValueList)this.getCalendar().getListCalendar__saturday().get(i)).getValue(2); 
+        	if (daytypesService == null)
+        		daytypesService = "";
+        	if (daytypesService.equals(serviceId) && daytypesJourneyPattern.length() == 0)
+        		out.print(((ValueList)this.getCalendar().getListCalendar__saturday().get(i)).getValue(0));
+        	else
+        		out.print("0");
         	out.print(",");
-        	out.print(((ValueList)this.getCalendar().getListCalendar__sunday().get(i)).getValue(0));
+        	
+        	// Sunday
+          	daytypesJourneyPattern = (String)((ValueList)this.getCalendar().getListCalendar__sunday().get(i)).getValue(1); 
+        	daytypesService = (String)((ValueList)this.getCalendar().getListCalendar__sunday().get(i)).getValue(2); 
+        	if (daytypesService == null)
+        		daytypesService = "";
+        	if (daytypesService.equals(serviceId) && daytypesJourneyPattern.length() == 0)
+        		out.print(((ValueList)this.getCalendar().getListCalendar__sunday().get(i)).getValue(0));
+        	else
+        		out.print("0");
         	out.print(",");
+
+        	// Start and end dates
         	out.print(((ValueList)this.getCalendar().getListCalendar__start_date().get(i)).getValue(0));
         	out.print(",");
         	out.println(((ValueList)this.getCalendar().getListCalendar__end_date().get(i)).getValue(0));           			
@@ -445,7 +515,8 @@ public class TransxchangeHandler extends DefaultHandler {
 	/*
 	 * Initialize Google Transit Feed data structures
 	 */
-	public TransxchangeHandler () {
+	public TransxchangeHandler () 
+		throws UnsupportedEncodingException, IOException {
 		agencies = new TransxchangeAgency(this);
 		stops = new TransxchangeStops(this);
 		routes = new TransxchangeRoutes(this);

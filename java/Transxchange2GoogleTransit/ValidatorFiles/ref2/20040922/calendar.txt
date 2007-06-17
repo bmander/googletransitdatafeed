@@ -1,2 +1,2 @@
 service_id,monday,tuesday,wednesday,thursday,friday,saturday,sunday,start_date,end_date
-FIN50,1,1,1,1,1,0,0,20040922,20081231
+FIN50,0,0,0,0,0,0,0,20040922,20081231
