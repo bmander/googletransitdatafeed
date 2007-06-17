@@ -37,6 +37,7 @@ public class Transxchange2GoogleTransitServiceImpl extends RemoteServiceServlet 
 		String[] args = new String[maxargs];
 		int argv = 0;
 		String result = "";
+		TransxchangeHandler handler = null;
 
 		/*
 		 * Parse input string to extract arguments (similar command line arguments)
@@ -54,8 +55,8 @@ public class Transxchange2GoogleTransitServiceImpl extends RemoteServiceServlet 
          */ 
   	    String fileName = FilenameUtils.getName(args[0]); 
 		
-		TransxchangeHandler handler = new TransxchangeHandler();
         try {
+    		handler = new TransxchangeHandler();
         	handler.parse(rootDirectory + workDirectory + '/' + args[4] + '/' + fileName, args[1], args[2], args[3]);
         } catch (Exception e) {
         	return e.getMessage();

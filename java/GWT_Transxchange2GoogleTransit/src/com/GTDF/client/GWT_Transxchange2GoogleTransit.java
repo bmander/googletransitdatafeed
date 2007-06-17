@@ -44,7 +44,7 @@ public class GWT_Transxchange2GoogleTransit implements EntryPoint {
 
 		final TextBox textBoxServiceStartGz = new TextBox();
 		final TextBox textBoxUrl = new TextBox();
-		textBoxUrl.setText("www.aagency.org");
+		textBoxUrl.setText("http://www.aagency.org");
 		final ListBox listBoxTimezoneP = new ListBox();
 		listBoxTimezoneP.addItem("Africa");
 		listBoxTimezoneP.addItem("America");
