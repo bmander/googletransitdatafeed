@@ -36,7 +36,7 @@ public class Transxchange2GoogleTransit {
 		TransxchangeHandler handler = null;
 		
 		System.out.println();
-        System.out.println("transxchange2GoogleTransit 1.5");
+        System.out.println("transxchange2GoogleTransit 1.5 Release Candidate");
         System.out.println("Please refer to LICENSE file for licensing information");
         if (args.length < 4 || args.length > 5) {
         	System.out.println();

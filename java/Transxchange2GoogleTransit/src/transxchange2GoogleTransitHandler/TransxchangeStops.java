@@ -361,11 +361,9 @@ public class TransxchangeStops extends TransxchangeDataAspect{
 	    	if (hot) {
 	       		newStops__stop_lat = new ValueList(stopId);
 				listStops__stop_lat.add(i, newStops__stop_lat);
-//				newStops__stop_lat.addValue(key_stops__stop_lat[2]);
 				newStops__stop_lat.addValue(getLat(stopId));
 	       		newStops__stop_lon = new ValueList(stopId);
 				listStops__stop_lon.add(i, newStops__stop_lon);
-//				newStops__stop_lon.addValue(key_stops__stop_lon[2]);
 				newStops__stop_lon.addValue(getLon(stopId));
 	    	} 
 	    }

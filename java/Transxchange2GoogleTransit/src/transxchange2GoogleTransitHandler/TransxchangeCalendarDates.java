@@ -185,15 +185,6 @@ public class TransxchangeCalendarDates extends TransxchangeDataAspect {
 						newCalendar_OOL_end_date = new ValueList(_key_calendar_dates_end[0]);
 						listCalendar_OOL_end_date.add(newCalendar_OOL_end_date);
 						newCalendar_OOL_end_date.addValue(TransxchangeDataAspect.formatDate(gcOperationDay.get(Calendar.YEAR), gcOperationDay.get(Calendar.MONTH) + 1, gcOperationDay.get(Calendar.DAY_OF_MONTH)));
-						
-    				
-    				
-    				
-    				//       				System.out.println("Out of line SpecialDaysOperation. Start: " + calendarDateOperationDayStart + "End: " + calendarDateOperationDayEnd);
-//      				service = "hier geht's weiter - Spezielle Datenstruktur, die in TransxchangeTrips abgerufen wird"; // set flag in service. Resolved in TransxchangeTrips 
-//					throw new SAXParseException("Out of line SpecialDaysOperation: " + calendarDatesOperationDaysStart + " must be associated to a service.", null);
-    				
-    				
 					} else {
 						while (calendarDatesOperationDay.compareTo(calendarDateOperationDayEnd) <= 0) {
 							newCalendarDates__service_id = new ValueList(_key_calendar_dates_start[0]);
@@ -214,10 +205,8 @@ public class TransxchangeCalendarDates extends TransxchangeDataAspect {
 						}
 					}
 				} catch (Exception e) {
-					handler.setParseError(e.getMessage()); //"Exception: Calendar start date does not read " + calendarDatesOperationDaysStart);
-//        		System.out.println("Exception: Calendar start date does not read");
-//        		System.out.println(calendarDatesOperationDaysStart);
-	        	}        
+					handler.setParseError(e.getMessage()); 
+				}        
         	}        
         } else {
 
@@ -282,6 +271,43 @@ public class TransxchangeCalendarDates extends TransxchangeDataAspect {
 	    }
 	}
 
+	public void calendarDatesRolloutOOLDates(String serviceId) {
+
+		int i;
+		
+		SimpleDateFormat sdfIn = new SimpleDateFormat("yyyyMMdd", Locale.US); // US - determined by location of Google Labs, not transit operator
+		sdfIn.setCalendar(Calendar.getInstance());
+		Date calendarDatesOperationDay; 
+		Date calendarDateOperationDayEnd;
+		GregorianCalendar gcOperationDay = new GregorianCalendar();
+	
+		// for all SpecialOperationDays of VehicleJourey
+		for (i = 0; i < listCalendar_OOL_start_date.size(); i++) {
+
+			try {
+				calendarDatesOperationDay = sdfIn.parse(((String)((ValueList)listCalendar_OOL_start_date.get(i)).getValue(0)));
+				calendarDateOperationDayEnd = sdfIn.parse(((String)((ValueList)listCalendar_OOL_end_date.get(i)).getValue(0)));
+				gcOperationDay.setTime(calendarDatesOperationDay);           		
+			
+				while (calendarDatesOperationDay.compareTo(calendarDateOperationDayEnd) <= 0) {
+					newCalendarDates__service_id = new ValueList(_key_calendar_no_dates_start[0]);
+					listCalendarDates__service_id.add(newCalendarDates__service_id);
+					newCalendarDates__service_id.addValue(serviceId);
+					newCalendarDates__date = new ValueList(_key_calendar_no_dates_start[2]);
+					listCalendarDates__date.add(newCalendarDates__date);
+					newCalendarDates__date.addValue(TransxchangeDataAspect.formatDate(gcOperationDay.get(Calendar.YEAR), gcOperationDay.get(Calendar.MONTH) + 1, gcOperationDay.get(Calendar.DAY_OF_MONTH)));
+					newCalendarDates__exception_type = new ValueList(_key_calendar_no_dates_start[2]);
+					listCalendarDates__exception_type.add(newCalendarDates__exception_type);
+					newCalendarDates__exception_type.addValue(_key_calendar_no_dates_start[4]);
+					gcOperationDay.add(Calendar.DAY_OF_YEAR, 1);
+					calendarDatesOperationDay = gcOperationDay.getTime();
+				}
+			} catch (Exception e) {
+				handler.setParseError(e.getMessage()); 
+			}
+		}
+	}
+	
 	public TransxchangeCalendarDates(TransxchangeHandler owner) {
 		super(owner);
 		listCalendarDates__service_id  = new ArrayList();
@@ -326,6 +352,9 @@ public class TransxchangeCalendarDates extends TransxchangeDataAspect {
 		bankHolidays2009.put("BoxingDay", "20091228");
 	}
 	
+	/*
+	 * v1.5: create all bank holidays
+	 */
 	private void createBankHolidaysAll(String bankService, Map bankHolidayMap, String exceptionType) {        		
 		
 		Iterator iter = bankHolidayMap.entrySet().iterator();
@@ -344,6 +373,9 @@ public class TransxchangeCalendarDates extends TransxchangeDataAspect {
 		}
 	}
 
+	/*
+	 * v1.5: create a particular bank holiday
+	 */
 	private void createBankHoliday(String bankService, String holiday, Map bankHolidayMap, String exceptionType) {        		
 
 		newCalendarDates__service_id = new ValueList(_key_calendar_bankholiday_operation_spring[0]);

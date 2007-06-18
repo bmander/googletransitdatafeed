@@ -394,11 +394,6 @@ public class TransxchangeStopTimes extends TransxchangeDataAspect {
 	       			        		stopTimehhmmss[1] = (stopTimeInSeconds / 60) % 60;
 	       			        		stopTimehhmmss[2] = stopTimeInSeconds % 60;
 
-//	           						stopTimehhmmss[1] += waitTimeAdd;
-//	           						if (stopTimehhmmss[1] >= 60) {
-//	           							stopTimehhmmss[1] -= 60;
-//	           							stopTimehhmmss[0] += 1;
-//	           						}
 	       						}
 	       						if (((ValueList)_listTimingLinksRunTime.get(j)).getValue(2) != null) { // add wait time # 2 ?
 	       							waitTimeAdd = readTransxchangeFrequency((String)((ValueList)_listTimingLinksRunTime.get(j)).getValue(2));
@@ -407,11 +402,6 @@ public class TransxchangeStopTimes extends TransxchangeDataAspect {
 	       			        		stopTimehhmmss[0] = stopTimeInSeconds / 3600;
 	       			        		stopTimehhmmss[1] = (stopTimeInSeconds / 60) % 60;
 	       			        		stopTimehhmmss[2] = stopTimeInSeconds % 60;
-//	           						stopTimehhmmss[1] += waitTimeAdd;
-//	           						if (stopTimehhmmss[1] >= 60) {
-///	           							stopTimehhmmss[1] -= 60;
-//	           							stopTimehhmmss[0] += 1;
-//	           						}
 	       						}
 	       						newStoptimes__departure_time = new ValueList(iterator.getKeyName());
 	       						listStoptimes__departure_time.add(newStoptimes__departure_time);
@@ -449,11 +439,6 @@ public class TransxchangeStopTimes extends TransxchangeDataAspect {
        			        		stopTimehhmmss[0] = stopTimeInSeconds / 3600;
        			        		stopTimehhmmss[1] = (stopTimeInSeconds / 60) % 60;
        			        		stopTimehhmmss[2] = stopTimeInSeconds % 60;
-//	       						stopTimehhmmss[1] += runTimeAdd;
-//	       						if (stopTimehhmmss[1] >= 60) {
-//	       							stopTimehhmmss[1] -= 60;
-//	       							stopTimehhmmss[0] += 1;
-//	       						}
 	       						newStoptimes__pickup_type = new ValueList(key_stop_times__pickup_type[0]);
 	       						listStoptimes__pickup_type.add(newStoptimes__pickup_type);
 	       						newStoptimes__pickup_type.addValue(key_stop_times__pickup_type[2]);

@@ -487,6 +487,73 @@ public class TransxchangeCalendar extends TransxchangeDataAspect {
 	    }
 	}
 
+	/*
+	 * v1.5: duplicate service
+	 */
+	public void calendarDuplicateService(String existingServiceId, String newServiceId) {
+		int i = 0;
+		boolean found = false;
+		ValueList iterator;
+
+		while (i < listCalendar__service_id.size() && !found) {
+	    	iterator = (ValueList)listCalendar__service_id.get(i);
+			if (((String)iterator.getValue(0)).equals(existingServiceId))
+				found = true;
+			else
+				i++;
+		}
+		if (!found)
+			return;
+
+		// Create duplicate with new service ID
+		newCalendar__service_id = new ValueList(key_calendar__service_id[0]);
+		listCalendar__service_id.add(newCalendar__service_id);
+		newCalendar__service_id.addValue(newServiceId);
+		
+   		newCalendar__monday = new ValueList(key_calendar__monday[0]);
+   		listCalendar__monday.add(newCalendar__monday);
+   		newCalendar__monday.addValue((String)((ValueList)listCalendar__monday.get(i)).getValue(0));
+  		newCalendar__monday.addValue((String)((ValueList)listCalendar__monday.get(i)).getValue(1));
+  		newCalendar__monday.addValue(newServiceId);
+   		newCalendar__tuesday = new ValueList(key_calendar__tuesday[0]);
+   		listCalendar__tuesday.add(newCalendar__tuesday);
+   		newCalendar__tuesday.addValue((String)((ValueList)listCalendar__tuesday.get(i)).getValue(0));
+  		newCalendar__tuesday.addValue((String)((ValueList)listCalendar__tuesday.get(i)).getValue(1));
+  		newCalendar__tuesday.addValue(newServiceId);
+  		newCalendar__wednesday = new ValueList(key_calendar__wednesday[0]);
+   		listCalendar__wednesday.add(newCalendar__wednesday);
+   		newCalendar__wednesday.addValue((String)((ValueList)listCalendar__wednesday.get(i)).getValue(0));
+   		newCalendar__wednesday.addValue((String)((ValueList)listCalendar__wednesday.get(i)).getValue(1));
+  		newCalendar__wednesday.addValue(newServiceId);
+   		newCalendar__thursday = new ValueList(key_calendar__thursday[0]);
+   		listCalendar__thursday.add(newCalendar__thursday);
+   		newCalendar__thursday.addValue((String)((ValueList)listCalendar__thursday.get(i)).getValue(0));
+   		newCalendar__thursday.addValue((String)((ValueList)listCalendar__thursday.get(i)).getValue(1));
+  		newCalendar__thursday.addValue(newServiceId);
+   		newCalendar__friday = new ValueList(key_calendar__friday[0]);
+   		listCalendar__friday.add(newCalendar__friday);
+   		newCalendar__friday.addValue((String)((ValueList)listCalendar__friday.get(i)).getValue(0));
+   		newCalendar__friday.addValue((String)((ValueList)listCalendar__friday.get(i)).getValue(1));
+  		newCalendar__friday.addValue(newServiceId);
+   		newCalendar__saturday = new ValueList(key_calendar__saturday[0]);
+   		listCalendar__saturday.add(newCalendar__saturday);
+   		newCalendar__saturday.addValue((String)((ValueList)listCalendar__saturday.get(i)).getValue(0));
+   		newCalendar__saturday.addValue((String)((ValueList)listCalendar__saturday.get(i)).getValue(1));
+  		newCalendar__saturday.addValue(newServiceId);
+   		newCalendar__sunday = new ValueList(key_calendar__sunday[0]);
+   		listCalendar__sunday.add(newCalendar__sunday);
+   		newCalendar__sunday.addValue((String)((ValueList)listCalendar__sunday.get(i)).getValue(0));
+   		newCalendar__sunday.addValue((String)((ValueList)listCalendar__sunday.get(i)).getValue(1));
+  		newCalendar__sunday.addValue(newServiceId);
+   		newCalendar__start_date = new ValueList(key_calendar__start_date[1]);
+   		listCalendar__start_date.add(newCalendar__start_date);
+   		newCalendar__start_date.addValue((String)((ValueList)listCalendar__start_date.get(i)).getValue(0));
+   		newCalendar__end_date = new ValueList(key_calendar__end_date[1]);
+   		listCalendar__end_date.add(newCalendar__end_date);
+   		newCalendar__end_date.addValue((String)((ValueList)listCalendar__end_date.get(i)).getValue(0));	
+	}
+	
+
 	public TransxchangeCalendar(TransxchangeHandler owner) {
 		super(owner);
 		listCalendar__service_id = new ArrayList();
