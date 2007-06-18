@@ -78,9 +78,6 @@ public abstract class TransxchangeDataAspect {
 
 	/*
 	 * Read frequency in transxchange specific format
-	 * 
-	 * CAUTION: Only supports minutes at this point
-	 * 
 	 */
 	static int readTransxchangeFrequency(String inString) {
 		int freq = 0;
@@ -90,14 +87,14 @@ public abstract class TransxchangeDataAspect {
 			StringTokenizer st = new StringTokenizer(inString, "S");
 			int i = 0;
 			while (st.hasMoreTokens() && i < 1) {
-				freq = Integer.parseInt(st.nextToken()) / 60;
+				freq = Integer.parseInt(st.nextToken());
 			}
 
 		} else { // v1.5: From previous versions: Minutes still default
 			StringTokenizer st = new StringTokenizer(inString, "M");
 			int i = 0;
 			while (st.hasMoreTokens() && i < 1) {
-				freq = Integer.parseInt(st.nextToken());
+				freq = Integer.parseInt(st.nextToken()) * 60;
 			}
 		}
 		return freq;

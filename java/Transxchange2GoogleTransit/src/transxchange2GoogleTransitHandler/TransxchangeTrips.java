@@ -326,11 +326,16 @@ public class TransxchangeTrips extends TransxchangeDataAspect {
         	frequency = readTransxchangeFrequency(_scheduledFrequency);
         	hot = (frequency > 0);
         	while (hot) { 
-        		departureTimehhmmss[1] += frequency;
-        		if (departureTimehhmmss[1] >= 60) {
-        			departureTimehhmmss[1] -= 60;
-        			departureTimehhmmss[0] += 1;
-        		}
+        		int departureTimeInSeconds = departureTimehhmmss[2] + departureTimehhmmss[1] * 60 + departureTimehhmmss[0] * 3600;
+        		departureTimeInSeconds += frequency;
+        		departureTimehhmmss[0] = departureTimeInSeconds / 3600;
+        		departureTimehhmmss[1] = (departureTimeInSeconds / 60) % 60;
+        		departureTimehhmmss[2] = departureTimeInSeconds % 60;
+//        		departureTimehhmmss[1] += frequency;
+//        		if (departureTimehhmmss[1] >= 60) {
+//        			departureTimehhmmss[1] -= 60;
+//        			departureTimehhmmss[0] += 1;
+//        		}
         		if (departureTimehhmmss[0] > endTimehhmmss[0])
         			hot = false;
         		else
