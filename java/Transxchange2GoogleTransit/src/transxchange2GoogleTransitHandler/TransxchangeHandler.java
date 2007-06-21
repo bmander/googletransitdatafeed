@@ -227,7 +227,7 @@ public class TransxchangeHandler extends DefaultHandler {
 		// Dump parsed data to System.out
 /* ... not
 		agencies.dumpValues();
-		stops.dumpValues();
+		stops.dumpValues(); 
 		routes.dumpValues(); 
 		trips.dumpValues(); 
 		stopTimes.dumpValues(); 
@@ -307,7 +307,8 @@ public class TransxchangeHandler extends DefaultHandler {
         for (int i = 0; i < this.getRoutes().getListRoutes__route_id().size(); i++) {
         	out.print(((ValueList)this.getRoutes().getListRoutes__route_id().get(i)).getValue(0));
         	out.print(",");
-           	out.print(","); // no route association to agency
+        	out.print(((ValueList)this.getRoutes().getListRoutes__agency_id().get(i)).getValue(0)); // v1.5: agency ID
+           	out.print(",");
         	out.print(((ValueList)this.getRoutes().getListRoutes__route_short_name().get(i)).getValue(0));
         	out.print(",");
         	out.print(((ValueList)this.getRoutes().getListRoutes__route_long_name().get(i)).getValue(0));
