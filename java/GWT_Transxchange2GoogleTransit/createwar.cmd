@@ -1,0 +1,1 @@
+jar cvf GWT_Transxchange2GoogleTransit.war LICENSE NOTICE index.html WEB-INF www

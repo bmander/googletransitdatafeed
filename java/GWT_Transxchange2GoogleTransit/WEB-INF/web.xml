@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+
+	<display-name>Transxchange2GoogleTransit 1.5</display-name>
+	<servlet>
+		<servlet-name>transxchange2GoogleTransitService</servlet-name>
+		<servlet-class>com.GTDF.server.Transxchange2GoogleTransitServiceImpl</servlet-class>
+           	<init-param>
+                	<param-name>TRANSFORM_HOME</param-name>
+                	<param-value>/var/www</param-value>
+            	</init-param>
+           	<init-param>
+                	<param-name>TRANSFORM_DIR</param-name>
+                	<param-value>/transxchange2GoogleTransit</param-value>
+            	</init-param>
+           	<init-param>
+                	<param-name>HOSTED_ON</param-name>
+                	<param-value>http://kleineaster</param-value>
+            	</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>transxchange2GoogleTransitService</servlet-name>
+		<url-pattern>/www/com.GTDF.GWT_Transxchange2GoogleTransit/GTDF</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>FileUploadServlet</servlet-name>
+		<servlet-class>com.GTDF.server.FileUploadServlet</servlet-class>
+           	<init-param>
+                	<param-name>TRANSFORM_HOME</param-name>
+                	<param-value>/var/www</param-value>
+            	</init-param>
+           	<init-param>
+                	<param-name>TRANSFORM_DIR</param-name>
+                	<param-value>/transxchange2GoogleTransit</param-value>
+            	</init-param>
+           	<init-param>
+                	<param-name>HOSTED_ON</param-name>
+                	<param-value>http://kleineaster</param-value>
+            	</init-param>
+           	<init-param>
+                	<param-name>WIKIDB</param-name>
+                	<param-value>jdbc:mysql:///wikidb</param-value>
+            	</init-param>
+           	<init-param>
+                	<param-name>WIKIDB_USER</param-name>
+                	<param-value>googletr_wu</param-value>
+            	</init-param>
+           	<init-param>
+                	<param-name>WIKIDB_PASSWORD</param-name>
+                	<param-value>password</param-value>
+            	</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FileUploadServlet</servlet-name>
+		<url-pattern>/www/com.GTDF.GWT_Transxchange2GoogleTransit/upload</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>WikiUserService</servlet-name>
+		<servlet-class>com.GTDF.server.WikiUserImpl</servlet-class>
+           	<init-param>
+                	<param-name>WIKIDB</param-name>
+                	<param-value>jdbc:mysql:///wikidb</param-value>
+            	</init-param>
+           	<init-param>
+                	<param-name>WIKIDB_USER</param-name>
+                	<param-value>googletr_wu</param-value>
+            	</init-param>
+           	<init-param>
+                	<param-name>WIKIDB_PASSWORD</param-name>
+                	<param-value>password</param-value>
+            	</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>WikiUserService</servlet-name>
+		<url-pattern>/www/com.GTDF.GWT_Transxchange2GoogleTransit/WikiUser</url-pattern>
+	</servlet-mapping>
+
+</web-app>
