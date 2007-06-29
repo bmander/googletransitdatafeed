@@ -43,13 +43,13 @@ protected void doPost(HttpServletRequest request,
     HttpServletResponse response) 
 throws ServletException, IOException { 
 
-
     String rootDirectory = getServletConfig().getInitParameter("TRANSFORM_HOME");
 	String workDirectory = getServletConfig().getInitParameter("TRANSFORM_DIR");
 	String prefixDirectory = "";
     boolean writeToFile = true; 
     String returnOKMessage = "OK"; 
     String username = "";
+    String authResult = "";
 
     boolean isMultipart = ServletFileUpload.isMultipartContent(request); 
 
@@ -80,8 +80,9 @@ throws ServletException, IOException {
                         		   String wikiDb = getServletConfig().getInitParameter("WIKIDB");
                         		   String wikiDbUser = getServletConfig().getInitParameter("WIKIDB_USER");
                         		   String wikiDbPassword = getServletConfig().getInitParameter("WIKIDB_PASSWORD");
+                        		   String wikiNoAuth = getServletConfig().getInitParameter("NOAUTH"); // v1.5 Check parameter NOAUTH
                         		   WikiUserImpl wikiUser = new WikiUserImpl();
-                        		   String authResult = wikiUser.wikiUserVerifyDb(username, wikiDb, wikiDbUser, wikiDbPassword);
+                       			   authResult = wikiUser.wikiUserVerifyDb(username, wikiDb, wikiDbUser, wikiDbPassword, wikiNoAuth);
                         		   if (authResult != "LOGGED") {
                       		      		out.print(authResult);
                         		      	return;

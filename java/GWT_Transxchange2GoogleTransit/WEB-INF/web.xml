@@ -50,6 +50,10 @@
                 	<param-name>WIKIDB_PASSWORD</param-name>
                 	<param-value>password</param-value>
             	</init-param>
+           	<init-param>
+                	<param-name>NOAUTH</param-name>
+                	<param-value>NO</param-value>
+            	</init-param>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>FileUploadServlet</servlet-name>
@@ -70,6 +74,10 @@
            	<init-param>
                 	<param-name>WIKIDB_PASSWORD</param-name>
                 	<param-value>password</param-value>
+            	</init-param>
+           	<init-param>
+                	<param-name>NOAUTH</param-name>
+                	<param-value>NO</param-value>
             	</init-param>
 	</servlet>
 	<servlet-mapping>

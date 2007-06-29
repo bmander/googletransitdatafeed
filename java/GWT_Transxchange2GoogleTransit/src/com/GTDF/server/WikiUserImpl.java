@@ -33,20 +33,24 @@ public class WikiUserImpl extends RemoteServiceServlet implements WikiUserServic
 		String wikiDb = getServletConfig().getInitParameter("WIKIDB");
 		String wikiDbUser = getServletConfig().getInitParameter("WIKIDB_USER");
 		String wikiDbPassword = getServletConfig().getInitParameter("WIKIDB_PASSWORD");
+		String wikiNoAuth = getServletConfig().getInitParameter("NOAUTH");
 
-		return wikiUserVerifyDb(username, wikiDb, wikiDbUser, wikiDbPassword);
+		return wikiUserVerifyDb(username, wikiDb, wikiDbUser, wikiDbPassword, wikiNoAuth);
 	}
 	
-	public String wikiUserVerifyDb(String username, String wikiDb, String wikiDbUser, String wikiDbPassword) {	
+	public String wikiUserVerifyDb(String username, String wikiDb, String wikiDbUser, String wikiDbPassword, String wikiNoAuth) {	
 		Connection con = null;
 		boolean found = false;
 		boolean userFound = false;
 		String today, yesterday, tomorrow;
 
-		
 		// Do not allow WikiSysop through. User name too easy to guess
 		if (username.equals("WikiSysop"))
 			return ("User WikiSysop not authorized to perform non-wiki operations");
+		
+		// v1.5: If no authorization, return LOGGED
+		if (wikiNoAuth.equals("YES"))
+		   return "LOGGED";
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
