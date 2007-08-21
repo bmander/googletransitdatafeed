@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app>
 
-	<display-name>Transxchange2GoogleTransit 1.5</display-name>
+	<display-name>Transxchange2GoogleTransit 1.6</display-name>
 	<servlet>
 		<servlet-name>transxchange2GoogleTransitService</servlet-name>
 		<servlet-class>com.GTDF.server.Transxchange2GoogleTransitServiceImpl</servlet-class>

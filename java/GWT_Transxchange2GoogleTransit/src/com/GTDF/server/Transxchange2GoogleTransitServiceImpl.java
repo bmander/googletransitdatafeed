@@ -39,7 +39,7 @@ public class Transxchange2GoogleTransitServiceImpl extends RemoteServiceServlet 
 		String result = "";
 		TransxchangeHandler handler = null;
 
-		/*
+        /*
 		 * Parse input string to extract arguments (similar command line arguments)
 		 */ 
 		StringTokenizer st = new StringTokenizer(inArgs, " ");
@@ -50,6 +50,10 @@ public class Transxchange2GoogleTransitServiceImpl extends RemoteServiceServlet 
 		if (argv < maxargs) // Don't let in if too few arguments
 			return "Not enough arguments. Required: <url> <timezone> <default route type> <output-directory>";
 	
+		String outdir = "";
+        if (argv == 5)
+        	outdir = args[4];
+
 		/*
          * Parse transxchange input file
          */ 
@@ -57,7 +61,7 @@ public class Transxchange2GoogleTransitServiceImpl extends RemoteServiceServlet 
 		
         try {
     		handler = new TransxchangeHandler();
-        	handler.parse(rootDirectory + workDirectory + '/' + args[4] + '/' + fileName, args[1], args[2], args[3]);
+        	handler.parse(rootDirectory + workDirectory + '/' + outdir + '/' + fileName, args[1], args[2], args[3], rootDirectory, workDirectory + '/' + outdir);
         } catch (Exception e) {
         	return e.getMessage();
         }
@@ -65,9 +69,6 @@ public class Transxchange2GoogleTransitServiceImpl extends RemoteServiceServlet 
         /*
          * Create Google Transit output files
          */
-		String outdir = "";
-        if (argv == 5)
-        	outdir = args[4];
         try {
         	result = handler.writeOutput(rootDirectory, workDirectory + '/' + outdir);
         } catch (Exception e) {
