@@ -156,8 +156,8 @@ public class TransxchangeAgency extends TransxchangeDataAspect {
 		}
 	}
 	 
-	public TransxchangeAgency(TransxchangeHandler owner) {
-		super (owner);
+	public TransxchangeAgency(TransxchangeHandlerEngine owner) {
+		super(owner);
 		listAgency__agency_id = new ArrayList(); // v1.5: new: agency ID
 		listAgency__agency_name = new ArrayList();
 		listAgency__agency_url = new ArrayList();

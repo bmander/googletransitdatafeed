@@ -252,7 +252,7 @@ public class TransxchangeRoutes extends TransxchangeDataAspect {
 		}
 	}
 
-	public TransxchangeRoutes(TransxchangeHandler owner) {
+	public TransxchangeRoutes(TransxchangeHandlerEngine owner) {
 		super(owner);
 		listRoutes__route_id = new ArrayList();
 		listRoutes__agency_id = new ArrayList(); // v1.5 Agency ID

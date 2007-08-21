@@ -34,9 +34,13 @@ public class Transxchange2GoogleTransit {
 	public static void main(String[] args) {
 
 		TransxchangeHandler handler = null;
+
+		String outdir = "";
+        if (args.length == 5)
+        	outdir = args[4];
 		
 		System.out.println();
-        System.out.println("transxchange2GoogleTransit 1.5");
+        System.out.println("transxchange2GoogleTransit 1.6");
         System.out.println("Please refer to LICENSE file for licensing information");
         if (args.length < 4 || args.length > 5) {
         	System.out.println();
@@ -50,10 +54,10 @@ public class Transxchange2GoogleTransit {
         	System.exit(1);
         }
         
-        // Parse transxchange input file
+        // Parse transxchange input file and create initial Google Transit output files
         try {
         	handler = new TransxchangeHandler();
-        	handler.parse(args[0], args[1], args[2], args[3]);
+        	handler.parse(args[0], args[1], args[2], args[3], "", outdir);
 		} catch (ParserConfigurationException e) {
         	System.out.println("transxchange2GoogleTransit ParserConfiguration parse error:");
         	System.out.println(e.getMessage());
@@ -75,13 +79,15 @@ public class Transxchange2GoogleTransit {
 			System.out.println(e.getMessage());
 			System.exit(1);						
 		}
+ 		catch (Exception e) {
+ 			System.out.println("transxchange2GoogleTransit write error:");
+ 			System.out.println(e.getMessage());
+ 			System.exit(1);
+ 		}
     
-        // Create Google Transit output files
-		String outdir = "";
-        if (args.length == 5)
-        	outdir = args[4];
+        // Create final Google Transit output files
         try {
-        	handler.writeOutput(outdir, "");
+        	handler.writeOutput("", outdir);
         } catch (Exception e) {
         	System.out.println("transxchange2GoogleTransit write error:");
         	System.out.println(e.getMessage());

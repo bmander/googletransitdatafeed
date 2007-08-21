@@ -365,7 +365,7 @@ public class TransxchangeTrips extends TransxchangeDataAspect {
 		} 
 	}
 	
-	public TransxchangeTrips(TransxchangeHandler owner) {
+	public TransxchangeTrips(TransxchangeHandlerEngine owner) {
 		super(owner);
 		listTrips__route_id = new ArrayList();
 		listTrips__service_id = new ArrayList();

@@ -31,7 +31,7 @@ public abstract class TransxchangeDataAspect {
 	String niceString = ""; // parsed string
 	boolean activeStartElement = false; // control flag to skip characters outside start/endElement()
 
-	TransxchangeHandler handler;
+	TransxchangeHandlerEngine handler;
 	
 	public void startElement(String uri, String name, String qName, Attributes atts)
 		throws SAXParseException
@@ -190,7 +190,7 @@ public abstract class TransxchangeDataAspect {
 		return result;
 	}
 
-	TransxchangeDataAspect(TransxchangeHandler owner) {
+	TransxchangeDataAspect(TransxchangeHandlerEngine owner) {
 		handler = owner;
 	}
 }

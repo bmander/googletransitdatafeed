@@ -375,42 +375,51 @@ public class TransxchangeCalendar extends TransxchangeDataAspect {
 		int i;
 		
 		for (i = 0; i < listCalendar__service_id.size(); i++) {
-			if (listCalendar__end_date.size() == 0 || listCalendar__end_date.get(i) == null) { // caution: or else
+//			if (listCalendar__end_date.size() == 0 || listCalendar__end_date.get(i) == null) { // caution: or else
+			if (i >= listCalendar__end_date.size()) {
 				newCalendar__end_date = new ValueList(key_calendar__end_date[1]); 
 				listCalendar__end_date.add(newCalendar__end_date);
 				newCalendar__end_date.addValue(key_calendar__end_date[2]);
 			}
-			if (listCalendar__monday.size() == 0 || listCalendar__monday.get(i) == null) { // caution: or else
+
+//			if (listCalendar__monday.size() == 0 || listCalendar__monday.get(i) == null) { // caution: or else
+			if (i >= listCalendar__monday.size()) {
 				newCalendar__monday = new ValueList(key_calendar__monday[1]); 
 				listCalendar__monday.add(newCalendar__monday);
 				newCalendar__monday.addValue(key_calendar__monday[2]);
 			}
-			if (listCalendar__tuesday.size() == 0 || listCalendar__tuesday.get(i) == null) { // caution: or else
+//			if (listCalendar__tuesday.size() == 0 || listCalendar__tuesday.get(i) == null) { // caution: or else
+			if (i >= listCalendar__tuesday.size()) {
 				newCalendar__tuesday = new ValueList(key_calendar__tuesday[1]); 
 				listCalendar__tuesday.add(newCalendar__tuesday);
 				newCalendar__tuesday.addValue(key_calendar__tuesday[2]);
 			}
-			if (listCalendar__wednesday.size() == 0 || listCalendar__wednesday.get(i) == null) { // caution: or else
+//			if (listCalendar__wednesday.size() == 0 || listCalendar__wednesday.get(i) == null) { // caution: or else
+			if (i >= listCalendar__wednesday.size()) {
 				newCalendar__wednesday = new ValueList(key_calendar__wednesday[1]); 
 				listCalendar__wednesday.add(newCalendar__wednesday);
 				newCalendar__wednesday.addValue(key_calendar__wednesday[2]);
 			}
-			if (listCalendar__thursday.size() == 0 || listCalendar__thursday.get(i) == null) { // caution: or else
+//			if (listCalendar__thursday.size() == 0 || listCalendar__thursday.get(i) == null) { // caution: or else
+			if (i >= listCalendar__thursday.size()) {
 				newCalendar__thursday = new ValueList(key_calendar__thursday[1]); 
 				listCalendar__thursday.add(newCalendar__thursday);
 				newCalendar__thursday.addValue(key_calendar__thursday[2]);
 			}
-			if (listCalendar__friday.size() == 0 || listCalendar__friday.get(i) == null) { // caution: or else
+//			if (listCalendar__friday.size() == 0 || listCalendar__friday.get(i) == null) { // caution: or else
+			if (i >= listCalendar__friday.size()) {
 				newCalendar__friday = new ValueList(key_calendar__friday[1]); 
 				listCalendar__friday.add(newCalendar__friday);
 				newCalendar__friday.addValue(key_calendar__friday[2]);
 			}
-			if (listCalendar__saturday.size() == 0 || listCalendar__saturday.get(i) == null) { // caution: or else
+//			if (listCalendar__saturday.size() == 0 || listCalendar__saturday.get(i) == null) { // caution: or else
+			if (i >= listCalendar__saturday.size()) {
 				newCalendar__saturday = new ValueList(key_calendar__saturday[1]); 
 				listCalendar__saturday.add(newCalendar__saturday);
 				newCalendar__saturday.addValue(key_calendar__saturday[2]);
 			}
-			if (listCalendar__sunday.size() == 0 || listCalendar__sunday.get(i) == null) { // caution: or else
+//			if (listCalendar__sunday.size() == 0 || listCalendar__sunday.get(i) == null) { // caution: or else
+			if (i >= listCalendar__sunday.size()) {
 				newCalendar__sunday = new ValueList(key_calendar__sunday[1]); 
 				listCalendar__sunday.add(newCalendar__sunday);
 				newCalendar__sunday.addValue(key_calendar__sunday[2]);
@@ -554,7 +563,7 @@ public class TransxchangeCalendar extends TransxchangeDataAspect {
 	}
 	
 
-	public TransxchangeCalendar(TransxchangeHandler owner) {
+	public TransxchangeCalendar(TransxchangeHandlerEngine owner) {
 		super(owner);
 		listCalendar__service_id = new ArrayList();
 		listCalendar__monday = new ArrayList();

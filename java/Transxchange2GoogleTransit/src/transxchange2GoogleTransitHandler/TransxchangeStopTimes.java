@@ -586,7 +586,7 @@ public class TransxchangeStopTimes extends TransxchangeDataAspect {
 	}
 	
 	
-	public TransxchangeStopTimes(TransxchangeHandler owner) {
+	public TransxchangeStopTimes(TransxchangeHandlerEngine owner) {
 		super(owner);
 		listStoptimes__trip_id = new ArrayList();
 		listStoptimes__arrival_time = new ArrayList();

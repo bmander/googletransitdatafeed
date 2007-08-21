@@ -457,7 +457,7 @@ public class TransxchangeStops extends TransxchangeDataAspect{
 			return key_stops__stop_lon[2];
 	}
 
-	public TransxchangeStops(TransxchangeHandler owner) 
+	public TransxchangeStops(TransxchangeHandlerEngine owner) 
 		throws UnsupportedEncodingException, IOException {
 		super(owner);
 		listStops__stop_id = new ArrayList();

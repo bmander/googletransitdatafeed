@@ -308,7 +308,7 @@ public class TransxchangeCalendarDates extends TransxchangeDataAspect {
 		}
 	}
 	
-	public TransxchangeCalendarDates(TransxchangeHandler owner) {
+	public TransxchangeCalendarDates(TransxchangeHandlerEngine owner) {
 		super(owner);
 		listCalendarDates__service_id  = new ArrayList();
 		listCalendarDates__date  = new ArrayList();
