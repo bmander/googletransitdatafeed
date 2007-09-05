@@ -298,37 +298,12 @@ public class TransxchangeHandlerEngine extends DefaultHandler {
 	/*
 	 * Create Google Transit Feed file set from Google Transit Feed data structures except for stops
 	 */
-	public void writeOutputSansAgenciesStops() 
+	public void writeOutputSansAgenciesStopsRoutes() 
 	throws IOException
 	{		
 		String outfileName = "";
 		File outfile = null;
 		
-        // routes.txt
-		if (routesOut == null) {
-	        outfileName = routesFilename + /* "_" + serviceStartDate + */ extension;
-	        outfile = new File(outdir + /* "/" + serviceStartDate + */ "/" + outfileName);
-	        filenames.add(outfileName);      
-	        routesOut = new PrintWriter(new FileWriter(outfile));
-	        routesOut.println("route_id,agency_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_color,route_text_color");
-		}
-		for (int i = 0; i < this.getRoutes().getListRoutes__route_id().size(); i++) {
-        	routesOut.print(((ValueList)this.getRoutes().getListRoutes__route_id().get(i)).getValue(0));
-        	routesOut.print(",");
-        	routesOut.print(((ValueList)this.getRoutes().getListRoutes__agency_id().get(i)).getValue(0)); // v1.5: agency ID
-        	routesOut.print(",");
-        	routesOut.print(((ValueList)this.getRoutes().getListRoutes__route_short_name().get(i)).getValue(0));
-        	routesOut.print(",");
-        	routesOut.print(((ValueList)this.getRoutes().getListRoutes__route_long_name().get(i)).getValue(0));
-        	routesOut.print(",");
-        	routesOut.print(((ValueList)this.getRoutes().getListRoutes__route_desc().get(i)).getValue(0));
-        	routesOut.print(",");
-        	routesOut.print(((ValueList)this.getRoutes().getListRoutes__route_type().get(i)).getValue(0));
-        	routesOut.print(","); // no route url
-        	routesOut.print(","); // no route color
-        	routesOut.println(","); // no route text color
-        }       
-
         // trips.txt
 		if (tripsOut == null) {
 	        outfileName = tripsFilename + /* "_" + serviceStartDate + */ extension;
@@ -501,7 +476,7 @@ public class TransxchangeHandlerEngine extends DefaultHandler {
 	/*
 	 * Create Google Transit Feed file set from Google Transit Feed data structures except for stops
 	 */
-	public void writeOutputAgenciesStops() 
+	public void writeOutputAgenciesStopsRoutes() 
 	throws IOException
 	{		
 		String outfileName = "";
@@ -561,13 +536,39 @@ public class TransxchangeHandlerEngine extends DefaultHandler {
 //        		stopsOut.println(((ValueList)this.getStops().getListStops__stop_country().get(i)).getValue(0));
 			}
 		}		
+
+		// routes.txt
+		if (routesOut == null) {
+	        outfileName = routesFilename + /* "_" + serviceStartDate + */ extension;
+	        outfile = new File(outdir + /* "/" + serviceStartDate + */ "/" + outfileName);
+	        filenames.add(outfileName);      
+	        routesOut = new PrintWriter(new FileWriter(outfile));
+	        routesOut.println("route_id,agency_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_color,route_text_color");
+		}
+		for (int i = 0; i < this.getRoutes().getListRoutes__route_id().size(); i++) {
+			if (((String)(((ValueList)this.getRoutes().getListRoutes__route_id().get(i))).getValue(0)).length() > 0) {
+				routesOut.print(((ValueList)this.getRoutes().getListRoutes__route_id().get(i)).getValue(0));
+				routesOut.print(",");
+				routesOut.print(((ValueList)this.getRoutes().getListRoutes__agency_id().get(i)).getValue(0)); // v1.5: agency ID
+				routesOut.print(",");
+				routesOut.print(((ValueList)this.getRoutes().getListRoutes__route_short_name().get(i)).getValue(0));
+				routesOut.print(",");
+				routesOut.print(((ValueList)this.getRoutes().getListRoutes__route_long_name().get(i)).getValue(0));
+				routesOut.print(",");
+				routesOut.print(((ValueList)this.getRoutes().getListRoutes__route_desc().get(i)).getValue(0));
+				routesOut.print(",");
+				routesOut.print(((ValueList)this.getRoutes().getListRoutes__route_type().get(i)).getValue(0));
+				routesOut.print(","); // no route url
+				routesOut.print(","); // no route color
+				routesOut.println(","); // no route text color
+	        }       
+        }       
 	}
 	
 	/*
 	 * Clear data structures except for stops
 	 */
-	public void clearDataSansAgenciesStops() {
-		routes = null;
+	public void clearDataSansAgenciesStopsRoutes() {
 		trips = null;
 		stopTimes = null;
 		calendar = null;

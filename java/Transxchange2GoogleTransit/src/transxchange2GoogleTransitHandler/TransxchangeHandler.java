@@ -113,12 +113,12 @@ public class TransxchangeHandler {
 					System.out.println(zipentry.getName());
 					InputStream in = zipfile.getInputStream(zipentry);
 					parser.parse(in, parseHandler);	
-					parseHandler.writeOutputSansAgenciesStops(); // Dump data structure with exception of stops which need later consolidation over all input files
-					parseHandler.clearDataSansAgenciesStops(); // No need to keep the data structures written
+					parseHandler.writeOutputSansAgenciesStopsRoutes(); // Dump data structure with exception of stops which need later consolidation over all input files
+					parseHandler.clearDataSansAgenciesStopsRoutes(); // No need to keep the data structures written
 				}				
 			} else {
 				parser.parse(new File(filename), parseHandler);	
-				parseHandler.writeOutputSansAgenciesStops(); // Dump data structure with exception of stops which need later consolidation over all input files
+				parseHandler.writeOutputSansAgenciesStopsRoutes(); // Dump data structure with exception of stops which need later consolidation over all input files
 				processing = false;
 			}
 			parseHandlers.add(parseHandler);
@@ -133,9 +133,10 @@ public class TransxchangeHandler {
 	{		
 		consolidateAgencies(); // Eliminiate possible duplicates from multiple input files in zip archive
 		consolidateStops(); // Eliminiate possible duplicates from multiple input files in zip archive
+		consolidateRoutes(); // Eliminiate possible duplicates from multiple input files in zip archive
 		Iterator parsers = parseHandlers.iterator(); 
 		while (parsers.hasNext())
-			((TransxchangeHandlerEngine)parsers.next()).writeOutputAgenciesStops(); // Now write agencies, stops
+			((TransxchangeHandlerEngine)parsers.next()).writeOutputAgenciesStopsRoutes(); // Now write agencies, stops
 		return TransxchangeHandlerEngine.closeOutput(rootDirectory, workDirectory);
 	}
 	
@@ -213,5 +214,40 @@ public class TransxchangeHandler {
 		}
 	}
 
-
+	/*
+	 * Eliminiate possible duplicates from multiple input files in zip archive
+	 */
+	public void consolidateRoutes() {
+		Iterator parsers = parseHandlers.iterator();
+		int parseHandlersCount = 0;
+		int j;
+		String curRouteId;
+		ArrayList followRouteIds;
+		TransxchangeRoutes followRoutes;
+		Iterator followParser;
+		
+		while (parsers.hasNext()) {
+			TransxchangeRoutes routes = ((TransxchangeHandlerEngine)parsers.next()).getRoutes();
+			parseHandlersCount += 1;
+			ArrayList routeIds = (ArrayList)routes.getListRoutes__route_id();
+			for (int i = 0; i < routeIds.size(); i++) {
+				followParser = parseHandlers.iterator(); // Set follow parser to parsed input files following current; Iterator is not Cloneable; need to create a new Iterator and step forward to get to the right position (anybody know a more elegant solution?)
+				j = 0;
+				while (j < parseHandlersCount && followParser.hasNext()) {
+					j++;
+					followParser.next();
+				}
+				curRouteId = (String)((ValueList)routeIds.get(i)).getValue(0);
+				while (followParser.hasNext()) { // Run through stops of following parsed input files and eliminate duplicates there
+					followRoutes = ((TransxchangeHandlerEngine)followParser.next()).getRoutes();
+					followRouteIds = (ArrayList)followRoutes.getListRoutes__route_id();
+					for (j = 0; j < followRouteIds.size(); j++) {
+						if (curRouteId.equals((String)((ValueList)followRouteIds.get(j)).getValue(0))) {
+							((ValueList)followRouteIds.get(j)).setValue(0, "");
+						}
+					}		
+				}		
+			}
+		}
+	}
 }

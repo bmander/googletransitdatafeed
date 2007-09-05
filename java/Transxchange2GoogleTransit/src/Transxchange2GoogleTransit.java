@@ -40,7 +40,7 @@ public class Transxchange2GoogleTransit {
         	outdir = args[4];
 		
 		System.out.println();
-        System.out.println("transxchange2GoogleTransit 1.6");
+        System.out.println("transxchange2GoogleTransit 1.6.1");
         System.out.println("Please refer to LICENSE file for licensing information");
         if (args.length < 4 || args.length > 5) {
         	System.out.println();
