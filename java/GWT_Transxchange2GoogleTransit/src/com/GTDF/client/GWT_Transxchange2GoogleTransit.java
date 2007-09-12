@@ -42,47 +42,124 @@ public class GWT_Transxchange2GoogleTransit implements EntryPoint {
 
 		String wikiUserName = readUsername(); 
 
+		//Service Start
 		final TextBox textBoxServiceStartGz = new TextBox();
-		final TextBox textBoxUrl = new TextBox();
-		textBoxUrl.setText("http://www.aagency.org");
-		final ListBox listBoxTimezoneP = new ListBox();
-		listBoxTimezoneP.addItem("Africa");
-		listBoxTimezoneP.addItem("America");
-		listBoxTimezoneP.addItem("Antarctica");
-		listBoxTimezoneP.addItem("Artic");
-		listBoxTimezoneP.addItem("Asia");
-		listBoxTimezoneP.addItem("Atlantic");
-		listBoxTimezoneP.addItem("Australia");
-		listBoxTimezoneP.addItem("Europe");
-		listBoxTimezoneP.addItem("Indian");
-		listBoxTimezoneP.addItem("Pacific");
-		listBoxTimezoneP.setVisibleItemCount(1);
-		final ListBox listBoxTimezoneS = new ListBox();
-		switchTimezone(listBoxTimezoneS, 0);
-		final ListBox listBoxDefaultRouteType = new ListBox();
-		listBoxDefaultRouteType.addItem("Tram");
-		listBoxDefaultRouteType.addItem("Subway");
-		listBoxDefaultRouteType.addItem("Rail");
-		listBoxDefaultRouteType.addItem("Bus");
-		listBoxDefaultRouteType.addItem("Ferry");
-		listBoxDefaultRouteType.addItem("Cable car");
-		listBoxDefaultRouteType.addItem("Gondola");
-		listBoxDefaultRouteType.addItem("Funicular");
-		listBoxDefaultRouteType.setVisibleItemCount(1);
+		
+	
+		TabPanel tabs = new TabPanel();
+	    	tabs.setStyleName(".gwt-TabBar");
+	    	
+	        tabs.setWidth("100%");
+	        tabs.setHeight("100%");
+	    
+	        
+	    //-------------------------EDJ ----------------
+	        DockPanel dock = new DockPanel();
+	        dock.setSize("663px","220px");
+	        dock.setStyleName("gwt-TabBar");
+	        VerticalPanel TransformWindow = new VerticalPanel(); 
+	        TransformWindow.setStyleName("weather-input-panel");
+	           
+	            
+	        	//Agency URL
+	        	HorizontalPanel AgencyURL = new HorizontalPanel();
+	        	Label url_lbl = new Label("Agency URL:");
+	        	url_lbl.setWidth("90");
+	        	final TextBox textBoxUrl = new TextBox();
+	        	textBoxUrl.setText("http://www.agency.org");
+	        	textBoxUrl.setVisibleLength(40);
+	        	AgencyURL.add(url_lbl);
+	        	AgencyURL.add(textBoxUrl);
+	        	//-----------
+	        	
+	        	//Route Type
+	        	HorizontalPanel RType = new HorizontalPanel();
+	        	Label rt_lbl = new Label("Route Type:");
+	        	rt_lbl.setWidth("90");
+	        	final ListBox listBoxDefaultRouteType = new ListBox();
+	        	listBoxDefaultRouteType.setVisibleItemCount(1);
+	        	listBoxDefaultRouteType.addItem("Tram");
+	    		listBoxDefaultRouteType.addItem("Subway");
+	    		listBoxDefaultRouteType.addItem("Rail");
+	    		listBoxDefaultRouteType.addItem("Bus");
+	    		listBoxDefaultRouteType.addItem("Ferry");
+	    		listBoxDefaultRouteType.addItem("Cable car");
+	    		listBoxDefaultRouteType.addItem("Gondola");
+	    		listBoxDefaultRouteType.addItem("Funicular");
+	    		listBoxDefaultRouteType.setSelectedIndex(0);
+	    		RType.add(rt_lbl);
+	        	RType.add(listBoxDefaultRouteType);
+	        	//-----------
+	        	
+	        	//Time Zone
+	        	VerticalPanel TZ = new VerticalPanel();
+	        	Label tz_lbl = new Label("Time Zone:");
+	        	tz_lbl.setWidth("90");
+	        	
+	        		HorizontalPanel Continent = new HorizontalPanel();
+	        		Label continent_lbl = new Label("Continent:");
+	        		continent_lbl.setWidth("90");
+	        		final ListBox listBoxTimezoneP = new ListBox();
+	        		listBoxTimezoneP.addItem("Africa");
+	        		listBoxTimezoneP.addItem("America");
+	        		listBoxTimezoneP.addItem("Antarctica");
+	        		listBoxTimezoneP.addItem("Artic");
+	        		listBoxTimezoneP.addItem("Asia");
+	        		listBoxTimezoneP.addItem("Atlantic");
+	        		listBoxTimezoneP.addItem("Australia");
+	        		listBoxTimezoneP.addItem("Europe");
+	        		listBoxTimezoneP.addItem("Indian");
+	        		listBoxTimezoneP.addItem("Pacific");
+	        		listBoxTimezoneP.setVisibleItemCount(1);
+	        		listBoxTimezoneP.setSelectedIndex(0);
+	        		
+	        		
+	        		
+	        		Continent.add(continent_lbl);
+	        		Continent.add(listBoxTimezoneP);
+	        	
+	        		HorizontalPanel Region = new HorizontalPanel();
+	        		Label region_lbl = new Label("Region:");
+	        		region_lbl.setWidth("90");
+	        		final ListBox listBoxTimezoneS = new ListBox();
+	        		switchTimezone(listBoxTimezoneS, 0);
+	        		Region.add(region_lbl);
+	        		Region.add(listBoxTimezoneS);
+	        		
+	        	TZ.add(tz_lbl);
+	        	TZ.add(Continent);
+	        	TZ.add(Region);
+	        	//-----------
+		
+	        	 Button dialogButton = new Button("Show Dialog", new ClickListener() {
+	     			public void onClick(Widget sender) {
+	     				//EDJ
+	     				DialogBox dlg = new MyDialog();
+	     			      int left = 120;
+	     			      int top = 300;
+	     			      dlg.setPopupPosition(left, top);
+	     			      dlg.show();
+	     			}
+	     		} );
+	     	    
 		final Label labelOutdir = new Label(); // Displays wikiuser
 		final Label labelResultGz = new Label();    
 		final Label labelResult = new Label();    
 		final Label labelResultUser = new Label();    
 
-	    /*
-	     * Add zip file upload
-	     */ 
+    	
    	 	final FormPanel uploadFormGz = new FormPanel();
 	    uploadFormGz.setAction(GWT.getModuleBaseURL() + "upload");
 	    uploadFormGz.setEncoding(FormPanel.ENCODING_MULTIPART); 
 	    uploadFormGz.setMethod(FormPanel.METHOD_POST);
-	    final VerticalPanel uploadPanelGz = new VerticalPanel();
-	    uploadFormGz.setWidget(uploadPanelGz);
+	   	//Upload
+    	final HorizontalPanel uploadPanelGz = new HorizontalPanel();
+    	Label upload_lbl = new Label("Upload File:");
+    	upload_lbl.setWidth("90");
+    	uploadPanelGz.add(upload_lbl);
+    	//uploadPanelGz.add(upload_tb);
+    	//uploadPanelGz.add(upload_btn);
+    	//--------------
 
 	    // Add hidden widget to pass user name to FileUploadServlet for verification against wiki user table
 	    final Hidden hwGz = new Hidden("username", wikiUserName);  
@@ -96,6 +173,10 @@ public class GWT_Transxchange2GoogleTransit implements EntryPoint {
 	    uploadGz.setName("uploadFormElement");
 	    uploadPanelGz.add(uploadGz);
 
+	    
+	    //final VerticalPanel uploadPanelGz = new VerticalPanel();
+	    uploadFormGz.setWidget(uploadPanelGz);
+	    
 	    /*
 	     * Add Transxchange2GoogleTransit file upload
 	     */ 
@@ -106,15 +187,18 @@ public class GWT_Transxchange2GoogleTransit implements EntryPoint {
 	    final VerticalPanel uploadPanel = new VerticalPanel();
 	    uploadForm.setWidget(uploadPanel);
 
-		// Add hidden widget to pass user name to FileUploadServlet for verification against wiki user table
+		
+	    // Add hidden widget to pass user name to FileUploadServlet for verification against wiki user table
 	    final Hidden hw = new Hidden("username", wikiUserName);  
 	    uploadPanel.add(hw);
 
 	    final FileUpload upload = new FileUpload();
 	    upload.setName("uploadFormElement");
 	    uploadPanel.add(upload);
-    
-		/*
+	    
+		
+	    
+	    /*
 		 * Verify user and enable action buttons if user exists
 		 */
 		WikiUserServiceAsync wikiUserService = (WikiUserServiceAsync)GWT.create(WikiUserService.class);
@@ -132,9 +216,16 @@ public class GWT_Transxchange2GoogleTransit implements EntryPoint {
 						ssGz.setValue(serviceStart);
 						// Upload selected infile to server
 						uploadFormGz.submit();
+						
+						//EDJ
+						DialogBox dlg = new MyDialog();
+					      int left = 120;
+					      int top = 300;
+					      dlg.setPopupPosition(left, top);
+					      dlg.show();
 					}
 				} );
-				Button button = new Button("Transform", new ClickListener() {
+			Button button = new Button("Transform", new ClickListener() {
 					public void onClick(Widget sender) {
 						// Upload selected infile to server
 						uploadForm.submit();
@@ -180,13 +271,14 @@ public class GWT_Transxchange2GoogleTransit implements EntryPoint {
 			          return;
 				}
 			}
-		});
+		}
+		);
     
 		/*
 		 * Upload TransXChange file and call Transxchange2GoogleTransit servlet when "transform" button is pushed
 		 */
 		uploadForm.addFormHandler(new FormHandler() {
-			public void onSubmitComplete(FormSubmitCompleteEvent event) {
+		public void onSubmitComplete(FormSubmitCompleteEvent event) {
 
 				labelResult.setText((String)event.getResults());
 				
@@ -238,7 +330,20 @@ public class GWT_Transxchange2GoogleTransit implements EntryPoint {
 		 * Add UI elements
 		 * 		Better practice (for future reference): use CSS
 		 */
-	    RootPanel.get("gz_servicestart").add(textBoxServiceStartGz);    
+		TransformWindow.add(AgencyURL);
+        TransformWindow.add(RType);
+        TransformWindow.add(TZ);
+        TransformWindow.add(uploadPanelGz);
+        TransformWindow.add(uploadPanel);
+        TransformWindow.add(dialogButton);
+	    tabs.add(TransformWindow, "TransXChange");
+	    //tabs.add(TZ, "Transformation2");
+	    tabs.selectTab(0);
+	    dock.add(tabs, DockPanel.CENTER);
+	    RootPanel.get("tab_area").add(dock);
+		
+		/*
+		RootPanel.get("gz_servicestart").add(textBoxServiceStartGz);    
 	    RootPanel.get("gz_infile").add(uploadFormGz);    
 		RootPanel.get("url").add(textBoxUrl);
 		RootPanel.get("timezoneP").add(listBoxTimezoneP);
@@ -249,7 +354,7 @@ public class GWT_Transxchange2GoogleTransit implements EntryPoint {
 		RootPanel.get("user_result").add(labelResultUser);
 		RootPanel.get("gz_result").add(labelResultGz);
 		RootPanel.get("result").add(labelResult);
-	    RootPanel.get("infile").add(uploadForm);    
+	    RootPanel.get("infile").add(uploadForm);    */
 
 	    // Primary time zone (Africa, Europe, ...) selected
 		listBoxTimezoneP.addChangeListener(new ChangeListener() {
@@ -257,6 +362,14 @@ public class GWT_Transxchange2GoogleTransit implements EntryPoint {
 				switchTimezone(listBoxTimezoneS, listBoxTimezoneP.getSelectedIndex());
 			}
 		});
+	
+		
+	//----------------------------------------------------------------------------------------------
+	//----------------------------------------EDJ---------------------------------------------------
+
+	        	
+
+	        
 	}	
 
 	/*
@@ -701,10 +814,33 @@ public class GWT_Transxchange2GoogleTransit implements EntryPoint {
 		default: ;
 		break;
 		}
-		
+		box.setWidth("350");	
 	}
+
+
+	  private static class MyDialog extends DialogBox implements ClickListener {
+		    public MyDialog() {
+		      setText("Processing");
+		      Button closeButton = new Button("Close", this);
+		      HTML msg = new HTML(
+		        "<center>Processing...</center>", true);
+
+		      DockPanel dock = new DockPanel();
+		      dock.setSpacing(4);
+
+		      dock.add(closeButton, DockPanel.SOUTH);
+		      dock.add(msg, DockPanel.NORTH);
+
+		      dock.setCellHorizontalAlignment(closeButton, DockPanel.ALIGN_RIGHT);
+		      dock.setWidth("400px");
+		      dock.setHeight("100px");
+		      setWidget(dock);
+		    }
+
+		    public void onClick(Widget sender) {
+		      hide();
+		    }
+		  }
+
 }
-
-
-
 
