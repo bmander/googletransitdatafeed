@@ -76,7 +76,7 @@ public class TransxchangeHandler {
 	 * Generate Google Transit Feed structures
 	 */
 	public void parse(String filename, String url, String timezone, String defaultRouteType,
-			String rootDirectory, String workDirectory)
+			String rootDirectory, String workDirectory, String stopFile)
 	    throws SAXException, SAXParseException, IOException, ParserConfigurationException
 	{
 		ZipFile zipfile = null;
@@ -99,7 +99,7 @@ public class TransxchangeHandler {
 		if (zipinput)
 			enumer = zipfile.entries(); 
 		do { 
-			parseHandler = new TransxchangeHandlerEngine();	
+			parseHandler = new TransxchangeHandlerEngine(stopFile);	// v1.6.2
 			parseHandler.setUrl(url);
 			parseHandler.setTimezone(timezone);
 			parseHandler.setDefaultRouteType(defaultRouteType);
@@ -141,7 +141,7 @@ public class TransxchangeHandler {
 	}
 	
 	/*
-	 * Eliminiate possible duplicates from multiple input files in zip archive
+	 * Eliminate possible duplicates from multiple input files in zip archive
 	 */
 	public void consolidateStops() {
 		Iterator parsers = parseHandlers.iterator();
@@ -178,7 +178,7 @@ public class TransxchangeHandler {
 	}
 
 	/*
-	 * Eliminiate possible duplicates from multiple input files in zip archive
+	 * Eliminate possible duplicates from multiple input files in zip archive
 	 */
 	public void consolidateAgencies() {
 		Iterator parsers = parseHandlers.iterator();
@@ -215,7 +215,7 @@ public class TransxchangeHandler {
 	}
 
 	/*
-	 * Eliminiate possible duplicates from multiple input files in zip archive
+	 * Eliminate possible duplicates from multiple input files in zip archive
 	 */
 	public void consolidateRoutes() {
 		Iterator parsers = parseHandlers.iterator();

@@ -25,7 +25,7 @@ import transxchange2GoogleTransitHandler.*;
 
 /*
  * Transxchange2GoogleTransit 
- * 	$ transxchange2GoogleTransit <transxchange input filename> <url> <timezone> <default route type> [<output-directory>]
+ * 	$ transxchange2GoogleTransit <transxchange input filename> <url> <timezone> <default route type> <output-directory>
  * 
  * <default route type>: 0 - Tram, 1 - Subway, 2 - Rail, 3 - Bus, 4 - Ferry, 5 - Cable car, 6 - Gondola, 7 - Funicular
  */
@@ -35,17 +35,17 @@ public class Transxchange2GoogleTransit {
 
 		TransxchangeHandler handler = null;
 
-		String outdir = "";
-        if (args.length == 5)
-        	outdir = args[4];
+		String stopfile = ""; // v1.6.2
+        if (args.length == 6)
+        	stopfile = args[5];
 		
 		System.out.println();
-        System.out.println("transxchange2GoogleTransit 1.6.1");
+        System.out.println("transxchange2GoogleTransit 1.6.2");
         System.out.println("Please refer to LICENSE file for licensing information");
-        if (args.length < 4 || args.length > 5) {
+        if (args.length < 5 || args.length > 6) {
         	System.out.println();
         	System.out.println("Usage: $ transxchange2GoogleTransit <transxchange input filename> -");
-        	System.out.println("         <url> <timezone> <default route type> [<output-directory>]");
+        	System.out.println("         <url> <timezone> <default route type> <output-directory>");
         	System.out.println();
         	System.out.println("         <timezone>: Please refer to ");
         	System.out.println("             http://en.wikipedia.org/wiki/List_of_tz_zones");
@@ -53,11 +53,11 @@ public class Transxchange2GoogleTransit {
         	System.out.println("             0 - Tram, 1 - Subway, 2 - Rail, 3 - Bus, 4 - Ferry, 5 - Cable car, 6 - Gondola, 7 - Funicular");
         	System.exit(1);
         }
-        
+    
         // Parse transxchange input file and create initial Google Transit output files
         try {
         	handler = new TransxchangeHandler();
-        	handler.parse(args[0], args[1], args[2], args[3], "", outdir);
+        	handler.parse(args[0], args[1], args[2], args[3], "", args[4], stopfile);
 		} catch (ParserConfigurationException e) {
         	System.out.println("transxchange2GoogleTransit ParserConfiguration parse error:");
         	System.out.println(e.getMessage());
@@ -87,7 +87,7 @@ public class Transxchange2GoogleTransit {
     
         // Create final Google Transit output files
         try {
-        	handler.writeOutput("", outdir);
+        	handler.writeOutput("", args[4]);
         } catch (Exception e) {
         	System.out.println("transxchange2GoogleTransit write error:");
         	System.out.println(e.getMessage());

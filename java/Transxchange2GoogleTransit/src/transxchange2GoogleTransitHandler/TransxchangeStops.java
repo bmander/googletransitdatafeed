@@ -476,31 +476,55 @@ public class TransxchangeStops extends TransxchangeDataAspect{
 		
 		/*
 		 * v1.5: Read stop coordinates from uk stop file
+		 * v1.6.3: Different handling: read it from file specified as command line parameter, in Naptan CSV format
 		 */
 		String ukStopsFileName = "/data/ukstops.csv";
 		URL urlFileName = getClass().getResource(ukStopsFileName);
 		URLDecoder.decode(urlFileName.getFile(), "UTF-8");
 		InputStream inStream = urlFileName.openStream();
-		InputStreamReader inStreamReader = new InputStreamReader(inStream);
-		BufferedReader bufFileIn = new BufferedReader(inStreamReader);
+        InputStreamReader inStreamReader = new InputStreamReader(inStream);
 
-		lat = new HashMap();		
-		lon = new HashMap();		
-		String line;
-		String tokens[] = {"", "", ""};
-		while((line = bufFileIn.readLine()) != null) {
-			StringTokenizer st = new StringTokenizer(line, ",");
-			int i = 0;
-			while (st.hasMoreTokens() && i < 3) {
-				tokens[i] = st.nextToken();
-				i++;
-			}
-			lat.put(tokens[0], tokens[1]);
-			lon.put(tokens[0], tokens[2]);
-			tokens[0] = "";
-			tokens[1] = "";
-			tokens[2] = "";
+		// v1.6.3: future
+//		String ukStopsFileName = owner.getStopFile();
+//		if (ukStopsFileName != null && ukStopsFileName.length() > 0) {
+			
+//			BufferedReader bufFileIn = new BufferedReader(new FileReader(ukStopsFileName));
+			BufferedReader bufFileIn = new BufferedReader(inStreamReader);
+	
+			lat = new HashMap();		
+			lon = new HashMap();		
+			String line;
+			String stopcode;
+			String tokens[] = {"", "", "", "", "", "", "", "", "", "",
+					"", "", "", "", "", "", "", "", "", "",
+					"", "", "", "", "", "", "", "", "", "",
+					"", "", "", "", "", "", "", "", "", "",
+					"", "", "", "", "", "", "", "", "", ""};
+//			boolean firstline = true;
+			int i;
+			while((line = bufFileIn.readLine()) != null) {
+//				if (!firstline) {
+					StringTokenizer st = new StringTokenizer(line, ",");
+					i = 0;
+					while (st.hasMoreTokens() && i < 30) {
+						tokens[i] = st.nextToken();
+						i++;
+					}
+					stopcode = tokens[0];
+					lat.put(stopcode, tokens[1]);
+					lon.put(stopcode, tokens[2]);
+// v1.6.3 future
+//					stopcode = tokens[0].substring(1, tokens[0].length() - 1); // Remove quotation marks
+//					lat.put(stopcode, tokens[29]);
+//					lon.put(stopcode, tokens[28]);
+	//				tokens[0] = "";
+	//				tokens[1] = "";
+	//				tokens[2] = "";
+//				} else
+//					firstline = false;
+//			}
+//			bufFileIn.close();
 		}
-		inStream.close();
+			inStream.close();
 	}
 }

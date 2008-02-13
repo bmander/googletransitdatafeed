@@ -383,9 +383,15 @@ public class TransxchangeStopTimes extends TransxchangeDataAspect {
 	       						newStoptimes__arrival_time = new ValueList(iterator.getKeyName());
 	       						listStoptimes__arrival_time.add(newStoptimes__arrival_time);
 	       						if (sequenceNumber > 1 && notPassed && !setDownReached) // Arrival time if not first stop and not a pass
-       							newStoptimes__arrival_time.addValue(TransxchangeDataAspect.formatTime(stopTimehhmmss[0], stopTimehhmmss[1]));
-	       						else
-	       							newStoptimes__arrival_time.addValue("");
+	       							newStoptimes__arrival_time.addValue(TransxchangeDataAspect.formatTime(stopTimehhmmss[0], stopTimehhmmss[1]));
+	       						else { 
+	       							
+	       							// v1.6.2: Conformance with GTFS revision 20-Nov-2007: If first stop, arrival time = departure time
+	       							if (sequenceNumber == 1)
+	       								newStoptimes__arrival_time.addValue(TransxchangeDataAspect.formatTime(stopTimehhmmss[0], stopTimehhmmss[1]));
+	       							else
+	       								newStoptimes__arrival_time.addValue("");
+	       						}
 	       						if (((ValueList)_listTimingLinksRunTime.get(j)).getValue(1) != null) { // add wait time #1 ?
 	       							waitTimeAdd = readTransxchangeFrequency((String)((ValueList)_listTimingLinksRunTime.get(j)).getValue(1));
 	       			        		int stopTimeInSeconds = stopTimehhmmss[2] + stopTimehhmmss[1] * 60 + stopTimehhmmss[0] * 3600;
@@ -469,9 +475,11 @@ public class TransxchangeStopTimes extends TransxchangeDataAspect {
    				newStoptimes__arrival_time.addValue(TransxchangeDataAspect.formatTime(stopTimehhmmss[0], stopTimehhmmss[1]));
 	   			else
 	   				newStoptimes__arrival_time.addValue("");
-	   			newStoptimes__departure_time = new ValueList(iterator.getKeyName()); // empty departure time
+	   			newStoptimes__departure_time = new ValueList(iterator.getKeyName()); // departure time
 	   			listStoptimes__departure_time.add(newStoptimes__departure_time);
-	   			newStoptimes__departure_time.addValue("");   	    	
+// v1.6.2	   			newStoptimes__departure_time.addValue("");   	    	
+	   			// v1.6.2: conformance with GTFS revision 20-Nov-2007: Departure time at last stop
+	   			newStoptimes__departure_time.addValue(TransxchangeDataAspect.formatTime(stopTimehhmmss[0], stopTimehhmmss[1]));   	    	
 	   			newStoptimes__stop_id = new ValueList(journeyPatternSectionRef); 
 	   			listStoptimes__stop_id.add(newStoptimes__stop_id);
 	   			newStoptimes__stop_id.addValue((String)((ValueList)_listTimingLinksToStop.get(lastStopOnPattern)).getValue(0));   			

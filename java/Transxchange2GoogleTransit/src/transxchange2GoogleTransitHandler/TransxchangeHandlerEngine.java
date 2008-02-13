@@ -53,6 +53,7 @@ public class TransxchangeHandlerEngine extends DefaultHandler {
 	static String googleTransitTimezone = "";
 	static String googleTransitDefaultRouteType = "";
 	static String googleTransitOutfile = "";
+	static String naptanStopFile = ""; // v1.6.2
 	
 	// Google Transit Feed Specification file names
 	static final String agencyFilename = "agency";
@@ -92,6 +93,10 @@ public class TransxchangeHandlerEngine extends DefaultHandler {
 		googleTransitDefaultRouteType = defaultRouteType;
 	}
 	
+	public void setStopFile(String stopFile) { // v1.6.2
+		naptanStopFile = stopFile;
+	}
+	
 	public String getUrl() {
 		return googleTransitUrl;
 	}
@@ -102,6 +107,10 @@ public class TransxchangeHandlerEngine extends DefaultHandler {
 
 	public String getDefaultRouteType() {
 		return googleTransitDefaultRouteType;
+	}
+	
+	public String getStopFile() { // v1.6.2
+		return naptanStopFile;
 	}
 	
 	public TransxchangeAgency getAgencies() {
@@ -629,8 +638,9 @@ public class TransxchangeHandlerEngine extends DefaultHandler {
 	/*
 	 * Initialize Google Transit Feed data structures
 	 */
-	public TransxchangeHandlerEngine () 
+	public TransxchangeHandlerEngine (String stopfile) 
 		throws UnsupportedEncodingException, IOException {
+		this.naptanStopFile = stopfile;
 		agencies = new TransxchangeAgency(this);
 		stops = new TransxchangeStops(this);
 		routes = new TransxchangeRoutes(this);
