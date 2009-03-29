@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 GoogleTransitDataFeed
+ * Copyright 2007, 2009 GoogleTransitDataFeed
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -17,6 +17,7 @@
 package transxchange2GoogleTransitHandler;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.xml.sax.Attributes;
@@ -38,7 +39,7 @@ public class TransxchangeCalendar extends TransxchangeDataAspect {
 	static final String[] key_calendar__saturday = new String[] {"__transxchange2GoogleTransit_drawDefault", "", "0"}; // Google Transit required
 	static final String[] key_calendar__sunday = new String[] {"__transxchange2GoogleTransit_drawDefault", "", "0"}; // Google Transit required
 	static final String[] key_calendar__start_date = new String[] {"Service", "StartDate", "20060901"}; // Google Transit required
-	static final String[] key_calendar__end_date = new String[] {"Service", "EndDate", "20081231"}; // Google Transit required
+	static final String[] key_calendar__end_date = new String[] {"Service", "EndDate", "20091231"}; // Google Transit required
 
 	// Parsed data
 	List listCalendar__service_id;
@@ -120,6 +121,42 @@ public class TransxchangeCalendar extends TransxchangeDataAspect {
 	}
 	public List getListCalendar__end_date() {
 		return listCalendar__end_date;
+	}
+
+	// v1.6.3: get start year of service
+	public int getStartYear() {
+		String					date = "";
+		int						lowestYear = 999999999;
+		int						testYear;
+
+		Iterator i = listCalendar__start_date.iterator();
+		while (i.hasNext()) {
+			date = (String)((ValueList)(i.next())).getValue(0);
+			testYear = Integer.parseInt(date.substring(0, 4));
+			if (testYear < lowestYear)
+				lowestYear = testYear;
+			
+		}
+		if (lowestYear == 999999999)
+			return -1;
+		
+		return lowestYear;
+	}
+	public int getEndYear() {
+		String					date = "";
+		int						highestYear = -1;
+		int						testYear;
+
+		Iterator i = listCalendar__end_date.iterator();
+		while (i.hasNext()) {
+			date = (String)((ValueList)(i.next())).getValue(0);
+			testYear = Integer.parseInt(date.substring(0, 4));
+			if (testYear > highestYear)
+				highestYear = testYear;
+			
+		}
+		
+		return highestYear;
 	}
 
 	public String getService() {

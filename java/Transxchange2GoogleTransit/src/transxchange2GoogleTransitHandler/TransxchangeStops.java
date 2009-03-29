@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 GoogleTransitDataFeed
+ * Copyright 2007, 2009 GoogleTransitDataFeed
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -65,8 +65,8 @@ public class TransxchangeStops extends TransxchangeDataAspect{
 	String stopPointToLat = ""; // Store current lat of stop-to to maintain lat of last stop in route link
 	String stopPointToLon = ""; // same for lon
 	
-	Map lat; // v1.5 lat, lon
-	Map lon; // v1.5 lat, lon
+	static Map lat = null; // v1.5 lat, lon
+	static Map lon = null; // v1.5 lat, lon
 	
 	static final String[] _key_stops_alternative_descriptor = new String[] {"StopPoints", "AlternativeDescriptors", "CommonName"};
 
@@ -444,21 +444,49 @@ public class TransxchangeStops extends TransxchangeDataAspect{
 	    
 	}
 
-	public String getLat(String stop) { // v1.5: Return lat
+	public static String getLat(String stop) { // v1.5: Return lat
+
+		// v1.6.3: If no coordinates, return key
+		if (lat == null)
+			return key_stops__stop_lat[2];
+		
 		if (lat.containsKey(stop))
 			return (String)lat.get(stop);
 		else
 			return key_stops__stop_lat[2];
 	}
-	public String getLon(String stop) { // v1.5: Return lon
+	public static String getLon(String stop) { // v1.5: Return lon
+
+		// v1.6.3: If no coordinates, return key
+		if (lon == null)
+			return key_stops__stop_lat[2];
+
 		if (lon.containsKey(stop))
 			return (String)lon.get(stop);
 		else
 			return key_stops__stop_lon[2];
 	}
+	
+	private static int findColumn(String headline, String code) {
+		if (headline == null || code == null)
+			return -1;
+		
+		StringTokenizer st = new StringTokenizer(headline, ",");
+		String token;
+		int counter = 0;
+		boolean found = false;
+		while (!found && (token = st.nextToken()) != null)
+			if (token.equals(code))
+				found = true;
+			else
+				counter++;
+		if (!found)
+			return -1;
+		return counter;
+	}
 
-	public TransxchangeStops(TransxchangeHandlerEngine owner) 
-		throws UnsupportedEncodingException, IOException {
+	public TransxchangeStops(TransxchangeHandlerEngine owner) { // 11-Mar-2009, String ukStopsFileName) 
+// 11-Mar-2009		throws UnsupportedEncodingException, IOException {
 		super(owner);
 		listStops__stop_id = new ArrayList();
 		listStops__stop_name = new ArrayList();
@@ -473,58 +501,75 @@ public class TransxchangeStops extends TransxchangeDataAspect{
 		
 		_listStops__stop_locality = new ArrayList();
 		_listStops__stop_indicator = new ArrayList();
-		
+	} // 11-Mar-2009
+
+	
+	public static void readStopfile(String ukStopsFileName) 
+		throws UnsupportedEncodingException, IOException {
 		/*
 		 * v1.5: Read stop coordinates from uk stop file
 		 * v1.6.3: Different handling: read it from file specified as command line parameter, in Naptan CSV format
-		 */
-		String ukStopsFileName = "/data/ukstops.csv";
+ 		String ukStopsFileName = "/data/ukstops.csv";
 		URL urlFileName = getClass().getResource(ukStopsFileName);
 		URLDecoder.decode(urlFileName.getFile(), "UTF-8");
 		InputStream inStream = urlFileName.openStream();
         InputStreamReader inStreamReader = new InputStreamReader(inStream);
-
-		// v1.6.3: future
+*/
+		// v1.6.3: read Naptan format stop file
 //		String ukStopsFileName = owner.getStopFile();
-//		if (ukStopsFileName != null && ukStopsFileName.length() > 0) {
+		if (ukStopsFileName != null && ukStopsFileName.length() > 0) {
 			
-//			BufferedReader bufFileIn = new BufferedReader(new FileReader(ukStopsFileName));
-			BufferedReader bufFileIn = new BufferedReader(inStreamReader);
-	
+			BufferedReader bufFileIn = new BufferedReader(new FileReader(ukStopsFileName));
+//			BufferedReader bufFileIn = new BufferedReader(inStreamReader); // v1.6.3
+
+			// v1.6.3: Read first line to find column positions of stopcode, lat and lon
+			String line;
+			int stopcodeIx;
+			int latIx;
+			int lonIx;
+			if ((line = bufFileIn.readLine()) != null) {
+				if ((stopcodeIx = findColumn(line, "\"ATCOCode\"")) == -1)
+					throw new UnsupportedEncodingException("stopfile column ATCOCode not found");
+				if ((latIx = findColumn(line, "\"Lat\"")) == -1)
+					throw new UnsupportedEncodingException("stopfile column Lat not found");
+				if ((lonIx = findColumn(line, "\"Lon\"")) == -1)
+					throw new UnsupportedEncodingException("stopfile column Lon not found");
+			} else
+				throw new UnsupportedEncodingException("stopfile is empty");
+			
+			if (lat != null)
+				lat.clear();
+			if (lon != null)
+				lon.clear();
 			lat = new HashMap();		
 			lon = new HashMap();		
-			String line;
 			String stopcode;
 			String tokens[] = {"", "", "", "", "", "", "", "", "", "",
 					"", "", "", "", "", "", "", "", "", "",
 					"", "", "", "", "", "", "", "", "", "",
 					"", "", "", "", "", "", "", "", "", "",
 					"", "", "", "", "", "", "", "", "", ""};
-//			boolean firstline = true;
+			boolean firstline = true;
 			int i;
 			while((line = bufFileIn.readLine()) != null) {
-//				if (!firstline) {
+				if (!firstline) {
 					StringTokenizer st = new StringTokenizer(line, ",");
 					i = 0;
 					while (st.hasMoreTokens() && i < 30) {
 						tokens[i] = st.nextToken();
 						i++;
 					}
-					stopcode = tokens[0];
-					lat.put(stopcode, tokens[1]);
-					lon.put(stopcode, tokens[2]);
-// v1.6.3 future
-//					stopcode = tokens[0].substring(1, tokens[0].length() - 1); // Remove quotation marks
-//					lat.put(stopcode, tokens[29]);
-//					lon.put(stopcode, tokens[28]);
-	//				tokens[0] = "";
-	//				tokens[1] = "";
-	//				tokens[2] = "";
-//				} else
-//					firstline = false;
-//			}
-//			bufFileIn.close();
+//					stopcode = tokens[0]; // v1.6.3
+//					lat.put(stopcode, tokens[1]);
+//					lon.put(stopcode, tokens[2]);
+
+					stopcode = tokens[0].substring(1, tokens[stopcodeIx].length() - 1); // Remove quotation marks
+					lat.put(stopcode, tokens[latIx]);
+					lon.put(stopcode, tokens[lonIx]);
+				} else
+					firstline = false;
+			}
+			bufFileIn.close();
 		}
-			inStream.close();
 	}
 }

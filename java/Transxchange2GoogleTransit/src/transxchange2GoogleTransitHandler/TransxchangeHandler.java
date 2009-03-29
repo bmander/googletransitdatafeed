@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 GoogleTransitDataFeed
+ * Copyright 2007, 2009 GoogleTransitDataFeed
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -83,7 +83,7 @@ public class TransxchangeHandler {
 		boolean zipinput = true; // v1.5.1: Handle zip files
 		boolean processing = true;
 		java.util.Enumeration enumer = null;
-
+		
 		// Open infile, zip or single xml
 		try { // v1.5.1: Try to open filename as zip file
 			zipfile = new ZipFile(filename);
@@ -91,45 +91,54 @@ public class TransxchangeHandler {
 			zipinput = false; // Opening file as zip file crashed; assume it is a single XML file
 		}
 		
-		// Prepare output files
-		TransxchangeHandlerEngine.prepareOutput(rootDirectory, workDirectory);	
+		try {
 		
-		// Roll single as well as zipped infiles into a unified data structure for later transparent processing (stops only, rest goes straight to output files)
-		parseHandlers = new ArrayList();
-		if (zipinput)
-			enumer = zipfile.entries(); 
-		do { 
-			parseHandler = new TransxchangeHandlerEngine(stopFile);	// v1.6.2
-			parseHandler.setUrl(url);
-			parseHandler.setTimezone(timezone);
-			parseHandler.setDefaultRouteType(defaultRouteType);
+			// Prepare output files
+			TransxchangeHandlerEngine.prepareOutput(rootDirectory, workDirectory);	
+			
+			// Read stopfile
+			if (stopFile != null && stopFile.length() > 0)
+				TransxchangeStops.readStopfile(stopFile);
 	
-			SAXParserFactory parserFactory = SAXParserFactory.newInstance();
-			SAXParser parser = parserFactory.newSAXParser();
-
-			if (zipinput) {
-				if (processing = enumer.hasMoreElements()) {			
-					ZipEntry zipentry = (ZipEntry)enumer.nextElement();
-					System.out.println(zipentry.getName());
-					InputStream in = zipfile.getInputStream(zipentry);
-					parser.parse(in, parseHandler);	
+			// Roll single as well as zipped infiles into a unified data structure for later transparent processing (stops only, rest goes straight to output files)
+			parseHandlers = new ArrayList();
+			if (zipinput)
+				enumer = zipfile.entries(); 
+			do { 
+				parseHandler = new TransxchangeHandlerEngine();	// v1.6.2
+				parseHandler.setUrl(url);
+				parseHandler.setTimezone(timezone);
+				parseHandler.setDefaultRouteType(defaultRouteType);
+		
+				SAXParserFactory parserFactory = SAXParserFactory.newInstance();
+				SAXParser parser = parserFactory.newSAXParser();
+	
+				if (zipinput) {
+					if (processing = enumer.hasMoreElements()) {			
+						ZipEntry zipentry = (ZipEntry)enumer.nextElement();
+						System.out.println(zipentry.getName());
+						InputStream in = zipfile.getInputStream(zipentry);
+						parser.parse(in, parseHandler);	
+						parseHandler.writeOutputSansAgenciesStopsRoutes(); // Dump data structure with exception of stops which need later consolidation over all input files
+						parseHandler.clearDataSansAgenciesStopsRoutes(); // No need to keep the data structures written
+					}				
+				} else {
+					parser.parse(new File(filename), parseHandler);	
 					parseHandler.writeOutputSansAgenciesStopsRoutes(); // Dump data structure with exception of stops which need later consolidation over all input files
-					parseHandler.clearDataSansAgenciesStopsRoutes(); // No need to keep the data structures written
-				}				
-			} else {
-				parser.parse(new File(filename), parseHandler);	
-				parseHandler.writeOutputSansAgenciesStopsRoutes(); // Dump data structure with exception of stops which need later consolidation over all input files
-				processing = false;
-			}
-			parseHandlers.add(parseHandler);
-		} while (processing);
+					processing = false;
+				}
+				parseHandlers.add(parseHandler);
+			} while (processing);
+		} catch (IOException e) {
+        	System.out.println("TransxchangeHandler Parse Exception: " + e.getMessage());
+		}
 	}
 	
 	/*
 	 * Create Google Transit Feed file set from Google Transit Feed data structures
 	 */
 	public String writeOutput(String rootDirectory, String workDirectory)
-	throws IOException
+		throws IOException
 	{		
 		consolidateAgencies(); // Eliminiate possible duplicates from multiple input files in zip archive
 		consolidateStops(); // Eliminiate possible duplicates from multiple input files in zip archive

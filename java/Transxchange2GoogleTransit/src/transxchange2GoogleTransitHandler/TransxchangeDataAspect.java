@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 GoogleTransitDataFeed
+ * Copyright 2007 2009 GoogleTransitDataFeed
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -62,7 +62,6 @@ public abstract class TransxchangeDataAspect {
 
 	public void dumpValues() {
 	}
-
 	
 	/*
 	 * Read time in transxchange specific format
@@ -125,9 +124,11 @@ public abstract class TransxchangeDataAspect {
 		    iterator = (ValueList)values.get(i);
 		    for (j = 0; j < iterator.size(); j++) {
 		    	s = (String)iterator.getValue(j);
-		    	if (s.lastIndexOf(",") != -1 || s.lastIndexOf("\"") != -1)
-		    		s = "\"" + s + "\"";
-		    	iterator.setValue(j, s);
+		    	if (s != null) { // v1.6.3: may contain null value
+			    	if (s.lastIndexOf(",") != -1 || s.lastIndexOf("\"") != -1)
+			    		s = "\"" + s + "\"";
+			    	iterator.setValue(j, s);
+		    	}
 		    }
 		}
 	}

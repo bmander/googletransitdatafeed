@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 GoogleTransitDataFeed
+ * Copyright 2007, 2009 GoogleTransitDataFeed
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -53,7 +53,7 @@ public class TransxchangeHandlerEngine extends DefaultHandler {
 	static String googleTransitTimezone = "";
 	static String googleTransitDefaultRouteType = "";
 	static String googleTransitOutfile = "";
-	static String naptanStopFile = ""; // v1.6.2
+// 11-Mar-2009	static String naptanStopFile = ""; // v1.6.2
 	
 	// Google Transit Feed Specification file names
 	static final String agencyFilename = "agency";
@@ -93,9 +93,9 @@ public class TransxchangeHandlerEngine extends DefaultHandler {
 		googleTransitDefaultRouteType = defaultRouteType;
 	}
 	
-	public void setStopFile(String stopFile) { // v1.6.2
-		naptanStopFile = stopFile;
-	}
+// 11-Mar-2009	public void setStopFile(String stopFile) { // v1.6.2
+// 11-Mar-2009		naptanStopFile = stopFile;
+// 11-Mar-2009	}
 	
 	public String getUrl() {
 		return googleTransitUrl;
@@ -109,9 +109,9 @@ public class TransxchangeHandlerEngine extends DefaultHandler {
 		return googleTransitDefaultRouteType;
 	}
 	
-	public String getStopFile() { // v1.6.2
-		return naptanStopFile;
-	}
+// 11-Mar-2009	public String getStopFile() { // v1.6.2
+// 11-Mar-2009		return naptanStopFile;
+// 11-Mar-2009	}
 	
 	public TransxchangeAgency getAgencies() {
 		return agencies;
@@ -155,42 +155,6 @@ public class TransxchangeHandlerEngine extends DefaultHandler {
 	
 	public String getParseInfo() {
 		return parseInfo;
-	}
-	
-	/*
-	 * Generate Google Transit Feed structures
-	 */
-	public void parse(String filename, String url, String timezone, String defaultRouteType)
-	    throws SAXException, SAXParseException, IOException, ParserConfigurationException
-	{
-		ZipFile zipfile = null;
-		boolean zipinput = true; // v1.5.1: Handle zip files
-		
-		this.setUrl(url);
-		this.setTimezone(timezone);
-		this.setDefaultRouteType(defaultRouteType);
-
-		// v1.5.1: Try to open filename as zip file
-		try {
-			zipfile = new ZipFile(filename);
-		} catch (IOException e) {
-			zipinput = false; // Opening file as zip file crashed; assume it is a single XML file
-		}
-		if (zipinput) {
-			for (java.util.Enumeration enumer = zipfile.entries(); enumer.hasMoreElements();) {
-				ZipEntry zipentry = (ZipEntry)enumer.nextElement();
-				SAXParserFactory parserFactory = SAXParserFactory.newInstance();
-				SAXParser parser = parserFactory.newSAXParser();
-				System.out.println(zipentry.getName());
-				InputStream in = zipfile.getInputStream(zipentry);
-//				BufferedInputStream bis = new BufferedInputStream(in);
-				parser.parse(in, this);	
-			}
-		} else {
-			SAXParserFactory parserFactory = SAXParserFactory.newInstance();
-			SAXParser parser = parserFactory.newSAXParser();
-			parser.parse(new File(filename), this);	
-		}
 	}
 	
 	/*
@@ -268,7 +232,7 @@ public class TransxchangeHandlerEngine extends DefaultHandler {
 		calendarDates.completeData();
     
 		// Dump parsed data to System.out
-/* ... not
+/*
 		agencies.dumpValues();
 		stops.dumpValues(); 
 		routes.dumpValues(); 
@@ -276,11 +240,12 @@ public class TransxchangeHandlerEngine extends DefaultHandler {
 		stopTimes.dumpValues(); 
 		calendar.dumpValues();
 		calendarDates.dumpValues();
-*/	}
+*/
+	}
 
 
 	/*
-	 * Prepare Google Trandit Feed file set files
+	 * Prepare Google Transit Feed file set files
 	 */
 	public static void prepareOutput(String rootDirectory, String workDirectory)
 	throws IOException
@@ -638,9 +603,9 @@ public class TransxchangeHandlerEngine extends DefaultHandler {
 	/*
 	 * Initialize Google Transit Feed data structures
 	 */
-	public TransxchangeHandlerEngine (String stopfile) 
+	public TransxchangeHandlerEngine ()
 		throws UnsupportedEncodingException, IOException {
-		this.naptanStopFile = stopfile;
+// 11-Mar-2009		this.naptanStopFile = stopfile;
 		agencies = new TransxchangeAgency(this);
 		stops = new TransxchangeStops(this);
 		routes = new TransxchangeRoutes(this);

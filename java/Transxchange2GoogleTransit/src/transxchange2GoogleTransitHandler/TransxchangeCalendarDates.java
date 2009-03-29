@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 GoogleTransitDataFeed
+ * Copyright 2007, 2009 GoogleTransitDataFeed
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -74,9 +74,13 @@ public class TransxchangeCalendarDates extends TransxchangeDataAspect {
 	boolean dayOfNoOperation = false;
 
 	// v1.5: Bank holidays support map
-	Map bankHolidays2007;
-	Map bankHolidays2008;
-	Map bankHolidays2009;
+	// V1.6.3 ArrayList to dynamically create the years covered by the service 
+	ArrayList bankHolidays;
+	HashMap years = new HashMap(); //  years as HashMap to maintain unique entries
+	ArrayList yearsList = new ArrayList(); // years as list to allow iterating through years
+//	Map bankHolidays2007;
+//	Map bankHolidays2008;
+//	Map bankHolidays2009;
 	
 	/*
 	 * Utility methods to retrieve Google Transit feed structures
@@ -210,23 +214,45 @@ public class TransxchangeCalendarDates extends TransxchangeDataAspect {
         	}        
         } else {
 
+        	// v1.6.3: Roll out years covered by the service 
+        	TransxchangeCalendar calendar = handler.getCalendar();
+        	int startYear = calendar.getStartYear();
+        	int endYear = calendar.getEndYear();
+        	if (startYear != -1 && endYear != -1 && endYear >= startYear && yearsList.size() == 0) {
+        		for (int i = startYear; i <= endYear; i++) 
+        			if (!years.containsKey(i)) {
+        				years.put(i, createHolidays(i));
+        				yearsList.add(i);
+        		}
+    		}
+    		service = handler.getCalendar().getService();
+    		HashMap holidays;
+        	Iterator i;
+        	i = yearsList.iterator();
+        	while (i.hasNext()) {
+        		holidays = (HashMap)years.get(i.next());
+            	if (key.equals(_key_calendar_bankholiday_nooperation_all[0]) && keyNested.equals(_key_calendar_bankholiday_nooperation_all[1]) && keyOperationDaysBank.equals(_key_calendar_bankholiday_nooperation_all[2]))       
+            		createBankHolidaysAll(service, holidays, _key_calendar_bankholiday_nooperation_all[4]);
+           		if (key.equals(_key_calendar_bankholiday_operation_spring[0]) && keyNested.equals(_key_calendar_bankholiday_operation_spring[1]) && keyOperationDaysBank.equals(_key_calendar_bankholiday_operation_spring[2]))       
+           			createBankHoliday(service, qName, holidays, _key_calendar_bankholiday_nooperation_all[4]);
+        	}
+
         	// v1.5: handle bank holidays no-operation
-        	if (key.equals(_key_calendar_bankholiday_nooperation_all[0]) && keyNested.equals(_key_calendar_bankholiday_nooperation_all[1]) && keyOperationDaysBank.equals(_key_calendar_bankholiday_nooperation_all[2])) {       
+/*        	if (key.equals(_key_calendar_bankholiday_nooperation_all[0]) && keyNested.equals(_key_calendar_bankholiday_nooperation_all[1]) && keyOperationDaysBank.equals(_key_calendar_bankholiday_nooperation_all[2])) {       
         		service = handler.getCalendar().getService();
-        		createBankHolidaysAll(service, bankHolidays2007, _key_calendar_bankholiday_nooperation_all[4]);
-        		createBankHolidaysAll(service, bankHolidays2008, _key_calendar_bankholiday_nooperation_all[4]);
-        		createBankHolidaysAll(service, bankHolidays2009, _key_calendar_bankholiday_nooperation_all[4]);
+//        		createBankHolidaysAll(service, bankHolidays2007, _key_calendar_bankholiday_nooperation_all[4]);
+//        		createBankHolidaysAll(service, bankHolidays2008, _key_calendar_bankholiday_nooperation_all[4]);
+//        		createBankHolidaysAll(service, bankHolidays2009, _key_calendar_bankholiday_nooperation_all[4]);
         	}
         	
         	// v1.5 handle bank holidays operation
         	if (key.equals(_key_calendar_bankholiday_operation_spring[0]) && keyNested.equals(_key_calendar_bankholiday_operation_spring[1]) && keyOperationDaysBank.equals(_key_calendar_bankholiday_operation_spring[2])) {       
         		service = handler.getCalendar().getService();
-        		createBankHoliday(service, qName, bankHolidays2007, _key_calendar_bankholiday_nooperation_all[4]);
-        		createBankHoliday(service, qName, bankHolidays2008, _key_calendar_bankholiday_nooperation_all[4]);
-        		createBankHoliday(service, qName, bankHolidays2009, _key_calendar_bankholiday_nooperation_all[4]);
+//        		createBankHoliday(service, qName, bankHolidays2007, _key_calendar_bankholiday_nooperation_all[4]);
+//        		createBankHoliday(service, qName, bankHolidays2008, _key_calendar_bankholiday_nooperation_all[4]);
+//        		createBankHoliday(service, qName, bankHolidays2009, _key_calendar_bankholiday_nooperation_all[4]);
         	}
-        	
-        	
+*/
         }    
 	}
 
@@ -269,6 +295,336 @@ public class TransxchangeCalendarDates extends TransxchangeDataAspect {
 	    	iterator = (ValueList)listCalendarDates__exception_type.get(i);
 	    	iterator.dumpValues();
 	    }
+	}
+	
+	private HashMap createHolidays(int year) {
+
+		HashMap bankHolidays = new HashMap();
+
+		// NewYearsDay - consider replacement holiday of January 1st falls on Saturday or Sunday
+		Calendar newyearsDay = Calendar.getInstance();
+		newyearsDay.set(year, 0, 1); // Java starts counting months at 0
+		int dayOfWeek = newyearsDay.get(Calendar.DAY_OF_WEEK);
+		String theDay;
+		switch (dayOfWeek) {
+			case Calendar.SATURDAY:
+			theDay = "0103";
+			break;
+			case Calendar.SUNDAY:
+			theDay = "0102";
+			break;
+			default:
+			theDay = "0101";
+			break;
+		}
+		bankHolidays.put("NewYearsDay", year + theDay);
+
+		// GoodFriday and EasterMonday
+		int a = year % 19;
+		int b = year / 100;
+		int c = year % 100;
+		int d = b / 4;
+		int e = b % 4;
+		int f = ( b + 8 ) / 25;
+		int g = ( b - f + 1 ) / 3;
+		int h = ( 19 * a + b - d - g + 15 ) % 30;
+		int i = c / 4;
+		int k = c % 4;
+		int l = (32 + 2 * e + 2 * i - h - k) % 7;
+		int m = (a + 11 * h + 22 * l) / 451;
+		int p = (h + l - 7 * m + 114) % 31;
+		int month = ( h + l - 7 * m + 114 ) / 31;
+		int day = p + 1;
+		Calendar gc = Calendar.getInstance();
+		gc.set(year, month, day);
+		long easterSunday = gc.getTimeInMillis();
+		long easterFriday = easterSunday - 2 * 24 * 60 * 60 * 1000; // Two days before Easter Sunday
+		long easterMonday = easterSunday + 24 * 60 * 60 * 1000; // One day after Easter Sunday
+		Calendar easterHoliday = Calendar.getInstance();
+		easterHoliday.setTimeInMillis(easterFriday);
+		bankHolidays.put("GoodFriday", TransxchangeDataAspect.formatDate(easterHoliday.get(Calendar.YEAR), easterHoliday.get(Calendar.MONTH), easterHoliday.get(Calendar.DAY_OF_MONTH)));
+		easterHoliday.setTimeInMillis(easterMonday);
+		bankHolidays.put("EasterMonday", TransxchangeDataAspect.formatDate(easterHoliday.get(Calendar.YEAR), easterHoliday.get(Calendar.MONTH), easterHoliday.get(Calendar.DAY_OF_MONTH)));
+
+		// MayDay: First Monday in May
+		Calendar mayDayHoliday = Calendar.getInstance();
+		mayDayHoliday.set(Calendar.YEAR, year);
+		mayDayHoliday.set(Calendar.MONTH, Calendar.MAY);
+		mayDayHoliday.set(Calendar.DAY_OF_MONTH, 1);
+		
+		long mayDay = mayDayHoliday.getTimeInMillis();
+		dayOfWeek = mayDayHoliday.get(Calendar.DAY_OF_WEEK);
+		switch (dayOfWeek) {
+			case Calendar.TUESDAY:
+			mayDay += 6 * 24 * 60 * 60 * 1000;
+			break;
+			case Calendar.WEDNESDAY:
+			mayDay += 5 * 24 * 60 * 60 * 1000;
+			break;
+			case Calendar.THURSDAY:
+			mayDay += 4 * 24 * 60 * 60 * 1000;
+			break;
+			case Calendar.FRIDAY:
+			mayDay += 3 * 24 * 60 * 60 * 1000;
+			break;
+			case Calendar.SATURDAY:
+			mayDay += 2 * 24 * 60 * 60 * 1000;
+			break;
+			case Calendar.SUNDAY:
+			mayDay += 24 * 60 * 60 * 1000;
+			break;
+		}
+		mayDayHoliday.setTimeInMillis(mayDay);
+		bankHolidays.put("MayDay", TransxchangeDataAspect.formatDate(mayDayHoliday.get(Calendar.YEAR), 
+			mayDayHoliday.get(Calendar.MONTH) + 1, // Java starts counting months at 0 
+			mayDayHoliday.get(Calendar.DAY_OF_MONTH)));
+		
+		// SpringBank: last Monday in May
+		Calendar springBankHoliday = Calendar.getInstance();
+		springBankHoliday.set(Calendar.YEAR, year);
+		springBankHoliday.set(Calendar.MONTH, Calendar.MAY);
+		springBankHoliday.set(Calendar.DAY_OF_MONTH, 31);
+
+		long springBank = springBankHoliday.getTimeInMillis();
+		dayOfWeek = springBankHoliday.get(Calendar.DAY_OF_WEEK);
+		switch (dayOfWeek) {
+			case Calendar.SUNDAY:
+			springBank -= 6 * 24 * 60 * 60 * 1000;
+			break;
+			case Calendar.SATURDAY:
+			springBank -= 5 * 24 * 60 * 60 * 1000;
+			break;
+			case Calendar.FRIDAY:
+			springBank -= 4 * 24 * 60 * 60 * 1000;
+			break;
+			case Calendar.THURSDAY:
+			springBank -= 3 * 24 * 60 * 60 * 1000;
+			break;
+			case Calendar.WEDNESDAY:
+			springBank -= 2 * 24 * 60 * 60 * 1000;
+			break;
+			case Calendar.TUESDAY:
+			springBank -= 24 * 60 * 60 * 1000;
+			break;
+		}
+		springBankHoliday.setTimeInMillis(springBank);
+		bankHolidays.put("SpringBank", TransxchangeDataAspect.formatDate(springBankHoliday.get(Calendar.YEAR), 
+			springBankHoliday.get(Calendar.MONTH) + 1, // Java starts counting months at 0
+			springBankHoliday.get(Calendar.DAY_OF_MONTH)));
+		
+		// LateSummerHolidayNotScotland : last Monday in August
+		Calendar lateSummerHoliday = Calendar.getInstance();
+		lateSummerHoliday.set(Calendar.YEAR, year);
+		lateSummerHoliday.set(Calendar.MONTH, Calendar.AUGUST);
+		lateSummerHoliday.set(Calendar.DAY_OF_MONTH, 31);
+
+		long summerHoliday = lateSummerHoliday.getTimeInMillis();
+		dayOfWeek = lateSummerHoliday.get(Calendar.DAY_OF_WEEK);
+		switch (dayOfWeek) {
+			case Calendar.SUNDAY:
+			summerHoliday -= 6 * 24 * 60 * 60 * 1000;
+			break;
+			case Calendar.SATURDAY:
+			summerHoliday -= 5 * 24 * 60 * 60 * 1000;
+			break;
+			case Calendar.FRIDAY:
+			summerHoliday -= 4 * 24 * 60 * 60 * 1000;
+			break;
+			case Calendar.THURSDAY:
+			summerHoliday -= 3 * 24 * 60 * 60 * 1000;
+			break;
+			case Calendar.WEDNESDAY:
+			summerHoliday -= 2 * 24 * 60 * 60 * 1000;
+			break;
+			case Calendar.TUESDAY:
+			summerHoliday -= 24 * 60 * 60 * 1000;
+			break;
+		}
+		lateSummerHoliday.setTimeInMillis(summerHoliday);
+		bankHolidays.put("LateSummerBankHolidayNotScotland", TransxchangeDataAspect.formatDate(lateSummerHoliday.get(Calendar.YEAR), 
+			lateSummerHoliday.get(Calendar.MONTH) + 1, // Java starts counting months at 0
+			lateSummerHoliday.get(Calendar.DAY_OF_MONTH)));
+		
+		// ChristmasDay - consider replacement holiday for Christmas Day if it falls on a Saturday or Sunday
+		Calendar christmasDay = Calendar.getInstance();
+		christmasDay.set(year, 11, 25); // Java starts counting months at 0
+		dayOfWeek = christmasDay.get(Calendar.DAY_OF_WEEK);
+		switch (dayOfWeek) {
+			case Calendar.SATURDAY:
+			theDay = "1227";
+			break;
+			case Calendar.SUNDAY:
+			theDay = "1227";
+			break;
+			default:
+			theDay = "1225";
+			break;
+		}
+		bankHolidays.put("ChristmasDay", year + theDay);
+		
+		// BoxingDay
+		// ChristmasDay - consider replacement holiday for Boxing Day if it falls on a Saturday or Sunday
+		Calendar boxingDay = Calendar.getInstance();
+		boxingDay.set(year, 11, 26); // Java starts counting months at 0
+		dayOfWeek = boxingDay.get(Calendar.DAY_OF_WEEK);
+		switch (dayOfWeek) {
+			case Calendar.SATURDAY:
+			theDay = "1228";
+			break;
+			case Calendar.SUNDAY:
+			theDay = "1228";
+			break;
+			default:
+			theDay = "1226";
+			break;
+		}
+		bankHolidays.put("BoxingDay", year + theDay);
+//		bankHolidays.put("BoxingDay  ", year + "1226");
+
+/*		
+		Dim hols As BankHols
+	    Dim Yr as string
+	    '
+	    Yr = "2009"
+	    ' find the bank hols for the year
+	    hols = CalcBankHol(Yr)
+	    '
+	    ' Returns 8 bank holidays.
+	    //
+	    //This code is copyrighted and has    // limited warranties.Please see http://
+	    //     www.Planet-Source-Code.com/vb/scripts/Sh
+	    //     owCode.asp?txtCodeId=71665&lngWId=-10    //for details.    //**************************************
+	    //     
+	    
+	    Public Type BankHols
+	    NewYear As Variant
+	    GoodFriday As Variant
+	    EasterMon As Variant
+	    MayDay As Variant
+	    SpringBank As Variant
+	    AugustBankHol As Variant
+	    ChristmasDay As Variant
+	    BoxingDay As Variant
+	    End Type
+	    Function CalcBankHol(Yr As String) As BankHols
+	    'Calculate England and Wales Bank Holiday Dates 1978 - 2099
+	    Dim strDayName As String
+	    Dim strEastSun As String
+	    Dim i As Integer
+	    Dim strDate
+	    ' No 1: New Year's Day
+	    ' 1st January or next weekday if it falls on a Saturday or Sunday
+	    '
+	    strDayName = Format("1/1/" & Yr, "dddd")
+	    If strDayName = "Saturday" Then
+	    CalcBankHol.NewYear = DateValue("3" & "/" & "1" & "/" & Yr)
+	    ElseIf strDayName = "Sunday" Then
+	    CalcBankHol.NewYear = DateValue("2" & "/" & "1" & "/" & Yr)
+	    Else
+	    CalcBankHol.NewYear = DateValue("1" & "/" & "1" & "/" & Yr)
+	    End If
+	    '
+	    ' Find Easter Sunday
+	    strEastSun = EasterSundayIs(Yr)
+	    '
+	    ' No 2: Good Friday
+	    ' 2 days before Easter Sunday
+	    '
+	    CalcBankHol.GoodFriday = DateValue(strEastSun) - 2
+	    ' No 3: Easter Monday
+	    ' 1 day after Easter Sunday
+	    '
+	    CalcBankHol.EasterMon = DateValue(strEastSun) + 1
+	    '
+	    ' No 4: May Day
+	    ' 1st Monday in May
+	    '
+	    For i = 1 To 8 ' must come within 8 days
+	    strDate = Trim(str(i)) & "/" & "5" & "/" & Yr
+	    strDayName = WeekdayName(Weekday(strDate), False, 1)
+	    If strDayName = "Monday" Then Exit For
+	    Next i
+	    CalcBankHol.MayDay = DateValue(strDate)
+	    '
+	    ' No 5: Spring Bank Holiday
+	    ' Last Monday in May
+	    '
+	    For i = 31 To 31 - 8 Step -1 ' must come within 8 days
+	    strDate = Trim(str(i)) & "/" & "5" & "/" & Yr
+	    strDayName = WeekdayName(Weekday(strDate), False, 1)
+	    If strDayName = "Monday" Then Exit For
+	    Next i
+	    CalcBankHol.SpringBank = DateValue(strDate)
+	    '
+	    ' No 6: Late Summer Bank Holiday
+	    ' Last Monday in August
+	    '
+	    For i = 31 To 31 - 8 Step -1 ' must come within 8 days
+	    strDate = Trim(str(i)) & "/" & "8" & "/" & Yr
+	    strDayName = WeekdayName(Weekday(strDate), False, 1)
+	    If strDayName = "Monday" Then Exit For
+	    Next i
+	    CalcBankHol.AugustBankHol = DateValue(strDate)
+	    '
+	    ' No 7: Christmas Day
+	    ' 25 December, or next Monday in lieu if falls on Saturday or Sunday
+	    '
+	    strDayName = WeekdayName(Weekday("25/12/" & Yr), False, 1)
+	    Select Case strDayName
+	    Case "Saturday"
+	    CalcBankHol.ChristmasDay = DateValue("27/12/" & Yr)
+	    Case "Sunday"
+	    CalcBankHol.ChristmasDay = DateValue("26/12/" & Yr)
+	    Case Else
+	    CalcBankHol.ChristmasDay = DateValue("25/12/" & Yr)
+	    End Select
+	    '
+	    ' No 8: Boxing Day
+	    ' 26 December, or next Monday if this falls on a Saturday or
+	    ' Tuesday if it falls on a Sunday
+	    '
+	    strDayName = WeekdayName(Weekday("26/12/" & Yr), False, 1)
+	    Select Case strDayName
+	    Case "Saturday"
+	    CalcBankHol.BoxingDay = DateValue("28/12/" & Yr)
+	    Case "Sunday"
+	    CalcBankHol.BoxingDay = DateValue("27/12/" & Yr)
+	    Case Else
+	    CalcBankHol.BoxingDay = DateValue("26/12/" & Yr)
+	    End Select
+	    End Function
+	    Public Function EasterSundayIs(inYear As String)
+	    '
+	    'Local Variables
+	    '
+	    Dim g%, c%, x%, z%, d%, e%, n%, mon%
+	    Dim Y%
+	    '
+	    Y = Val(inYear)
+	    '
+	    'Do the calculations of the golden number (g)
+	    '
+	    g = (Y Mod 19) + 1
+	    c = Int(Y / 100) + 1
+	    x = Int(3 * c / 4) - 12
+	    z = Int((8 * c + 5) / 25) - 5
+	    d = Int(5 * Y / 4) - x - 10
+	    e = (11 * g + 20 + z - x) Mod 30
+	    If (e = 25) And (g > 11) Or e = 24 Then
+	    e = e + 1
+	    End If
+	    n = 44 - e
+	    If n < 21 Then n = n + 30
+	    n = n + 7 - (d + n) Mod 7
+	    If n > 31 Then
+	    mon = 4
+	    n = n - 31
+	    Else
+	    mon = 3
+	    End If
+	    EasterSundayIs = DateSerial(Y, mon, n)
+*/
+		return bankHolidays;
 	}
 
 	public void calendarDatesRolloutOOLDates(String serviceId) {
@@ -315,41 +671,10 @@ public class TransxchangeCalendarDates extends TransxchangeDataAspect {
 		listCalendarDates__exception_type  = new ArrayList();
 		
 		/*
-		 * v1.5: Initialize bank holidays maps
+		 * v1.6.3: Dynamically initialize bank holiday maps
 		 */
-		bankHolidays2007 = new HashMap();
-		bankHolidays2007.put("NewYearsDay", "20070101");
-//		bankHolidays2007.put("Jan2ndScotland", "20070102");
-		bankHolidays2007.put("GoodFriday", "20070406");
-		bankHolidays2007.put("EasterMonday", "20070409");
-		bankHolidays2007.put("MayDay", "20070507");
-		bankHolidays2007.put("SpringBank", "20070528");
-//		bankHolidays2007.put("AugustBankHolidayScotland", "20070806");
-		bankHolidays2007.put("LateSummerBankHolidayDayNotScotland", "20070827");
-		bankHolidays2007.put("ChristmasDay", "20071225");
-		bankHolidays2007.put("BoxingDay", "20071226");
-		bankHolidays2008 = new HashMap();
-		bankHolidays2008.put("NewYearsDay", "20080101");
-//		bankHolidays2008.put("Jan2ndScotland", "20080102");
-		bankHolidays2008.put("GoodFriday", "20080321");
-		bankHolidays2008.put("EasterMonday", "20080324");
-		bankHolidays2008.put("MayDay", "20080505");
-		bankHolidays2008.put("SpringBank", "20080526");
-//		bankHolidays2008.put("AugustBankHolidayScotland", "20080804");
-		bankHolidays2008.put("LateSummerBankHolidayDayNotScotland", "20080825");
-		bankHolidays2008.put("ChristmasDay", "20081225");
-		bankHolidays2008.put("BoxingDay", "20081226");
-		bankHolidays2009 = new HashMap();
-		bankHolidays2009.put("NewYearsDay", "20090101");
-//		bankHolidays2009.put("Jan2ndScotland", "20090102");
-		bankHolidays2009.put("GoodFriday", "20090410");
-		bankHolidays2009.put("EasterMonday", "20090413");
-		bankHolidays2009.put("MayDay", "20090504");
-		bankHolidays2009.put("SpringBank", "20090525");
-//		bankHolidays2009.put("AugustBankHolidayScotland", "20090803");
-		bankHolidays2009.put("LateSummerBankHolidayDayNotScotland", "20090831");
-		bankHolidays2009.put("ChristmasDay", "20091225");
-		bankHolidays2009.put("BoxingDay", "20091228");
+		bankHolidays = new ArrayList();
+		
 	}
 	
 	/*
