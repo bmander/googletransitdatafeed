@@ -41,7 +41,7 @@ public class Transxchange2GoogleTransit {
 //        	stopfile = args[5];
 		
 		System.out.println();
-        System.out.println("transxchange2GoogleTransit 1.6.3");
+        System.out.println("transxchange2GoogleTransit 1.6.4-alpha-001");
         System.out.println("Please refer to LICENSE file for licensing information");
         if (args.length < 5 || args.length > 6) {
         	System.out.println();

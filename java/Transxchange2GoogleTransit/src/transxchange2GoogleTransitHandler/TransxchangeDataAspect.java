@@ -49,6 +49,7 @@ public abstract class TransxchangeDataAspect {
 
 	public void characters (char ch[], int start, int length) {
 		if (key.length() > 0) {
+//			niceString = new String(ch, start, length);
 			for (int i = start; i < start + length; i++)
 				niceString = niceString + ch[i];
 		}		
@@ -137,12 +138,12 @@ public abstract class TransxchangeDataAspect {
 	 * Return date in Google Transit Data Feed format
 	 * introduced to support Java 1.4.2
 	 */
+	static Integer iYear;
+	static Integer iMonth;
+	static Integer iDay_of_month;
 	static String formatDate(int year, int month, int day_of_month) {
-		String result = "";
-		String digis = "";
-		Integer iYear;
-		Integer iMonth;
-		Integer iDay_of_month;
+		result = "";
+		digis = "";
 		
 		iYear = new Integer(year);
 		result = iYear.toString();
@@ -158,6 +159,10 @@ public abstract class TransxchangeDataAspect {
 		if (digis.length() == 1)
 			digis = "0" + digis;
 		result = result + digis;
+
+		iYear = null;
+		iMonth = null;
+		iDay_of_month = null;
 		
 		return result;
 	}
@@ -166,11 +171,13 @@ public abstract class TransxchangeDataAspect {
 	 * Return time in Google Transit Data Feed format
 	 * introduced to support Java 1.4.2
 	 */
+	static String result;
+	static String digis;
+	static Integer iHour;
+	static Integer iMins;
 	static String formatTime(int hour, int mins) {
-		String result = "";
-		String digis = "";
-		Integer iHour;
-		Integer iMins;
+		result = "";
+		digis = "";
 
 		iHour = new Integer(hour);
 		digis = iHour.toString();
@@ -187,6 +194,9 @@ public abstract class TransxchangeDataAspect {
 		result = result + digis;
 		
 		result = result + ":00";
+		
+		iHour = null;
+		iMins = null;
 		
 		return result;
 	}

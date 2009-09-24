@@ -164,7 +164,7 @@ public class TransxchangeCalendarDates extends TransxchangeDataAspect {
 
 		String service;
 		
-		if (niceString.length() > 0) {
+		if (niceString == null || niceString.length() > 0) {
 		
 			if (key.equals(_key_calendar_dates_start[0]) && keyNested.equals(_key_calendar_dates_start[1]) && (keyOperationDays.equals(_key_calendar_dates_start[2]) || keyOperationDays.equals(_key_calendar_no_dates_end[2])) && keyOperationDaysStart.equals(_key_calendar_dates_start[3]))
 				calendarDateOperationDayStart = niceString;

@@ -18,25 +18,28 @@ package transxchange2GoogleTransitHandler;
 
 import java.util.*;
 
-public class ValueList {
+public class ValueList { // extends HashMap {
 	  private String keyName;
 	  private List values;
 
 	  public void addValue(String addValue) {
+		  
 		  values.add(addValue);
 	  }
 
-	  public Object getValue(int i) {
+	  public String getValue(int i) {
 		  if (i < 0 || i >= values.size())
 			  return null;
-		  return values.get(i);
+
+		  return (String)(values.get(i));
 	  }
 
-	  public void setValue(int i, Object value) {
+	  public void setValue(int i, String value) {
 		    if (i < 0 || i >= values.size())
 		      return;
+		    
 		    values.set(i, value);
-		  }
+	  }
 
 	  public void dumpValues() {
 		  Iterator i = values.iterator();
@@ -49,16 +52,14 @@ public class ValueList {
 		  return keyName;
 	  }
 
-	  public List getValues() {
-		  return values;
-	  }
-	  
 	  public int size() {
 		  return values.size();
 	  }
 
 	  public ValueList(String key) {
+		  
 		  keyName = key;
 		  values = new ArrayList();
 	  }
+
 }

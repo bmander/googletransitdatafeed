@@ -81,7 +81,7 @@ public class TransxchangeAgency extends TransxchangeDataAspect {
 	}
 
 	public void endElement (String uri, String name, String qName) {
-		if (niceString.length() == 0) 
+		if (niceString == null || niceString.length() == 0) 
 			return;
 	    if (key.equals(key_agency__agency_name[0])) {
 	   		newAgency__agency_name = new ValueList(key_agency__agency_name[0]);

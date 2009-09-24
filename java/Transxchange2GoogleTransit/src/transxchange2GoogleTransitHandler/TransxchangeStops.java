@@ -189,7 +189,7 @@ public class TransxchangeStops extends TransxchangeDataAspect{
 		int i;
 	    boolean hot;
 	    
-	    if (niceString.length() == 0) 
+	    if (niceString == null || niceString.length() == 0) 
 	    	return;
 	    
 	    if (key.equals(key_stops__stop_id[0]) && keyNested.equals(key_stops__stop_id[1])) {

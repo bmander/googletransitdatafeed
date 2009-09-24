@@ -71,6 +71,15 @@ public class TransxchangeTrips extends TransxchangeDataAspect {
 	String _journeyPatternRef = "";
 	String _vehicleJourneyRef = "";
 
+    int qualifierIx;
+	int i;
+	boolean found;
+	List oolStart;
+	List calendarServices;
+	int frequency;
+	int[] departureTimehhmmss = {-1, -1, -1};
+	int[] endTimehhmmss = {-1, -1, -1};
+	int departureTimeInSeconds;
 	
 	public List getListTrips__route_id() {
 		return listTrips__route_id;
@@ -109,8 +118,6 @@ public class TransxchangeTrips extends TransxchangeDataAspect {
 	public void startElement(String uri, String name, String qName, Attributes atts)
 		throws SAXParseException {
 	
-	    int qualifierIx;
-
 	    super.startElement(uri, name, qName, atts);
 		if (qName.equals(key_trips__route_id[0]))
 			key = key_trips__route_id[0]; // this also covers trip_service_id, _trip_id, _departure_time, _endtime, _scheduled_frequency, _journeypatternref, _journetpatternref2
@@ -155,14 +162,12 @@ public class TransxchangeTrips extends TransxchangeDataAspect {
 	    		 /*
 	    		  * v1.5: Find out if out-of-line calendar dates where picked up earlier and assign to current VehicleJourney
 	    		  */
-	    		 List oolStart = handler.getCalendarDates().getListOOLDates_start();
+	    		 oolStart = handler.getCalendarDates().getListOOLDates_start();
 //	    		 List oolEnd = handler.getCalendarDates().getListOOLDates_end();
-	    		 int i;
-	    		 boolean found;
 
 	    		 if (oolStart != null) {
 	    			 // found out-of-line dates
-	    			 List calendarServices = handler.getCalendar().getListCalendar__service_id();
+	    			 calendarServices = handler.getCalendar().getListCalendar__service_id();
 	    			 i = 0;
 	    			 found = false;
 	    			 
@@ -201,7 +206,7 @@ public class TransxchangeTrips extends TransxchangeDataAspect {
 	    	 }
 	    }
 	    
-		if (niceString.length() == 0) 
+		if (niceString == null || niceString.length() == 0) 
 	    	return;
 	    
         if (key.equals(key_trips__trip_id[0]) && keyNested.equals(key_trips__trip_id[1])) {
@@ -236,15 +241,20 @@ public class TransxchangeTrips extends TransxchangeDataAspect {
         if (key.equals(_key_trips_frequency[0]) && keyNested.equals(_key_trips_frequency[1])) {
         	_scheduledFrequency = niceString;
         	// Unroll transxchange:vehicle journeys with frequency to google transit:descrete trips. In the first few versions of GTFS, there did not exist frequency.txt
-        	int frequency = 0;
-        	int[] departureTimehhmmss = {-1, -1, -1};
-			int[] endTimehhmmss = {-1, -1, -1};
+        	frequency = 0;
+        	departureTimehhmmss[0] = -1;
+        	departureTimehhmmss[1] = -1;
+        	departureTimehhmmss[2] = -1;
+			endTimehhmmss[0] = -1;
+			endTimehhmmss[1] = -1;
+			endTimehhmmss[2] = -1;
+
         	readTransxchangeTime(departureTimehhmmss, _departureTime);
         	readTransxchangeTime(endTimehhmmss, _endTime);
         	frequency = readTransxchangeFrequency(_scheduledFrequency);
         	hot = (frequency > 0);
         	while (hot) { 
-        		int departureTimeInSeconds = departureTimehhmmss[2] + departureTimehhmmss[1] * 60 + departureTimehhmmss[0] * 3600;
+        		departureTimeInSeconds = departureTimehhmmss[2] + departureTimehhmmss[1] * 60 + departureTimehhmmss[0] * 3600;
         		departureTimeInSeconds += frequency;
         		departureTimehhmmss[0] = departureTimeInSeconds / 3600;
         		departureTimehhmmss[1] = (departureTimeInSeconds / 60) % 60;
@@ -335,7 +345,6 @@ public class TransxchangeTrips extends TransxchangeDataAspect {
 	}
 	
 	public void dumpValues() {
-		int i;
 		ValueList iterator;
 
 		System.out.println("*** Trips");

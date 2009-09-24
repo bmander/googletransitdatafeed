@@ -199,7 +199,7 @@ public class TransxchangeCalendar extends TransxchangeDataAspect {
 	}
 
 	public void endElement (String uri, String name, String qName) {
-		if (niceString.length() > 0) {
+		if (niceString == null || niceString.length() > 0) {
 			if (key.equals(key_calendar__service_id[0]) && keyNested.equals(key_calendar__service_id[1])) {
 				service = niceString;
 				newCalendar__service_id = new ValueList(key_calendar__service_id[0]);

@@ -115,7 +115,7 @@ public class TransxchangeRoutes extends TransxchangeDataAspect {
 	}
 	
 	public void endElement (String uri, String name, String qName) {
-		if (niceString.length() == 0)
+		if (niceString == null || niceString.length() == 0)
 			return;
 		
 		if (key.equals(key_routes__route_short_name[0]) && keyNested.equals(key_routes__route_short_name[1])) {
