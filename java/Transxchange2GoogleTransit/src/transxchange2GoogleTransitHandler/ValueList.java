@@ -18,7 +18,7 @@ package transxchange2GoogleTransitHandler;
 
 import java.util.*;
 
-public class ValueList { // extends HashMap {
+public class ValueList {
 	  private String keyName;
 	  private List values;
 

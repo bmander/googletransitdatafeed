@@ -76,7 +76,8 @@ public class TransxchangeHandler {
 	 * Generate Google Transit Feed structures
 	 */
 	public void parse(String filename, String url, String timezone, String defaultRouteType,
-			String rootDirectory, String workDirectory, String stopFile)
+			String rootDirectory, String workDirectory, String stopFile,
+			boolean useAgencyShortName)
 	    throws SAXException, SAXParseException, IOException, ParserConfigurationException
 	{
 		ZipFile zipfile = null;
@@ -109,6 +110,7 @@ public class TransxchangeHandler {
 				parseHandler.setUrl(url);
 				parseHandler.setTimezone(timezone);
 				parseHandler.setDefaultRouteType(defaultRouteType);
+				parseHandler.setUseAgencyShortname(useAgencyShortName);
 		
 				SAXParserFactory parserFactory = SAXParserFactory.newInstance();
 				SAXParser parser = parserFactory.newSAXParser();

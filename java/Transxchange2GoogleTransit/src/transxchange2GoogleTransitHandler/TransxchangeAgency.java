@@ -29,10 +29,10 @@ import org.xml.sax.SAXParseException;
 public class TransxchangeAgency extends TransxchangeDataAspect {
 
 	// xml keys and output field fillers
-//	static final String[] key_agency__agency_name = new String[] {"OperatorShortName", "", "OpenRequired"}; // v1.5: Read OperatorNameOnLicense in place of OperatorShortName
 	static final String[] key_agency__agency_id = new String[] {"Operator", "", "OpenRequired"}; // v1.5: Read Operator id Google Transit required
 	static final String[] key_agency__agency_lid = new String[] {"LicensedOperator", "", "OpenRequired"}; // v1.5: Read Operator id Google Transit required
-	static final String[] key_agency__agency_name = new String[] {"OperatorNameOnLicence", "", "OpenRequired"}; // Google Transit required
+	static String[] key_agency__agency_name = new String[] {"OperatorNameOnLicence", "", "OpenRequired"}; // Google Transit required
+//	static String[] key_agency__agency_name = new String[] {"OperatorShortName", "", "OpenRequired"}; // v1.5: Read OperatorNameOnLicense in place of OperatorShortName
 	static final String[] key_agency__agency_url = new String[] {"EmailAddress", "", "OpenRequired"}; // Google Transit required
 	static final String[] key_agency__agency_timezone = new String[] {"__transxchange2GoogleTransit_drawDefault", "", ""}; // Google Transit required
 
@@ -66,6 +66,11 @@ public class TransxchangeAgency extends TransxchangeDataAspect {
 	    String qualifierString;
 	
 		super.startElement(uri, name, qName, atts);
+		
+		// v1.6.4: Switched to use short name in place of name on license
+		if (handler.isAgencyShortName()) {
+			key_agency__agency_name = new String[] {"OperatorShortName", "", "OpenRequired"};
+		}
 
 		if (qName.equals(key_agency__agency_id[0]) || qName.equals(key_agency__agency_lid[0])) { // v1.5: new: agency id
         	qualifierIx = atts.getIndex("id");

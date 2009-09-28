@@ -38,8 +38,11 @@ public class TransxchangeStops extends TransxchangeDataAspect{
 	static final String[] key_stops__stop_id2 = new String[] {"StopPoints", "StopPointRef", "OpenRequired"}; // Google Transit required
 	static final String[] key_stops__stop_name = new String[] {"StopPoints", "CommonName", "OpenRequired"}; // Google Transit required
 	static final String[] key_stops__stop_desc = new String[] {"__transxchange2GoogleTransit_drawDefault", "", ""};
-	static final String[] key_stops__stop_lat = new String[] {"StopPoints", "Easting", "OpenRequired"}; // Google Transit required
-	static final String[] key_stops__stop_lon = new String[] {"StopPoints", "Northing", "OpenRequired"}; // Google Transit required
+	static final String[] key_stops__stop_east = new String[] {"StopPoints", "Easting", "OpenRequired"}; 
+	static final String[] key_stops__stop_north = new String[] {"StopPoints", "Northing", "OpenRequired"}; 
+    // v1.6.4 Embedded coordinates
+	static final String[] key_stops__stop_lat = new String[] {"StopPoints", "Latitude", "OpenRequired"}; // Google Transit required
+	static final String[] key_stops__stop_lon = new String[] {"StopPoints", "Longitude", "OpenRequired"}; // Google Transit required
 	static final String[] key_stops__stop_street = new String[] {"__transxchange2GoogleTransit_drawDefault", "", ""};
 	static final String[] key_stops__stop_city = new String[] {"__transxchange2GoogleTransit_drawDefault", "", ""};
 	static final String[] key_stops__stop_region = new String[] {"__transxchange2GoogleTransit_drawDefault", "", ""};
@@ -141,6 +144,16 @@ public class TransxchangeStops extends TransxchangeDataAspect{
 			if (qName.equals(key_stops__stop_name[1])) {
 				keyNested = key_stops__stop_name[1];
 			} 
+		if (key.equals(key_stops__stop_east[0])) 
+			if (qName.equals(key_stops__stop_east[1])) {
+				keyNested = key_stops__stop_east[1];
+			} 
+		if (key.equals(key_stops__stop_north[0])) 
+			if (qName.equals(key_stops__stop_north[1])) {
+				keyNested = key_stops__stop_north[1];
+			} 
+
+	    // v1.6.4 Embedded coordinates
 		if (key.equals(key_stops__stop_lat[0])) 
 			if (qName.equals(key_stops__stop_lat[1])) {
 				keyNested = key_stops__stop_lat[1];
@@ -149,6 +162,7 @@ public class TransxchangeStops extends TransxchangeDataAspect{
 			if (qName.equals(key_stops__stop_lon[1])) {
 				keyNested = key_stops__stop_lon[1];
 			} 
+		
 		if (qName.equals(key_stops__stop_id[0])) 
 			key = key_stops__stop_id[0];
 		if (key.equals(_key_stops__stop_locality[0]) && qName.equals(_key_stops__stop_locality[1])) {
@@ -237,6 +251,18 @@ public class TransxchangeStops extends TransxchangeDataAspect{
 	    	_listStops__stop_indicator.add(_newStops__stop_indicator);
 	    	_newStops__stop_indicator.addValue(niceString); 	
 	    }
+	    if (key.equals(key_stops__stop_east[0]) && keyNested.equals(key_stops__stop_east[1])) { 
+	    	newStops__stop_lat = new ValueList(keyRef);
+	    	listStops__stop_lat.add(newStops__stop_lat);
+	    	newStops__stop_lat.addValue(niceString);
+       	}
+	    if (key.equals(key_stops__stop_north[0]) && keyNested.equals(key_stops__stop_north[1])) { 
+	       	newStops__stop_lon = new ValueList(keyRef);
+	       	listStops__stop_lon.add(newStops__stop_lon);
+	       	newStops__stop_lon.addValue(niceString);
+       	}
+
+	    // v1.6.4 Embedded coordinates
 	    if (key.equals(key_stops__stop_lat[0]) && keyNested.equals(key_stops__stop_lat[1])) { 
 	    	newStops__stop_lat = new ValueList(keyRef);
 	    	listStops__stop_lat.add(newStops__stop_lat);
@@ -247,7 +273,7 @@ public class TransxchangeStops extends TransxchangeDataAspect{
 	       	listStops__stop_lon.add(newStops__stop_lon);
 	       	newStops__stop_lon.addValue(niceString);
        	}
-
+	    
 	    // if location of stop unknown from stop points, add location from route section
 	    if (key.equals(_key_route_link_location_x[0]) && keyNested.equals(_key_route_link_location_x[1]) && stopPointFrom.length() > 0) {                	
 	       	i = 0;
@@ -332,11 +358,17 @@ public class TransxchangeStops extends TransxchangeDataAspect{
     		key = "";
     	if (key.equals(key_stops__stop_id[0]))
     		keyNested = "";
+    	if (key.equals(key_stops__stop_east[0]))
+    		keyNested = "";
+    	if (key.equals(key_stops__stop_north[0]))
+    		keyNested = "";
+
+	    // v1.6.4 Embedded coordinates
     	if (key.equals(key_stops__stop_lat[0]))
     		keyNested = "";
     	if (key.equals(key_stops__stop_lon[0]))
     		keyNested = "";
- 	}
+   	}
 	
 	public void endDocument() {
 	    int i, j;
@@ -444,7 +476,7 @@ public class TransxchangeStops extends TransxchangeDataAspect{
 	    
 	}
 
-	public static String getLat(String stop) { // v1.5: Return lat
+	public static String getLat(String stop) { 
 
 		// v1.6.3: If no coordinates, return key
 		if (lat == null)
@@ -455,11 +487,11 @@ public class TransxchangeStops extends TransxchangeDataAspect{
 		else
 			return key_stops__stop_lat[2];
 	}
-	public static String getLon(String stop) { // v1.5: Return lon
+	public static String getLon(String stop) { 
 
 		// v1.6.3: If no coordinates, return key
 		if (lon == null)
-			return key_stops__stop_lat[2];
+			return key_stops__stop_lon[2];
 
 		if (lon.containsKey(stop))
 			return (String)lon.get(stop);
@@ -485,8 +517,7 @@ public class TransxchangeStops extends TransxchangeDataAspect{
 		return counter;
 	}
 
-	public TransxchangeStops(TransxchangeHandlerEngine owner) { // 11-Mar-2009, String ukStopsFileName) 
-// 11-Mar-2009		throws UnsupportedEncodingException, IOException {
+	public TransxchangeStops(TransxchangeHandlerEngine owner) { 
 		super(owner);
 		listStops__stop_id = new ArrayList();
 		listStops__stop_name = new ArrayList();
@@ -501,26 +532,16 @@ public class TransxchangeStops extends TransxchangeDataAspect{
 		
 		_listStops__stop_locality = new ArrayList();
 		_listStops__stop_indicator = new ArrayList();
-	} // 11-Mar-2009
+	}
 
 	
-	public static void readStopfile(String ukStopsFileName) 
+	public static void readStopfile(String stopsFileName) 
 		throws UnsupportedEncodingException, IOException {
-		/*
-		 * v1.5: Read stop coordinates from uk stop file
-		 * v1.6.3: Different handling: read it from file specified as command line parameter, in Naptan CSV format
- 		String ukStopsFileName = "/data/ukstops.csv";
-		URL urlFileName = getClass().getResource(ukStopsFileName);
-		URLDecoder.decode(urlFileName.getFile(), "UTF-8");
-		InputStream inStream = urlFileName.openStream();
-        InputStreamReader inStreamReader = new InputStreamReader(inStream);
-*/
+
 		// v1.6.3: read Naptan format stop file
-//		String ukStopsFileName = owner.getStopFile();
-		if (ukStopsFileName != null && ukStopsFileName.length() > 0) {
+		if (stopsFileName != null && stopsFileName.length() > 0) {
 			
-			BufferedReader bufFileIn = new BufferedReader(new FileReader(ukStopsFileName));
-//			BufferedReader bufFileIn = new BufferedReader(inStreamReader); // v1.6.3
+			BufferedReader bufFileIn = new BufferedReader(new FileReader(stopsFileName));
 
 			// v1.6.3: Read first line to find column positions of stopcode, lat and lon
 			String line;
@@ -559,9 +580,6 @@ public class TransxchangeStops extends TransxchangeDataAspect{
 						tokens[i] = st.nextToken();
 						i++;
 					}
-//					stopcode = tokens[0]; // v1.6.3
-//					lat.put(stopcode, tokens[1]);
-//					lon.put(stopcode, tokens[2]);
 
 					stopcode = tokens[0].substring(1, tokens[stopcodeIx].length() - 1); // Remove quotation marks
 					lat.put(stopcode, tokens[latIx]);

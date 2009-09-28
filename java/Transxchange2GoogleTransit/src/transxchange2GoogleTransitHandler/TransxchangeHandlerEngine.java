@@ -77,6 +77,8 @@ public class TransxchangeHandlerEngine extends DefaultHandler {
 	
 	static ArrayList filenames = null;
 	static String outdir = "";
+	
+	static boolean useAgencyShortName = false;
 
 	/*
 	 * Utility methods to set and get attribute values
@@ -145,6 +147,10 @@ public class TransxchangeHandlerEngine extends DefaultHandler {
 		parseError = txt;
 	}
 	
+	public void setUseAgencyShortname(boolean flag) {
+		useAgencyShortName = flag;
+	}
+	
 	public String getParseError() {
 		return parseError;
 	}
@@ -155,6 +161,10 @@ public class TransxchangeHandlerEngine extends DefaultHandler {
 	
 	public String getParseInfo() {
 		return parseInfo;
+	}
+	
+	public boolean isAgencyShortName() {
+		return useAgencyShortName;
 	}
 	
 	/*

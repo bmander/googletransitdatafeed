@@ -111,6 +111,7 @@ public class TransxchangeTrips extends TransxchangeDataAspect {
 	String getJourneyPattern() {
 		return _journeyPattern;
 	}
+
 	void setJourneyPattern(String jp) {
 		_journeyPattern = jp;
 	}
