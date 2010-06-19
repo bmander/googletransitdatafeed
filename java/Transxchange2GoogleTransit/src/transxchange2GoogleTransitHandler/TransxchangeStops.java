@@ -1,5 +1,5 @@
 /*
- * Copyright 2007, 2009 GoogleTransitDataFeed
+ * Copyright 2007, 2008, 2009, 2010 GoogleTransitDataFeed
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -581,7 +581,7 @@ public class TransxchangeStops extends TransxchangeDataAspect{
 						i++;
 					}
 
-					stopcode = tokens[0].substring(1, tokens[stopcodeIx].length() - 1); // Remove quotation marks
+					stopcode = tokens[stopcodeIx].substring(1, tokens[stopcodeIx].length() - 1); // Remove quotation marks
 					lat.put(stopcode, tokens[latIx]);
 					lon.put(stopcode, tokens[lonIx]);
 				} else

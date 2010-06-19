@@ -1,5 +1,5 @@
 /*
- * Copyright 2007, 2009 GoogleTransitDataFeed
+ * Copyright 2007, 2008, 2009, 2010 GoogleTransitDataFeed
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -42,7 +42,7 @@ public class Transxchange2GoogleTransit {
 		TransxchangeHandler handler = null;
 
 		System.out.println();
-        System.out.println("transxchange2GoogleTransit 1.6.4");
+        System.out.println("transxchange2GoogleTransit 1.6.5");
         System.out.println("Please refer to LICENSE file for licensing information");
         if ((args.length != 3 || args.length == 3 && !args[1].toLowerCase().equals("-c")))
         	if (args.length < 5 || args.length > 6) {
@@ -85,7 +85,7 @@ public class Transxchange2GoogleTransit {
 			System.exit(1);						
 		}
 		catch (UnsupportedEncodingException e) { // v1.5: resource file ukstops.txt incorrect encoding
-			System.out.println("transxchange2GoogleTransit Naptan stop file:");
+			System.out.println("transxchange2GoogleTransit NaPTAN stop file:");
 			System.out.println(e.getMessage());
 			System.exit(1);						
 		}

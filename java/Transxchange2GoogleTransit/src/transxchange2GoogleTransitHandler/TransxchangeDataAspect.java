@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 2009 GoogleTransitDataFeed
+ * Copyright 2007, 2008, 2009, 2010 GoogleTransitDataFeed
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -82,19 +82,31 @@ public abstract class TransxchangeDataAspect {
 	static int readTransxchangeFrequency(String inString) {
 		int freq = 0;
 
-		inString = inString.substring(2, inString.length());
-		if (inString.charAt(inString.length() - 1) == 'S') { // v1.5: Cover seconds
-			StringTokenizer st = new StringTokenizer(inString, "S");
+		inString = inString.substring(2, inString.length()); // Skip "PT"
+		if (inString.indexOf('H') > 0) { // Hours
+			StringTokenizer st = new StringTokenizer(inString, "H");
 			int i = 0;
 			while (st.hasMoreTokens() && i < 1) {
-				freq = Integer.parseInt(st.nextToken());
+				freq = Integer.parseInt(st.nextToken()) * 60 * 60;
+				i++;
 			}
-
-		} else { // v1.5: From previous versions: Minutes still default
+			inString = inString.substring(inString.indexOf('H') + 1, inString.length());
+		}
+		if (inString.indexOf('M') > 0) { // Minutes
 			StringTokenizer st = new StringTokenizer(inString, "M");
 			int i = 0;
 			while (st.hasMoreTokens() && i < 1) {
-				freq = Integer.parseInt(st.nextToken()) * 60;
+				freq += Integer.parseInt(st.nextToken()) * 60;
+				i++;
+			}
+			inString = inString.substring(inString.indexOf('M') + 1, inString.length());
+		}
+		if (inString.indexOf('S') > 0) { // Seconds
+			StringTokenizer st = new StringTokenizer(inString, "S");
+			int i = 0;
+			while (st.hasMoreTokens() && i < 1) {
+				freq += Integer.parseInt(st.nextToken());
+				i++;
 			}
 		}
 		return freq;
