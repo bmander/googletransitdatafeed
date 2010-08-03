@@ -1,3 +1,5 @@
+import problems as problems_module
+
 class Persistable:
 
   @classmethod
@@ -43,3 +45,13 @@ class Persistable:
 
     cursor.execute( 
         insert_query, self.GetSqlValuesTuple(**extra_fields))
+  
+  @classmethod
+  def delete( cls, cursor, **fields ):
+    where_clause = " and ".join( ["%s=?"%k for k in fields.keys()] )
+    query = "DELETE FROM stop_times WHERE "+where_clause
+    cursor.execute( query, fields.values() )
+
+    # right now, this should break. where's my unit tests at?
+    if cursor.rowcount == 0:
+      raise problems_module.Error, 'Attempted deletion of object which does not exist'

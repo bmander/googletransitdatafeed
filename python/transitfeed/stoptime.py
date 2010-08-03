@@ -19,6 +19,7 @@ from gtfsobjectbase import GtfsObjectBase
 from stop import Stop
 import util
 from persistable import Persistable
+import problems as problems_module
 
 class StopTime(GtfsObjectBase, Persistable):
   """

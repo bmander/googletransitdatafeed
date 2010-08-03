@@ -19,6 +19,7 @@ import warnings
 from gtfsobjectbase import GtfsObjectBase
 import problems as problems_module
 import util
+from stoptime import StopTime
 
 class Trip(GtfsObjectBase):
   _REQUIRED_FIELD_NAMES = ['route_id', 'service_id', 'trip_id']
@@ -91,14 +92,14 @@ class Trip(GtfsObjectBase):
     if schedule is None:
       schedule = self._schedule
 
-    new_secs = stoptime.GetTimeSecs()
     cursor = schedule._connection.cursor()
-    cursor.execute("DELETE FROM stop_times WHERE trip_id=? and "
-                   "stop_sequence=? and stop_id=?",
-                   (self.trip_id, stoptime.stop_sequence, stoptime.stop_id))
-    if cursor.rowcount == 0:
-      raise problems_module.Error, 'Attempted replacement of StopTime object which does not exist'
-    self._AddStopTimeObjectUnordered(stoptime, schedule)
+
+    StopTime.delete( cursor,
+                     trip_id=self.trip_id,
+                     stop_sequence=stoptime.stop_sequence,
+                     stop_id=stoptime.stop_id )
+
+    stoptime.save( cursor, trip_id=self.trip_id )
 
   def AddStopTimeObject(self, stoptime, schedule=None, problems=None):
     """Add a StopTime object to the end of this trip.
