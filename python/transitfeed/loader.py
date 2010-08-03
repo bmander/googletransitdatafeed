@@ -498,6 +498,8 @@ class Loader:
       del shapes[shape_id]
 
   def _LoadStopTimes(self):
+    cursor = self._schedule._connection.cursor()
+
     for (row, row_num, cols) in self._ReadCSV('stop_times.txt',
         self._gtfs_factory.StopTime._FIELD_NAMES,
         self._gtfs_factory.StopTime._REQUIRED_FIELD_NAMES):
@@ -526,7 +528,6 @@ class Loader:
         self._problems.InvalidValue('trip_id', trip_id,
                                     'This value wasn\'t defined in trips.txt')
         continue
-      trip = self._schedule.trips[trip_id]
 
       # If self._problems.Report returns then StopTime.__init__ will return
       # even if the StopTime object has an error. Thus this code may add a
@@ -539,7 +540,8 @@ class Loader:
       stop_time = self._gtfs_factory.StopTime(self._problems, stop,
           arrival_time, departure_time, stop_headsign, pickup_type,
           drop_off_type, shape_dist_traveled, stop_sequence=sequence)
-      trip._AddStopTimeObjectUnordered(stop_time, self._schedule)
+      stop_time.save( cursor, trip_id=trip_id )
+
       self._problems.ClearContext()
     self._schedule._connection.commit()
 
