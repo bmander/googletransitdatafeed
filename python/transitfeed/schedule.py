@@ -47,7 +47,7 @@ class Schedule:
 
   def __init__(self, problem_reporter=None,
                memory_db=True, check_duplicate_trips=False,
-               gtfs_factory=None):
+               gtfs_factory=None, db_filename=None):
     if gtfs_factory is None:
       gtfs_factory = gtfsfactory.GetGtfsFactory()
     self._gtfs_factory = gtfs_factory
@@ -75,7 +75,7 @@ class Schedule:
     else:
       self.problem_reporter = problem_reporter
     self._check_duplicate_trips = check_duplicate_trips
-    self.ConnectDb(memory_db)
+    self.ConnectDb(memory_db, db_filename)
 
   def AddTableColumn(self, table, column):
     """Add column to table if it is not already there."""
@@ -103,20 +103,23 @@ class Schedule:
     if hasattr(self, '_temp_db_filename'):
       os.remove(self._temp_db_filename)
 
-  def ConnectDb(self, memory_db):
+  def ConnectDb(self, memory_db, db_filename):
     if memory_db:
       self._connection = sqlite.connect(":memory:")
     else:
-      try:
-        self._temp_db_file = tempfile.NamedTemporaryFile()
-        self._connection = sqlite.connect(self._temp_db_file.name)
-      except sqlite.OperationalError:
-        # Windows won't let a file be opened twice. mkstemp does not remove the
-        # file when all handles to it are closed.
-        self._temp_db_file = None
-        (fd, self._temp_db_filename) = tempfile.mkstemp(".db")
-        os.close(fd)
-        self._connection = sqlite.connect(self._temp_db_filename)
+      if db_filename is None:
+        try:
+          self._temp_db_file = tempfile.NamedTemporaryFile()
+          self._connection = sqlite.connect(self._temp_db_file.name)
+        except sqlite.OperationalError:
+          # Windows won't let a file be opened twice. mkstemp does not remove the
+          # file when all handles to it are closed.
+          self._temp_db_file = None
+          (fd, self._temp_db_filename) = tempfile.mkstemp(".db")
+          os.close(fd)
+          self._connection = sqlite.connect(self._temp_db_filename)
+      else:
+        self._connection = sqlite.connect(db_filename)
 
     cursor = self._connection.cursor()
 
