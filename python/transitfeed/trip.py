@@ -79,8 +79,8 @@ class Trip(GtfsObjectBase):
     validated later."""
     stop_time_class = self.GetGtfsFactory().StopTime
     insert_query = "INSERT INTO stop_times (%s) VALUES (%s);" % (
-       ','.join(stop_time_class._SQL_FIELD_NAMES),
-       ','.join(['?'] * len(stop_time_class._SQL_FIELD_NAMES)))
+       ','.join([fn for fn, ft in stop_time_class._SQL_FIELDS]),
+       ','.join(['?'] * len(stop_time_class._SQL_FIELDS)))
     cursor = schedule._connection.cursor()
     cursor.execute(
         insert_query, stoptime.GetSqlValuesTuple(self.trip_id))

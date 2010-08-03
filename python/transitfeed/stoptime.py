@@ -46,9 +46,16 @@ class StopTime(GtfsObjectBase):
   _OPTIONAL_FIELD_NAMES = ['stop_headsign', 'pickup_type',
                            'drop_off_type', 'shape_dist_traveled']
   _FIELD_NAMES = _REQUIRED_FIELD_NAMES + _OPTIONAL_FIELD_NAMES
-  _SQL_FIELD_NAMES = ['trip_id', 'arrival_secs', 'departure_secs',
-                      'stop_id', 'stop_sequence', 'stop_headsign',
-                      'pickup_type', 'drop_off_type', 'shape_dist_traveled']
+  _SQL_FIELDS = [('trip_id', 'CHAR(50)'), 
+                 ('arrival_secs', 'INTEGER'),
+                 ('departure_secs', 'INTEGER'),
+                 ('stop_id', 'CHAR(50)'), 
+                 ('stop_sequence', 'INTEGER'), 
+                 ('stop_headsign', 'VAR CHAR(100)'),
+                 ('pickup_type', 'INTEGER'), 
+                 ('drop_off_type', 'INTEGER'),
+                 ('shape_dist_traveled', 'FLOAT')]
+
   _STOP_CLASS = Stop
 
   __slots__ = ('arrival_secs', 'departure_secs', 'stop_headsign', 'stop',
@@ -203,7 +210,7 @@ class StopTime(GtfsObjectBase):
     """
 
     result = []
-    for fn in self._SQL_FIELD_NAMES:
+    for fn, ftype in self._SQL_FIELDS:
       if fn == 'trip_id':
         result.append(trip_id)
       else:
