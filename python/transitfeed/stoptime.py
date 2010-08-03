@@ -204,26 +204,6 @@ class StopTime(GtfsObjectBase, Persistable):
         result.append(getattr(self, fn) or '' )
     return tuple(result)
 
-  def GetSqlValuesTuple(self, trip_id):
-    """Return a tuple that outputs a row of _FIELD_NAMES to be written to a
-       SQLite database.
-
-    Arguments:
-        trip_id: The trip_id of the trip to which this StopTime corresponds.
-                 It must be provided, as it is not stored in StopTime.
-    """
-
-    result = []
-    for fn, ftype in self._SQL_FIELDS:
-      if fn == 'trip_id':
-        result.append(trip_id)
-      else:
-        # Since we'll be writting to SQLite, we want empty values to be
-        # outputted as NULL string (contrary to what happens in
-        # GetFieldValuesTuple)
-        result.append(getattr(self, fn))
-    return tuple(result)
-
   def GetTimeSecs(self):
     """Return the first of arrival_secs and departure_secs that is not None.
     If both are None return None."""
