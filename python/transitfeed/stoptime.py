@@ -15,10 +15,11 @@
 # limitations under the License.
 
 import problems as problems_module
+from gtfsobjectbase import GtfsObjectBase
 from stop import Stop
 import util
 
-class StopTime(object):
+class StopTime(GtfsObjectBase):
   """
   Represents a single stop of a trip. StopTime contains most of the columns
   from the stop_times.txt file. It does not contain trip_id, which is implied
@@ -58,6 +59,8 @@ class StopTime(object):
                stop_headsign=None, pickup_type=None, drop_off_type=None,
                shape_dist_traveled=None, arrival_secs=None,
                departure_secs=None, stop_time=None, stop_sequence=None):
+    self._schedule = None
+
     # Implementation note from Andre, July 22, 2010:
     # The checks performed here should be in their own Validate* methods to
     # keep consistency. Unfortunately the performance degradation is too great,
