@@ -78,14 +78,8 @@ class Trip(GtfsObjectBase):
     The trip isn't checked for duplicate sequence numbers so it must be
     validated later."""
 
-    stop_time_class = self.GetGtfsFactory().StopTime
-    insert_query = "INSERT INTO stop_times (%s) VALUES (%s);" % (
-       ','.join([fn for fn, ft in stop_time_class._SQL_FIELDS]),
-       ','.join(['?'] * len(stop_time_class._SQL_FIELDS)))
-
     cursor = schedule._connection.cursor()
-    cursor.execute(
-        insert_query, stoptime.GetSqlValuesTuple(trip_id=self.trip_id))
+    stoptime.save( cursor, trip_id=self.trip_id )
 
   def ReplaceStopTimeObject(self, stoptime, schedule=None):
     """Replace a StopTime object from this trip with the given one.

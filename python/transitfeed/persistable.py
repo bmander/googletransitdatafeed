@@ -34,3 +34,12 @@ class Persistable:
         # GetFieldValuesTuple)
         result.append(getattr(self, fn))
     return tuple(result)
+
+  def save(self, cursor, **extra_fields):
+    
+    insert_query = "INSERT INTO stop_times (%s) VALUES (%s);" % (
+       ','.join([fn for fn, ft in self._SQL_FIELDS]),
+       ','.join(['?'] * len(self._SQL_FIELDS)))
+
+    cursor.execute( 
+        insert_query, self.GetSqlValuesTuple(**extra_fields))
