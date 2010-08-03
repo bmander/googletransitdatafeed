@@ -18,8 +18,9 @@ import problems as problems_module
 from gtfsobjectbase import GtfsObjectBase
 from stop import Stop
 import util
+from persistable import Persistable
 
-class StopTime(GtfsObjectBase):
+class StopTime(GtfsObjectBase, Persistable):
   """
   Represents a single stop of a trip. StopTime contains most of the columns
   from the stop_times.txt file. It does not contain trip_id, which is implied

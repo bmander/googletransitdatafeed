@@ -121,19 +121,8 @@ class Schedule:
     cursor = self._connection.cursor()
 
     for persisted_class in self._SQL_PERSISTED_CLASSES:
-      if hasattr( persisted_class, "_SQL_FIELDS" ) and \
-         hasattr( persisted_class, "_SQL_TABLENAME" ):
- 
-        # create table
-        fields_spec = ",".join(["%s %s"%(fn,ftype) for fn,ftype in persisted_class._SQL_FIELDS])
-        cursor.execute("""CREATE TABLE %s (%s);"""%(persisted_class._SQL_TABLENAME,
-                                                    fields_spec))
-        # index table
-        if hasattr( persisted_class, "_SQL_INDEXABLE_FIELDS" ):
-          for fn in StopTime._SQL_INDEXABLE_FIELDS:
-            cursor.execute("""CREATE INDEX %s_index ON %s (%s);"""%(fn,
-                                                                    persisted_class._SQL_TABLENAME,
-                                                                    fn))
+      persisted_class.create_table(cursor)
+      persisted_class.create_indices(cursor)
 
   def GetStopBoundingBox(self):
     return (min(s.stop_lat for s in self.stops.values()),
