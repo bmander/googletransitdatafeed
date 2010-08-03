@@ -78,7 +78,6 @@ class Trip(GtfsObjectBase):
     The trip isn't checked for duplicate sequence numbers so it must be
     validated later."""
     stop_time_class = self.GetGtfsFactory().StopTime
-    cursor = schedule._connection.cursor()
     insert_query = "INSERT INTO stop_times (%s) VALUES (%s);" % (
        ','.join(stop_time_class._SQL_FIELD_NAMES),
        ','.join(['?'] * len(stop_time_class._SQL_FIELD_NAMES)))
