@@ -35,7 +35,8 @@ class Loader:
                memory_db=True,
                zip=None,
                check_duplicate_trips=False,
-               gtfs_factory=None):
+               gtfs_factory=None,
+               db_filename=None):
     """Initialize a new Loader object.
 
     Args:
@@ -55,7 +56,8 @@ class Loader:
 
     if not schedule:
       schedule = gtfs_factory.Schedule(problem_reporter=problems,
-          memory_db=memory_db, check_duplicate_trips=check_duplicate_trips)
+          memory_db=memory_db, check_duplicate_trips=check_duplicate_trips,
+          db_filename=db_filename)
 
     self._extra_validation = extra_validation
     self._schedule = schedule
@@ -539,6 +541,7 @@ class Loader:
           drop_off_type, shape_dist_traveled, stop_sequence=sequence)
       trip._AddStopTimeObjectUnordered(stop_time, self._schedule)
       self._problems.ClearContext()
+    self._schedule._connection.commit()
 
     # stop_times are validated in Trip.ValidateChildren, called by
     # Schedule.Validate
