@@ -37,6 +37,7 @@ import gtfsfactory
 import problems as problems_module
 from transitfeed.util import defaultdict
 import util
+from stoptime import StopTime
 
 class Schedule:
   """Represents a Schedule, a collection of stops, routes, trips and
@@ -116,18 +117,10 @@ class Schedule:
         self._connection = sqlite.connect(self._temp_db_filename)
 
     cursor = self._connection.cursor()
-    cursor.execute("""CREATE TABLE stop_times (
-                                           trip_id CHAR(50),
-                                           arrival_secs INTEGER,
-                                           departure_secs INTEGER,
-                                           stop_id CHAR(50),
-                                           stop_sequence INTEGER,
-                                           stop_headsign VAR CHAR(100),
-                                           pickup_type INTEGER,
-                                           drop_off_type INTEGER,
-                                           shape_dist_traveled FLOAT);""")
-    cursor.execute("""CREATE INDEX trip_index ON stop_times (trip_id);""")
-    cursor.execute("""CREATE INDEX stop_index ON stop_times (stop_id);""")
+    cursor.execute("""CREATE TABLE stop_times (%s);"""%\
+           ",".join(["%s %s"%(fn,ftype) for fn,ftype in StopTime._SQL_FIELDS]))
+    for fn in StopTime._SQL_INDEXABLE_FIELDS:
+      cursor.execute("""CREATE INDEX %s_index ON stop_times (%s);"""%(fn,fn))
 
   def GetStopBoundingBox(self):
     return (min(s.stop_lat for s in self.stops.values()),

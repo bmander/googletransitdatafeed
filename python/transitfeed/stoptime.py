@@ -55,6 +55,7 @@ class StopTime(GtfsObjectBase):
                  ('pickup_type', 'INTEGER'), 
                  ('drop_off_type', 'INTEGER'),
                  ('shape_dist_traveled', 'FLOAT')]
+  _SQL_INDEXABLE_FIELDS = ['trip_id','stop_id']
 
   _STOP_CLASS = Stop
 
