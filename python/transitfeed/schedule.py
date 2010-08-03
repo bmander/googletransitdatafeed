@@ -43,6 +43,8 @@ class Schedule:
   """Represents a Schedule, a collection of stops, routes, trips and
   an agency.  This is the main class for this module."""
 
+  _SQL_PERSISTED_CLASSES = [StopTime]
+
   def __init__(self, problem_reporter=None,
                memory_db=True, check_duplicate_trips=False,
                gtfs_factory=None):
@@ -117,10 +119,21 @@ class Schedule:
         self._connection = sqlite.connect(self._temp_db_filename)
 
     cursor = self._connection.cursor()
-    cursor.execute("""CREATE TABLE stop_times (%s);"""%\
-           ",".join(["%s %s"%(fn,ftype) for fn,ftype in StopTime._SQL_FIELDS]))
-    for fn in StopTime._SQL_INDEXABLE_FIELDS:
-      cursor.execute("""CREATE INDEX %s_index ON stop_times (%s);"""%(fn,fn))
+
+    for persisted_class in self._SQL_PERSISTED_CLASSES:
+      if hasattr( persisted_class, "_SQL_FIELDS" ) and \
+         hasattr( persisted_class, "_SQL_TABLENAME" ):
+ 
+        # create table
+        fields_spec = ",".join(["%s %s"%(fn,ftype) for fn,ftype in persisted_class._SQL_FIELDS])
+        cursor.execute("""CREATE TABLE %s (%s);"""%(persisted_class._SQL_TABLENAME,
+                                                    fields_spec))
+        # index table
+        if hasattr( persisted_class, "_SQL_INDEXABLE_FIELDS" ):
+          for fn in StopTime._SQL_INDEXABLE_FIELDS:
+            cursor.execute("""CREATE INDEX %s_index ON %s (%s);"""%(fn,
+                                                                    persisted_class._SQL_TABLENAME,
+                                                                    fn))
 
   def GetStopBoundingBox(self):
     return (min(s.stop_lat for s in self.stops.values()),

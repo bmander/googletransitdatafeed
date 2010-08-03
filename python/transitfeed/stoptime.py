@@ -46,6 +46,8 @@ class StopTime(GtfsObjectBase):
   _OPTIONAL_FIELD_NAMES = ['stop_headsign', 'pickup_type',
                            'drop_off_type', 'shape_dist_traveled']
   _FIELD_NAMES = _REQUIRED_FIELD_NAMES + _OPTIONAL_FIELD_NAMES
+
+  _SQL_TABLENAME = "stop_times"
   _SQL_FIELDS = [('trip_id', 'CHAR(50)'), 
                  ('arrival_secs', 'INTEGER'),
                  ('departure_secs', 'INTEGER'),
