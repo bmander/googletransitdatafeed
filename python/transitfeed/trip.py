@@ -216,7 +216,7 @@ class Trip(GtfsObjectBase):
     no longer associated with this trip.
     """
     cursor = self._schedule._connection.cursor()
-    cursor.execute('DELETE FROM stop_times WHERE trip_id=?', (self.trip_id,))
+    StopTime.delete( cursor, tolerant=True, trip_id=self.trip_id )
 
   def GetStopTimes(self, problems=None):
     """Return a sorted list of StopTime objects for this trip."""
