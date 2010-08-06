@@ -446,7 +446,7 @@ class Loader:
         context = (file_name_dates, row_num, row, cols)
         self._problems.SetFileContext(*context)
 
-        service_id = row[0]
+        (service_id, date, exception_type) = row
 
         period = None
         if service_id in periods:
@@ -455,11 +455,10 @@ class Loader:
           period = self._gtfs_factory.ServicePeriod(service_id)
           periods[period.service_id] = (period, context)
 
-        exception_type = row[2]
         if exception_type == u'1':
-          period.SetDateHasService(row[1], True, self._problems)
+          period.SetDateHasService(date, True, self._problems)
         elif exception_type == u'2':
-          period.SetDateHasService(row[1], False, self._problems)
+          period.SetDateHasService(date, False, self._problems)
         else:
           self._problems.InvalidValue('exception_type', exception_type)
         self._problems.ClearContext()
