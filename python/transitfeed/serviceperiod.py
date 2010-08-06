@@ -20,8 +20,9 @@ import time
 
 import problems as problems_module
 import util
+from persistable import Persistable
 
-class ServicePeriod(object):
+class ServicePeriod(object, Persistable):
   """Represents a service, which identifies a set of dates when one or more
   trips operate."""
   _DAYS_OF_WEEK = [
@@ -33,6 +34,10 @@ class ServicePeriod(object):
     ] + _DAYS_OF_WEEK
   _FIELD_NAMES = _FIELD_NAMES_REQUIRED  # no optional fields in this one
   _FIELD_NAMES_CALENDAR_DATES = ['service_id', 'date', 'exception_type']
+
+  _SQL_TABLENAME = "calendar"
+  _SQL_FIELD_TYPES = ["CHAR(50)", "CHAR(8)", "CHAR(8)"] + 7*["INTEGER"]
+  _SQL_FIELDS = zip( _FIELD_NAMES, _SQL_FIELD_TYPES )
 
   def __init__(self, id=None, field_list=None):
     self.original_day_values = []

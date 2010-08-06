@@ -415,6 +415,8 @@ class Loader:
     # map period IDs to (period object, (file_name, row_num, row, cols))
     periods = {}
 
+    cursor = self._schedule._connection.cursor()
+
     # process calendar.txt
     if self._HasFile(file_name):
       has_useful_contents = False
@@ -432,6 +434,8 @@ class Loader:
         else:
           periods[period.service_id] = (period, context)
         self._problems.ClearContext()
+
+	period.save(cursor)
 
     # process calendar_dates.txt
     if self._HasFile(file_name_dates):
