@@ -461,6 +461,10 @@ class Loader:
           period.SetDateHasService(date, False, self._problems)
         else:
           self._problems.InvalidValue('exception_type', exception_type)
+
+        service_period_exception = self._gtfs_factory.ServicePeriodException( service_id, date, exception_type ) 
+	service_period_exception.save( cursor )
+
         self._problems.ClearContext()
 
     # Now insert the periods into the schedule object, so that they're

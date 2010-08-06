@@ -29,6 +29,7 @@ from stop import Stop
 from stoptime import StopTime
 from transfer import Transfer
 from trip import Trip
+from serviceperiodexception import ServicePeriodException
 
 class GtfsFactory(object):
   """A factory for the default GTFS objects"""
@@ -40,6 +41,7 @@ class GtfsFactory(object):
     self._class_mapping = {
       'Agency': Agency,
       'ServicePeriod': ServicePeriod,
+      'ServicePeriodException': ServicePeriodException,
       'FareAttribute': FareAttribute,
       'FareRule': FareRule,
       'Frequency': Frequency,
