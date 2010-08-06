@@ -9,6 +9,9 @@ class Persistable:
                                                     fields_spec))
   @classmethod
   def create_indices(self, cursor):  
+    if not hasattr( self, "_SQL_INDEXABLE_FIELDS" ):
+      return
+
     for fn in self._SQL_INDEXABLE_FIELDS:
       cursor.execute("""CREATE INDEX %s_index ON %s (%s);"""%(fn,
                                                               self._SQL_TABLENAME,
@@ -39,7 +42,8 @@ class Persistable:
 
   def save(self, cursor, **extra_fields):
     
-    insert_query = "INSERT INTO stop_times (%s) VALUES (%s);" % (
+    insert_query = "INSERT INTO %s (%s) VALUES (%s);" % (
+       self._SQL_TABLENAME,
        ','.join([fn for fn, ft in self._SQL_FIELDS]),
        ','.join(['?'] * len(self._SQL_FIELDS)))
 
