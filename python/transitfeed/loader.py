@@ -435,7 +435,8 @@ class Loader:
           periods[period.service_id] = (period, context)
         self._problems.ClearContext()
 
-	period.save(cursor)
+        period.cursor_factory = self._schedule
+	period.save()
 
     # process calendar_dates.txt
     if self._HasFile(file_name_dates):
@@ -463,7 +464,8 @@ class Loader:
           self._problems.InvalidValue('exception_type', exception_type)
 
         service_period_exception = self._gtfs_factory.ServicePeriodException( service_id, date, exception_type ) 
-	service_period_exception.save( cursor )
+	service_period_exception.cursor_factory = self._schedule
+	service_period_exception.save( )
 
         self._problems.ClearContext()
 
@@ -547,7 +549,8 @@ class Loader:
       stop_time = self._gtfs_factory.StopTime(self._problems, stop,
           arrival_time, departure_time, stop_headsign, pickup_type,
           drop_off_type, shape_dist_traveled, stop_sequence=sequence)
-      stop_time.save( cursor, trip_id=trip_id )
+      stop_time.cursor_factory = self._schedule
+      stop_time.save( trip_id=trip_id )
 
       self._problems.ClearContext()
     self._schedule._connection.commit()

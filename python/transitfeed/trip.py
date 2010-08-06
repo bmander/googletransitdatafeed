@@ -73,14 +73,19 @@ class Trip(GtfsObjectBase):
         problems=problems, stop=stop, **kwargs)
     self.AddStopTimeObject(stoptime, schedule)
 
-  def _AddStopTimeObjectUnordered(self, stoptime, schedule):
+  def _AddStopTimeObjectUnordered(self, stoptime):
     """Add StopTime object to this trip.
 
     The trip isn't checked for duplicate sequence numbers so it must be
     validated later."""
 
-    cursor = schedule._connection.cursor()
-    stoptime.save( cursor, trip_id=self.trip_id )
+    # if the stoptime object arrives unbounded to a database, we should
+    # feel free to preseume to associate it with the same database
+    # as the trip
+    if stoptime.cursor_factory is None:
+      stoptime.cursor_factory = self._schedule
+
+    stoptime.save( trip_id=self.trip_id )
 
   def ReplaceStopTimeObject(self, stoptime, schedule=None):
     """Replace a StopTime object from this trip with the given one.
@@ -89,17 +94,15 @@ class Trip(GtfsObjectBase):
     and stop_id as 'stoptime', with the object 'stoptime'.
     """
 
-    if schedule is None:
-      schedule = self._schedule
+    if stoptime.cursor_factory is None:
+      stoptime.cursor_factory = schedule if schedule else self._schedule
 
-    cursor = schedule._connection.cursor()
-
-    StopTime.delete( cursor,
+    StopTime.delete( stoptime.cursor_factory.cursor(), 
                      trip_id=self.trip_id,
                      stop_sequence=stoptime.stop_sequence,
                      stop_id=stoptime.stop_id )
 
-    stoptime.save( cursor, trip_id=self.trip_id )
+    stoptime.save( trip_id=self.trip_id )
 
   def AddStopTimeObject(self, stoptime, schedule=None, problems=None):
     """Add a StopTime object to the end of this trip.
@@ -121,6 +124,9 @@ class Trip(GtfsObjectBase):
                     "stop_times table", DeprecationWarning)
     if problems is None:
       problems = schedule.problem_reporter
+
+    if stoptime.cursor_factory is None:
+      stoptime.cursor_factory = schedule
 
     new_secs = stoptime.GetTimeSecs()
     cursor = schedule._connection.cursor()
@@ -144,7 +150,7 @@ class Trip(GtfsObjectBase):
              util.EncodeUnicode(self.trip_id),
              util.FormatSecondsSinceMidnight(new_secs),
              util.FormatSecondsSinceMidnight(prev_secs)))
-    self._AddStopTimeObjectUnordered(stoptime, schedule)
+    self._AddStopTimeObjectUnordered(stoptime)
 
   def GetTimeStops(self):
     """Return a list of (arrival_secs, departure_secs, stop) tuples.

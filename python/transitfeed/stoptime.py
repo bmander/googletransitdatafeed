@@ -71,6 +71,7 @@ class StopTime(GtfsObjectBase, Persistable):
                shape_dist_traveled=None, arrival_secs=None,
                departure_secs=None, stop_time=None, stop_sequence=None):
     self._schedule = None
+    Persistable.__init__(self, self._schedule)
 
     # Implementation note from Andre, July 22, 2010:
     # The checks performed here should be in their own Validate* methods to

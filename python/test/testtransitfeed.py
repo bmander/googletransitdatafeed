@@ -3548,9 +3548,9 @@ class TripSequenceValidationTestCase(ValidationTestCase):
                                      stop_time='11:30:00', stop_sequence=2)
     stoptime3 = transitfeed.StopTime(self.problems, stop3,
                                      stop_time='12:15:00', stop_sequence=3)
-    trip._AddStopTimeObjectUnordered(stoptime1, schedule)
-    trip._AddStopTimeObjectUnordered(stoptime2, schedule)
-    trip._AddStopTimeObjectUnordered(stoptime3, schedule)
+    trip._AddStopTimeObjectUnordered(stoptime1)
+    trip._AddStopTimeObjectUnordered(stoptime2)
+    trip._AddStopTimeObjectUnordered(stoptime3)
     trip.Validate(self.problems)
     e = self.accumulator.PopException('OtherProblem')
     self.assertTrue(e.FormatProblem().find('Timetravel detected') != -1)

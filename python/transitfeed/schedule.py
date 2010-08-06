@@ -123,11 +123,17 @@ class Schedule:
       else:
         self._connection = sqlite.connect(db_filename)
 
-    cursor = self._connection.cursor()
-
     for persisted_class in self._SQL_PERSISTED_CLASSES:
-      persisted_class.create_table(cursor)
-      persisted_class.create_indices(cursor)
+      persisted_class.create_table( self.cursor() )
+      persisted_class.create_indices( self.cursor() )
+
+  def cursor(self):
+    """returns a cached cursor"""
+
+    if not hasattr(self, "_cursor") or self._cursor is None:
+      self._cursor = self._connection.cursor()
+    
+    return self._cursor
 
   def GetStopBoundingBox(self):
     return (min(s.stop_lat for s in self.stops.values()),

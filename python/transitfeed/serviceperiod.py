@@ -40,6 +40,8 @@ class ServicePeriod(object, Persistable):
   _SQL_FIELDS = zip( _FIELD_NAMES, _SQL_FIELD_TYPES )
 
   def __init__(self, id=None, field_list=None):
+    Persistable.__init__(self, None)
+
     self.original_day_values = []
     if field_list:
       self.service_id = field_list[self._FIELD_NAMES.index('service_id')]
