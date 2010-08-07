@@ -64,6 +64,19 @@ class Persistable:
         insert_query, self.GetSqlValuesTuple(**extra_fields))
 
     self._rowid = cursor.lastrowid
+
+  def update( self, **extra_fields ):
+    #TODO unit test
+
+    field_setters = ", ".join( ["%s=?"%fn for fn,ft in self._SQL_FIELDS] ) 
+    query = "UPDATE %s SET %s WHERE rowid=%s" % (
+         self._SQL_TABLENAME,
+	field_setters,
+	self._rowid )
+
+    cursor = self.cursor()
+    cursor.execute( 
+        query, self.GetSqlValuesTuple(**extra_fields))
   
   @classmethod
   def delete( cls, cursor, tolerant=False, **fields ):
