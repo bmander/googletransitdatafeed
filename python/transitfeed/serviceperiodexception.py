@@ -21,8 +21,8 @@ class ServicePeriodException( Persistable ):
   _FIELD_NAMES = ['service_id', 'date', 'exception_type']
   
   _SQL_TABLENAME = "calendar_dates"
-  _SQL_FIELD_TYPES = ["CHAR(50)", "CHAR(8)", "INTEGER"]
-  _SQL_FIELDS = zip( _FIELD_NAMES, _SQL_FIELD_TYPES )
+  _SQL_FIELD_TYPES = ["INTEGER", "CHAR(50)", "CHAR(8)", "INTEGER"]
+  _SQL_FIELDS = zip( ['service_period_rowid']+_FIELD_NAMES, _SQL_FIELD_TYPES )
 
   def __init__(self, service_id, date, exception_type):
     self.service_id = service_id;
