@@ -7,6 +7,7 @@ class Persistable:
        returns a database cursor"""
 
     self.cursor_factory = cursor_factory 
+    self._rowid = None
 
   def cursor(self):
     if self.cursor_factory is None:
@@ -58,8 +59,11 @@ class Persistable:
        ','.join([fn for fn, ft in self._SQL_FIELDS]),
        ','.join(['?'] * len(self._SQL_FIELDS)))
 
-    self.cursor().execute( 
+    cursor = self.cursor()
+    cursor.execute( 
         insert_query, self.GetSqlValuesTuple(**extra_fields))
+
+    self._rowid = cursor.lastrowid
   
   @classmethod
   def delete( cls, cursor, tolerant=False, **fields ):
