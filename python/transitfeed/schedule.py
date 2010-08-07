@@ -135,6 +135,14 @@ class Schedule:
     
     return self._cursor
 
+  def create_linked_instance( self, cls, *args, **kwargs ):
+    """creates an instance of cls which uses this Schedule instance
+       as its cursor factory"""
+
+    ret = cls(*args, **kwargs)
+    ret.cursor_factory = self
+    return ret
+
   def GetStopBoundingBox(self):
     return (min(s.stop_lat for s in self.stops.values()),
             min(s.stop_lon for s in self.stops.values()),

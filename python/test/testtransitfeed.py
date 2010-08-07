@@ -3047,8 +3047,10 @@ class ServicePeriodValidationTestCase(ValidationTestCase):
     repr(period)  # shouldn't crash
 
   def testHasExceptions(self):
+    schedule = transitfeed.Schedule()
+
     # A new ServicePeriod object has no exceptions
-    period = transitfeed.ServicePeriod()
+    period = schedule.create_linked_instance( transitfeed.ServicePeriod )
     self.assertFalse(period.HasExceptions())
 
     # Only regular service, no exceptions
@@ -3067,12 +3069,12 @@ class ServicePeriodValidationTestCase(ValidationTestCase):
     self.assertTrue(period.HasExceptions())
 
     # Only added service exception
-    period = transitfeed.ServicePeriod()
+    period = schedule.create_linked_instance( transitfeed.ServicePeriod )
     period.SetDateHasService('20070101', True)
     self.assertTrue(period.HasExceptions())
 
     # Only removed service exception
-    period = transitfeed.ServicePeriod()
+    period = schedule.create_linked_instance( transitfeed.ServicePeriod )
     period.SetDateHasService('20070101', False)
     self.assertTrue(period.HasExceptions())
     

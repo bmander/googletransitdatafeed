@@ -21,6 +21,7 @@ import time
 import problems as problems_module
 import util
 from persistable import Persistable
+from serviceperiodexception import ServicePeriodException
 
 class ServicePeriod(object, Persistable):
   """Represents a service, which identifies a set of dates when one or more
@@ -131,6 +132,15 @@ class ServicePeriod(object, Persistable):
       problems.DuplicateID(('service_id', 'date'),
                            (self.service_id, date),
                            type=problems_module.TYPE_WARNING)
+
+    # make sure we have a rowid
+    if self._rowid is None:
+      self.save()
+
+    service_period_exception = ServicePeriodException( self.service_id, date, has_service and 1 or 2 )
+    service_period_exception.cursor_factory = self.cursor_factory
+    service_period_exception.save(service_period_rowid = self._rowid)
+
     self.date_exceptions[date] = has_service and 1 or 2
 
   def ResetDateToNormalService(self, date):
