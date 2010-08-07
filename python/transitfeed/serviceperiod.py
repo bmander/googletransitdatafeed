@@ -74,10 +74,16 @@ class ServicePeriod(object, Persistable):
 
   def HasExceptions(self):
     """Checks if the ServicePeriod has service exceptions."""
-    if self.date_exceptions:
-      return True
-    else:
+
+    # if this instance has no rowid, then SetDateHasService has never been called
+    if self._rowid is None:
       return False
+
+    query = "SELECT count(*) FROM calendar_dates WHERE service_period_rowid=?"
+
+    cursor = self.cursor()
+    cursor.execute( query, (self._rowid,) )
+    return cursor.fetchone()[0] > 0 
 
   def GetDateRange(self):
     """Return the range over which this ServicePeriod is valid.
