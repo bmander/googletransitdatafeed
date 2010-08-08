@@ -40,6 +40,8 @@ Run merge.py --help for a list of the possible options.
 
 __author__ = 'timothy.stranex@gmail.com (Timothy Stranex)'
 
+# a trivial change
+
 
 import datetime
 import optparse
