@@ -872,7 +872,7 @@ class ValidationTestCase(util.TestCase):
     schedule = transitfeed.Schedule(problem_reporter=self.problems)
     schedule.AddAgency("Fly Agency", "http://iflyagency.com",
                        "America/Los_Angeles")
-    service_period = transitfeed.ServicePeriod("WEEK")
+    service_period = schedule.create_linked_instance( transitfeed.ServicePeriod, "WEEK" )
     service_period.SetWeekdayService(True)
     service_period.SetStartDate("20091203")
     service_period.SetEndDate("20111203")
@@ -3081,7 +3081,9 @@ class ServicePeriodValidationTestCase(ValidationTestCase):
 
 class ServicePeriodDateRangeTestCase(ValidationTestCase):
   def runTest(self):
-    period = transitfeed.ServicePeriod()
+    schedule = transitfeed.Schedule()
+
+    period = schedule.create_linked_instance( transitfeed.ServicePeriod )
     period.service_id = 'WEEKDAY'
     period.start_date = '20070101'
     period.end_date = '20071231'
@@ -3090,7 +3092,7 @@ class ServicePeriodDateRangeTestCase(ValidationTestCase):
     period.Validate(self.problems)
     self.assertEqual(('20070101', '20071231'), period.GetDateRange())
 
-    period2 = transitfeed.ServicePeriod()
+    period2 = schedule.create_linked_instance( transitfeed.ServicePeriod )
     period2.service_id = 'HOLIDAY'
     period2.SetDateHasService('20071225', True)
     period2.SetDateHasService('20080101', True)
@@ -3103,10 +3105,10 @@ class ServicePeriodDateRangeTestCase(ValidationTestCase):
     period2.Validate(self.problems)
     self.assertEqual(('20071201', '20080101'), period2.GetDateRange())
 
-    period3 = transitfeed.ServicePeriod()
+    period3 = schedule.create_linked_instance( transitfeed.ServicePeriod )
     self.assertEqual((None, None), period3.GetDateRange())
 
-    period4 = transitfeed.ServicePeriod()
+    period4 = schedule.create_linked_instance( transitfeed.ServicePeriod )
     period4.service_id = 'halloween'
     period4.SetDateHasService('20051031', True)
     self.assertEqual(('20051031', '20051031'), period4.GetDateRange())
@@ -3179,7 +3181,9 @@ class NoServiceExceptionsTestCase(MemoryZipTestCase):
 class ServicePeriodTestCase(util.TestCase):
   def testActive(self):
     """Test IsActiveOn and ActiveDates"""
-    period = transitfeed.ServicePeriod()
+    schedule = transitfeed.Schedule()
+
+    period = schedule.create_linked_instance( transitfeed.ServicePeriod )
     period.service_id = 'WEEKDAY'
     period.start_date = '20071226'
     period.end_date = '20071231'
@@ -3221,7 +3225,7 @@ class ServicePeriodTestCase(util.TestCase):
 
 
     # Test of period without start_date, end_date
-    period_dates = transitfeed.ServicePeriod()
+    period_dates = schedule.create_linked_instance( transitfeed.ServicePeriod )
     period_dates.SetDateHasService('20071230', True)
     period_dates.SetDateHasService('20071231', False)
 
@@ -3235,19 +3239,19 @@ class ServicePeriodTestCase(util.TestCase):
     self.assertEquals(period_dates.ActiveDates(), ['20071230'])
 
     # Test with an invalid ServicePeriod; one of start_date, end_date is set
-    period_no_end = transitfeed.ServicePeriod()
+    period_no_end = schedule.create_linked_instance( transitfeed.ServicePeriod )
     period_no_end.start_date = '20071226'
     self.assertFalse(period_no_end.IsActiveOn(date='20071231'))
     self.assertFalse(period_no_end.IsActiveOn(date='20071231',
                                               date_object=date(2007, 12, 31)))
     self.assertEquals(period_no_end.ActiveDates(), [])
-    period_no_start = transitfeed.ServicePeriod()
+    period_no_start = schedule.create_linked_instance( transitfeed.ServicePeriod )
     period_no_start.end_date = '20071230'
     self.assertFalse(period_no_start.IsActiveOn('20071229'))
     self.assertFalse(period_no_start.IsActiveOn('20071229', date(2007, 12, 29)))
     self.assertEquals(period_no_start.ActiveDates(), [])
 
-    period_empty = transitfeed.ServicePeriod()
+    period_empty = schedule.create_linked_instance( transitfeed.ServicePeriod )
     self.assertFalse(period_empty.IsActiveOn('20071231'))
     self.assertFalse(period_empty.IsActiveOn('20071231', date(2007, 12, 31)))
     self.assertEquals(period_empty.ActiveDates(), [])
@@ -3266,7 +3270,7 @@ class GetServicePeriodsActiveEachDateTestCase(util.TestCase):
                                                  date(2009, 1, 2)))
   def testOneService(self):
     schedule = transitfeed.Schedule()
-    sp1 = transitfeed.ServicePeriod()
+    sp1 = schedule.create_linked_instance( transitfeed.ServicePeriod )
     sp1.service_id = "sp1"
     sp1.SetDateHasService("20090101")
     sp1.SetDateHasService("20090102")
@@ -3282,13 +3286,13 @@ class GetServicePeriodsActiveEachDateTestCase(util.TestCase):
 
   def testTwoService(self):
     schedule = transitfeed.Schedule()
-    sp1 = transitfeed.ServicePeriod()
+    sp1 = schedule.create_linked_instance( transitfeed.ServicePeriod )
     sp1.service_id = "sp1"
     sp1.SetDateHasService("20081231")
     sp1.SetDateHasService("20090101")
 
     schedule.AddServicePeriodObject(sp1)
-    sp2 = transitfeed.ServicePeriod()
+    sp2 = schedule.create_linked_instance( transitfeed.ServicePeriod )
     sp2.service_id = "sp2"
     sp2.SetStartDate("20081201")
     sp2.SetEndDate("20081231")
@@ -4731,7 +4735,7 @@ class WriteSampleFeedTestCase(TempFileTestCaseBase):
       shape.AddPoint(lat, lon)
     schedule.AddShapeObject(shape)
 
-    week_period = transitfeed.ServicePeriod()
+    week_period = schedule.create_linked_instance( transitfeed.ServicePeriod )
     week_period.service_id = "FULLW"
     week_period.start_date = "20070101"
     week_period.end_date = "20071231"
@@ -5066,7 +5070,7 @@ class FindUniqueIdTestCase(util.TestCase):
 class DefaultServicePeriodTestCase(util.TestCase):
   def test_SetDefault(self):
     schedule = transitfeed.Schedule()
-    service1 = transitfeed.ServicePeriod()
+    service1 = schedule.create_linked_instance( transitfeed.ServicePeriod )
     service1.SetDateHasService('20070101', True)
     service1.service_id = 'SERVICE1'
     schedule.SetDefaultServicePeriod(service1)
@@ -5093,7 +5097,7 @@ class DefaultServicePeriodTestCase(util.TestCase):
 
   def test_AssumeSingleServiceIsDefault(self):
     schedule = transitfeed.Schedule()
-    service1 = transitfeed.ServicePeriod()
+    service1 = schedule.create_linked_instance( transitfeed.ServicePeriod )
     service1.SetDateHasService('20070101', True)
     service1.service_id = 'SERVICE1'
     schedule.AddServicePeriodObject(service1)
@@ -5102,11 +5106,11 @@ class DefaultServicePeriodTestCase(util.TestCase):
 
   def test_MultipleServicesCausesNoDefault(self):
     schedule = transitfeed.Schedule()
-    service1 = transitfeed.ServicePeriod()
+    service1 = schedule.create_linked_instance( transitfeed.ServicePeriod )
     service1.service_id = 'SERVICE1'
     service1.SetDateHasService('20070101', True)
     schedule.AddServicePeriodObject(service1)
-    service2 = transitfeed.ServicePeriod()
+    service2 = schedule.create_linked_instance( transitfeed.ServicePeriod )
     service2.service_id = 'SERVICE2'
     service2.SetDateHasService('20070201', True)
     schedule.AddServicePeriodObject(service2)

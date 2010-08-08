@@ -232,6 +232,7 @@ class Schedule:
     return it. The default service period is used when you create a trip without
     providing an explict service period. """
     service_period = self._gtfs_factory.ServicePeriod()
+    service_period.cursor_factory = self
     service_period.service_id = util.FindUniqueId(self.service_periods)
     # blank service won't validate in AddServicePeriodObject
     self.SetDefaultServicePeriod(service_period, validate=False)

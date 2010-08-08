@@ -453,7 +453,7 @@ class Loader:
         if service_id in periods:
           period = periods[service_id][0]
         else:
-          period = self._gtfs_factory.ServicePeriod(service_id)
+          period = self._schedule.create_linked_instance( self._gtfs_factory.ServicePeriod, service_id )
           periods[period.service_id] = (period, context)
 
         if exception_type == u'1':
