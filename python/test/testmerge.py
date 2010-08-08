@@ -421,9 +421,11 @@ class TestServicePeriodMerger(util.TestCase):
 
   def _AddTwoPeriods(self, start1, end1, start2, end2):
     sp1fields = ['test1', start1, end1] + ['1']*7
-    self.sp1 = transitfeed.ServicePeriod(field_list=sp1fields)
+    self.sp1 = self.fm.a_schedule.create_linked_instance( \
+        transitfeed.ServicePeriod, field_list=sp1fields )
     sp2fields = ['test2', start2, end2] + ['1']*7
-    self.sp2 = transitfeed.ServicePeriod(field_list=sp2fields)
+    self.sp2 = self.fm.b_schedule.create_linked_instance( \
+        transitfeed.ServicePeriod, field_list=sp2fields )
 
     self.fm.a_schedule.AddServicePeriodObject(self.sp1)
     self.fm.b_schedule.AddServicePeriodObject(self.sp2)
