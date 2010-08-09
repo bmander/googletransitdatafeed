@@ -90,6 +90,20 @@ class ServicePeriod(object, Persistable):
       else:
         self.update( end_date=self._end_date )
 
+  @property
+  def service_id( self ):
+    return self._service_id
+
+  @service_id.setter
+  def service_id( self, val ):
+    self._service_id = val
+
+    if self.cursor_factory is not None:
+      if self._rowid is None:
+        self.save()
+      else:
+        self.update( service_id=self._service_id )
+
   def _IsValidDate(self, date):
     if re.match('^\d{8}$', date) == None:
       return False
