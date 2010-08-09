@@ -40,12 +40,13 @@ import util
 from stoptime import StopTime
 from serviceperiod import ServicePeriod
 from serviceperiodexception import ServicePeriodException
+from shapepoint import ShapePoint
 
 class Schedule:
   """Represents a Schedule, a collection of stops, routes, trips and
   an agency.  This is the main class for this module."""
 
-  _SQL_PERSISTED_CLASSES = [StopTime, ServicePeriod, ServicePeriodException]
+  _SQL_PERSISTED_CLASSES = [StopTime, ServicePeriod, ServicePeriodException, ShapePoint]
 
   def __init__(self, problem_reporter=None,
                memory_db=True, check_duplicate_trips=False,
@@ -140,7 +141,7 @@ class Schedule:
        as its cursor factory"""
 
     ret = cls(*args, **kwargs)
-    ret.cursor_factory = self
+    ret._cursor_factory = self
     return ret
 
   def GetStopBoundingBox(self):
@@ -232,7 +233,7 @@ class Schedule:
     return it. The default service period is used when you create a trip without
     providing an explict service period. """
     service_period = self._gtfs_factory.ServicePeriod()
-    service_period.cursor_factory = self
+    service_period._cursor_factory = self
     service_period.service_id = util.FindUniqueId(self.service_periods)
     # blank service won't validate in AddServicePeriodObject
     self.SetDefaultServicePeriod(service_period, validate=False)

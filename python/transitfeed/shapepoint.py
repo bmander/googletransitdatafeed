@@ -20,8 +20,9 @@ from gtfsobjectbase import GtfsObjectBase
 import problems as problems_module
 import util
 import sys
+from persistable import Persistable
 
-class ShapePoint(GtfsObjectBase):
+class ShapePoint(GtfsObjectBase, Persistable):
   """This class represents a single shape point.
 
   Attributes:
@@ -34,6 +35,11 @@ class ShapePoint(GtfsObjectBase):
   _REQUIRED_FIELD_NAMES = ['shape_id', 'shape_pt_lat', 'shape_pt_lon',
                            'shape_pt_sequence']
   _FIELD_NAMES = _REQUIRED_FIELD_NAMES + ['shape_dist_traveled']
+
+  _SQL_TABLENAME = "shapepoints"
+  _SQL_FIELD_TYPES = ["CHAR(50)", "FLOAT", "FLOAT", "INTEGER", "FLOAT"]
+  _SQL_FIELDS = zip( _FIELD_NAMES, _SQL_FIELD_TYPES )
+
   def __init__(self, shape_id=None, lat=None, lon=None,seq=None, dist=None,
                field_dict=None):
     """Initialize a new ShapePoint object.
@@ -41,6 +47,8 @@ class ShapePoint(GtfsObjectBase):
     Args:
       field_dict: A dictionary mapping attribute name to unicode string
     """
+    Persistable.__init__(self, None)
+
     self._schedule = None
     if field_dict:
       if isinstance(field_dict, self.__class__):

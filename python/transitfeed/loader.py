@@ -435,7 +435,7 @@ class Loader:
           periods[period.service_id] = (period, context)
         self._problems.ClearContext()
 
-        period.cursor_factory = self._schedule
+        period._cursor_factory = self._schedule
 	period.save()
 
     # process calendar_dates.txt
@@ -485,6 +485,9 @@ class Loader:
       self._problems.SetFileContext(*file_context)
 
       shapepoint = self._gtfs_factory.ShapePoint(field_dict=d)
+      shapepoint._cursor_factory = self._schedule
+      shapepoint.save()
+
       if not shapepoint.ParseAttributes(self._problems):
         continue
 
@@ -545,7 +548,7 @@ class Loader:
       stop_time = self._gtfs_factory.StopTime(self._problems, stop,
           arrival_time, departure_time, stop_headsign, pickup_type,
           drop_off_type, shape_dist_traveled, stop_sequence=sequence)
-      stop_time.cursor_factory = self._schedule
+      stop_time._cursor_factory = self._schedule
       stop_time.save( trip_id=trip_id )
 
       self._problems.ClearContext()

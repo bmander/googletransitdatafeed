@@ -82,8 +82,8 @@ class Trip(GtfsObjectBase):
     # if the stoptime object arrives unbounded to a database, we should
     # feel free to preseume to associate it with the same database
     # as the trip
-    if stoptime.cursor_factory is None:
-      stoptime.cursor_factory = self._schedule
+    if stoptime._cursor_factory is None:
+      stoptime._cursor_factory = self._schedule
 
     stoptime.save( trip_id=self.trip_id )
 
@@ -94,10 +94,10 @@ class Trip(GtfsObjectBase):
     and stop_id as 'stoptime', with the object 'stoptime'.
     """
 
-    if stoptime.cursor_factory is None:
-      stoptime.cursor_factory = schedule if schedule else self._schedule
+    if stoptime._cursor_factory is None:
+      stoptime._cursor_factory = schedule if schedule else self._schedule
 
-    StopTime.delete( stoptime.cursor_factory.cursor(), 
+    StopTime.delete( stoptime._cursor_factory.cursor(), 
                      trip_id=self.trip_id,
                      stop_sequence=stoptime.stop_sequence,
                      stop_id=stoptime.stop_id )
@@ -125,8 +125,8 @@ class Trip(GtfsObjectBase):
     if problems is None:
       problems = schedule.problem_reporter
 
-    if stoptime.cursor_factory is None:
-      stoptime.cursor_factory = schedule
+    if stoptime._cursor_factory is None:
+      stoptime._cursor_factory = schedule
 
     new_secs = stoptime.GetTimeSecs()
     cursor = schedule._connection.cursor()

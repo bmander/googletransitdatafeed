@@ -6,14 +6,14 @@ class Persistable:
     """cursor_factory is an object with a 'cursor()' method that
        returns a database cursor"""
 
-    self.cursor_factory = cursor_factory 
+    self._cursor_factory = cursor_factory 
     self._rowid = None
 
   def cursor(self):
-    if self.cursor_factory is None:
+    if self._cursor_factory is None:
       raise Exception( "This object does not reference a database" )
 
-    return self.cursor_factory.cursor()
+    return self._cursor_factory.cursor()
 
   @classmethod
   def create_table(cls, cursor):

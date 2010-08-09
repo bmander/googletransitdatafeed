@@ -71,7 +71,7 @@ class ServicePeriod(object, Persistable):
   def start_date( self, val ):
     self._start_date = val
 
-    if self.cursor_factory is not None:
+    if self._cursor_factory is not None:
       if self._rowid is None:
         self.save()
       else:
@@ -85,7 +85,7 @@ class ServicePeriod(object, Persistable):
   def end_date( self, val ):
     self._end_date = val
 
-    if self.cursor_factory is not None:
+    if self._cursor_factory is not None:
       if self._rowid is None:
         self.save()
       else:
@@ -99,7 +99,7 @@ class ServicePeriod(object, Persistable):
   def service_id( self, val ):
     self._service_id = val
 
-    if self.cursor_factory is not None:
+    if self._cursor_factory is not None:
       if self._rowid is None:
         self.save()
       else:
@@ -189,7 +189,7 @@ class ServicePeriod(object, Persistable):
       self.save()
 
     service_period_exception = ServicePeriodException( self.service_id, date, has_service and 1 or 2 )
-    service_period_exception.cursor_factory = self.cursor_factory
+    service_period_exception._cursor_factory = self._cursor_factory
     service_period_exception.save(service_period_rowid = self._rowid)
 
     self.date_exceptions[date] = has_service and 1 or 2
