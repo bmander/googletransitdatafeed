@@ -65,18 +65,17 @@ class Persistable:
 
     self._rowid = cursor.lastrowid
 
-  def update( self, **extra_fields ):
+  def update( self, **fields ):
     #TODO unit test
 
-    field_setters = ", ".join( ["%s=?"%fn for fn,ft in self._SQL_FIELDS] ) 
+    field_setters = ", ".join( ["%s=?"%k for k in fields.keys()] ) 
     query = "UPDATE %s SET %s WHERE rowid=%s" % (
          self._SQL_TABLENAME,
 	field_setters,
 	self._rowid )
 
     cursor = self.cursor()
-    cursor.execute( 
-        query, self.GetSqlValuesTuple(**extra_fields))
+    cursor.execute( query, fields.values() )
   
   @classmethod
   def delete( cls, cursor, tolerant=False, **fields ):
