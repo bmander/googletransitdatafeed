@@ -74,8 +74,7 @@ class ServicePeriod(object, Persistable):
       if self._rowid is None:
         self.save()
       else:
-        query = "UPDATE calendar SET start_date=? WHERE rowid=?"
-        self.cursor().execute( query, (self._start_date, self._rowid) )
+        self.update( start_date=self._start_date )
 
   @property
   def end_date( self ):
@@ -89,8 +88,7 @@ class ServicePeriod(object, Persistable):
       if self._rowid is None:
         self.save()
       else:
-        query = "UPDATE calendar SET end_date=? WHERE rowid=?"
-        self.cursor().execute( query, (self._end_date, self._rowid) )
+        self.update( end_date=self._end_date )
 
   def _IsValidDate(self, date):
     if re.match('^\d{8}$', date) == None:
