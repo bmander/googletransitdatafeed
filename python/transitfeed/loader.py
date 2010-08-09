@@ -441,7 +441,7 @@ class Loader:
     # process calendar_dates.txt
     if self._HasFile(file_name_dates):
       # ['service_id', 'date', 'exception_type']
-      fields = self._gtfs_factory.ServicePeriod._FIELD_NAMES_CALENDAR_DATES
+      fields = self._gtfs_factory.ServicePeriodException._FIELD_NAMES
       for (row, row_num, cols) in self._ReadCSV(file_name_dates,
                                                 fields, fields):
         context = (file_name_dates, row_num, row, cols)

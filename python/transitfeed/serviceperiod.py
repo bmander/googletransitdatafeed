@@ -34,7 +34,6 @@ class ServicePeriod(object, Persistable):
     'service_id', 'start_date', 'end_date'
     ] + _DAYS_OF_WEEK
   _FIELD_NAMES = _FIELD_NAMES_REQUIRED  # no optional fields in this one
-  _FIELD_NAMES_CALENDAR_DATES = ['service_id', 'date', 'exception_type']
 
   _SQL_TABLENAME = "calendar"
   _SQL_FIELD_TYPES = ["CHAR(50)", "CHAR(8)", "CHAR(8)"] + 7*["INTEGER"]

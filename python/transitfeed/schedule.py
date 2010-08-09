@@ -595,7 +595,7 @@ class Schedule:
     calendar_dates_string = StringIO.StringIO()
     writer = util.CsvUnicodeWriter(calendar_dates_string)
     writer.writerow(
-        self._gtfs_factory.ServicePeriod._FIELD_NAMES_CALENDAR_DATES)
+        self._gtfs_factory.ServicePeriodException._FIELD_NAMES)
     has_data = False
     for period in self.service_periods.values():
       for row in period.GenerateCalendarDatesFieldValuesTuples():
