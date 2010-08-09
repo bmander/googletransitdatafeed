@@ -207,7 +207,12 @@ class ServicePeriod(object, Persistable):
     Returns:
       None
     """
+
     assert(dow >= 0 and dow < 7)
+
+    if self._rowid is not None:
+      self.update( **{self._DAYS_OF_WEEK[dow]:(1 if has_service else 0)} )
+
     self.day_of_week[dow] = has_service
 
   def SetWeekdayService(self, has_service=True):
