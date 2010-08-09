@@ -182,6 +182,9 @@ class ServicePeriod(object, Persistable):
     self.date_exceptions[date] = has_service and 1 or 2
 
   def ResetDateToNormalService(self, date):
+    if self._rowid is not None:
+      ServicePeriodException.delete( self.cursor(), tolerant=True, service_period_rowid=self._rowid )
+
     if date in self.date_exceptions:
       del self.date_exceptions[date]
 
