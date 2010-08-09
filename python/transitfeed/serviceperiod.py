@@ -351,14 +351,11 @@ class ServicePeriod(object, Persistable):
 
   def ValidateDaysOfWeek(self, problems):
     if self.original_day_values:
-      index = 0
-      for value in self.original_day_values:
-        column_name = self._DAYS_OF_WEEK[index]
+      for column_name, value in zip( self._DAYS_OF_WEEK, self.original_day_values ):
         if util.IsEmpty(value):
           problems.MissingValue(column_name)
         elif (value != u'0') and (value != '1'):
           problems.InvalidValue(column_name, value)
-        index += 1
 
   def ValidateHasServiceAtLeastOnceAWeek(self, problems):
     if (True not in self.day_of_week and
