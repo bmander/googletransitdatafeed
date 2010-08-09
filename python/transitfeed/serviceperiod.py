@@ -49,10 +49,10 @@ class ServicePeriod(object, Persistable):
       self.service_id = field_dict[ 'service_id' ]
       self.day_of_week = [False] * len(self._DAYS_OF_WEEK)
 
-      for day in self._DAYS_OF_WEEK:
+      for index, day in enumerate( self._DAYS_OF_WEEK ):
         value = field_dict[ day ] or ''
         self.original_day_values += [value.strip()]
-        self.day_of_week[self._DAYS_OF_WEEK.index(day)] = (value == u'1')
+        self.day_of_week[index] = (value == u'1')
 
       self.start_date = field_dict[ 'start_date' ]
       self.end_date = field_dict[ 'end_date' ]
