@@ -42,7 +42,7 @@ class ServicePeriod(object, Persistable):
   def __init__(self, id=None, field_list=None):
     Persistable.__init__(self, None)
 
-    self.original_day_values = []
+    self.original_day_values = {} 
     if field_list:
       field_dict = dict( zip( self._FIELD_NAMES, field_list ) )
 
@@ -51,7 +51,7 @@ class ServicePeriod(object, Persistable):
 
       for index, day in enumerate( self._DAYS_OF_WEEK ):
         value = field_dict[ day ] or ''
-        self.original_day_values += [value.strip()]
+        self.original_day_values[ day ] = value.strip()
         self.day_of_week[index] = (value == u'1')
 
       self.start_date = field_dict[ 'start_date' ]
@@ -351,9 +351,13 @@ class ServicePeriod(object, Persistable):
 
   def ValidateDaysOfWeek(self, problems):
     if self.original_day_values:
-      for column_name, value in zip( self._DAYS_OF_WEEK, self.original_day_values ):
+      for column_name, value in self.original_day_values.items():
+
+        # check that the day of the week value exists
         if util.IsEmpty(value):
           problems.MissingValue(column_name)
+
+	# and check that it is an expected value
         elif (value != u'0') and (value != '1'):
           problems.InvalidValue(column_name, value)
 
