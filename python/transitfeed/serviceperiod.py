@@ -62,6 +62,36 @@ class ServicePeriod(object, Persistable):
       self.end_date = None
     self.date_exceptions = {}  # Map from 'YYYYMMDD' to 1 (add) or 2 (remove)
 
+  @property
+  def start_date( self ):
+    return self._start_date
+
+  @start_date.setter
+  def start_date( self, val ):
+    self._start_date = val
+
+    if self.cursor_factory is not None:
+      if self._rowid is None:
+        self.save()
+      else:
+        query = "UPDATE calendar SET start_date=? WHERE rowid=?"
+        self.cursor().execute( query, (self._start_date, self._rowid) )
+
+  @property
+  def end_date( self ):
+    return self._end_date
+
+  @end_date.setter
+  def end_date( self, val ):
+    self._end_date = val
+
+    if self.cursor_factory is not None:
+      if self._rowid is None:
+        self.save()
+      else:
+        query = "UPDATE calendar SET end_date=? WHERE rowid=?"
+        self.cursor().execute( query, (self._end_date, self._rowid) )
+
   def _IsValidDate(self, date):
     if re.match('^\d{8}$', date) == None:
       return False
