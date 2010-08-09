@@ -126,22 +126,24 @@ class ServicePeriod(object, Persistable):
       A tuple of "YYYYMMDD" strings, (start date, end date) or (None, None) if
       no dates have been given.
     """
-    start = self.start_date
-    end = self.end_date
 
-    for date in self.date_exceptions:
-      if self.date_exceptions[date] == 2:
-        continue
-      if not start or (date < start):
-        start = date
-      if not end or (date > end):
-        end = date
-    if start is None:
-      start = end
-    elif end is None:
-      end = start
-    # If start and end are None we did a little harmless shuffling
-    return (start, end)
+    # if _rowid is None, then no exceptions have ever been registered
+    if self._rowid is None:
+      return self.start_date, self.end_date
+
+    query = """SELECT min(low), max(high) 
+                 FROM (
+	           SELECT start_date AS low, end_date AS high 
+		     FROM calendar 
+		     WHERE rowid=? 
+		   UNION select date AS low, date AS high 
+		     FROM calendar_dates 
+		     WHERE service_period_rowid=? 
+		       AND exception_type=1)"""
+
+    cursor = self.cursor()
+    cursor.execute( query, (self._rowid,self._rowid) )
+    return cursor.fetchone()
 
   def GetCalendarFieldValuesTuple(self):
     """Return the tuple of calendar.txt values or None if this ServicePeriod
@@ -250,7 +252,7 @@ class ServicePeriod(object, Persistable):
   def ActiveDates(self):
     """Return dates this service period is active as a list of "YYYYMMDD"."""
     (earliest, latest) = self.GetDateRange()
-    if earliest is None:
+    if earliest is None or latest is None:
       return []
     dates = []
     date_it = util.DateStringToDateObject(earliest)

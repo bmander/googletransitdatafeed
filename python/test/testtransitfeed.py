@@ -3245,6 +3245,7 @@ class ServicePeriodTestCase(util.TestCase):
     self.assertFalse(period_no_end.IsActiveOn(date='20071231',
                                               date_object=date(2007, 12, 31)))
     self.assertEquals(period_no_end.ActiveDates(), [])
+
     period_no_start = schedule.create_linked_instance( transitfeed.ServicePeriod )
     period_no_start.end_date = '20071230'
     self.assertFalse(period_no_start.IsActiveOn('20071229'))
