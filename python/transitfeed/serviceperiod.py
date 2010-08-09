@@ -45,16 +45,18 @@ class ServicePeriod(object, Persistable):
 
     self.original_day_values = []
     if field_list:
-      self.service_id = field_list[self._FIELD_NAMES.index('service_id')]
+      field_dict = dict( zip( self._FIELD_NAMES, field_list ) )
+
+      self.service_id = field_dict[ 'service_id' ]
       self.day_of_week = [False] * len(self._DAYS_OF_WEEK)
 
       for day in self._DAYS_OF_WEEK:
-        value = field_list[self._FIELD_NAMES.index(day)] or ''  # can be None
+        value = field_dict[ day ] or ''
         self.original_day_values += [value.strip()]
         self.day_of_week[self._DAYS_OF_WEEK.index(day)] = (value == u'1')
 
-      self.start_date = field_list[self._FIELD_NAMES.index('start_date')]
-      self.end_date = field_list[self._FIELD_NAMES.index('end_date')]
+      self.start_date = field_dict[ 'start_date' ]
+      self.end_date = field_dict[ 'end_date' ]
     else:
       self.service_id = id
       self.day_of_week = [False] * 7
