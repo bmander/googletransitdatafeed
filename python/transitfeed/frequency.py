@@ -15,8 +15,9 @@
 # limitations under the License.
 
 from gtfsobjectbase import GtfsObjectBase
+from persistable import Persistable
 
-class Frequency(GtfsObjectBase):
+class Frequency(GtfsObjectBase, Persistable):
     """This class represents a period of a trip during which the vehicle travels
     at regular intervals (rather than specifying exact times for each stop)."""
 
@@ -25,26 +26,32 @@ class Frequency(GtfsObjectBase):
     _FIELD_NAMES = _REQUIRED_FIELD_NAMES
     _TABLE_NAME = "frequencies"
 
+    _SQL_TABLENAME = _TABLE_NAME 
+    _SQL_FIELD_TYPES = ["CHAR(50)", "CHAR(10)", "CHAR(10)", "INTEGER"]
+    _SQL_FIELDS = zip( _FIELD_NAMES, _SQL_FIELD_TYPES )
+
     def __init__(self, field_dict=None):
+      Persistable.__init__(self, None)
+
       self._schedule = None
       if not field_dict:
         return
-      self._trip_id = field_dict['trip_id']
-      self._start_time = field_dict['start_time']
-      self._end_time = field_dict['end_time']
-      self._headway_secs = field_dict['headway_secs']
+      self.trip_id = field_dict['trip_id']
+      self.start_time = field_dict['start_time']
+      self.end_time = field_dict['end_time']
+      self.headway_secs = field_dict['headway_secs']
 
     def StartTime(self):
-      return self._start_time
+      return self.start_time
 
     def EndTime(self):
-      return self._end_time
+      return self.end_time
 
     def TripId(self):
-      return self._trip_id
+      return self.trip_id
 
     def HeadwaySecs(self):
-      return self._headway_secs
+      return self.headway_secs
 
     def ValidateBeforeAdd(self, problems):
       return True
@@ -60,8 +67,8 @@ class Frequency(GtfsObjectBase):
         return
       self._schedule = schedule
       try:
-        trip = schedule.GetTrip(self._trip_id)
+        trip = schedule.GetTrip(self.trip_id)
       except KeyError:
-        problems.InvalidValue('trip_id', self._trip_id)
+        problems.InvalidValue('trip_id', self.trip_id)
         return
       trip.AddFrequencyObject(self, problems)
