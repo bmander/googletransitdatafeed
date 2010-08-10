@@ -43,13 +43,14 @@ from serviceperiodexception import ServicePeriodException
 from shapepoint import ShapePoint
 from trip import Trip
 from agency import Agency
+from stop import Stop
 
 class Schedule:
   """Represents a Schedule, a collection of stops, routes, trips and
   an agency.  This is the main class for this module."""
 
   _SQL_PERSISTED_CLASSES = [StopTime, ServicePeriod, ServicePeriodException, 
-    ShapePoint, Trip, Agency]
+    ShapePoint, Trip, Agency, Stop]
 
   def __init__(self, problem_reporter=None,
                memory_db=True, check_duplicate_trips=False,

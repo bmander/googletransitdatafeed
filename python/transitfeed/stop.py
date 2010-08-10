@@ -19,8 +19,9 @@ import warnings
 from gtfsobjectbase import GtfsObjectBase
 import problems as problems_module
 import util
+from persistable import Persistable
 
-class Stop(GtfsObjectBase):
+class Stop(GtfsObjectBase, Persistable):
   """Represents a single stop. A stop must have a latitude, longitude and name.
 
   Callers may assign arbitrary values to instance attributes.
@@ -41,6 +42,11 @@ class Stop(GtfsObjectBase):
                   'location_type', 'parent_station']
   _TABLE_NAME = 'stops'
 
+  _SQL_TABLENAME = _TABLE_NAME 
+  _SQL_FIELD_TYPES = ["CHAR(50)", "CHAR(50)", "CHAR(50)", "VAR CHAR(50)", 
+        "FLOAT", "FLOAT", "CHAR(50)", "VAR CHAR(50)", "INTEGER", "INTEGER"]
+  _SQL_FIELDS = zip( _FIELD_NAMES, _SQL_FIELD_TYPES )
+
   def __init__(self, lat=None, lng=None, name=None, stop_id=None,
                field_dict=None, stop_code=None):
     """Initialize a new Stop object.
@@ -53,6 +59,8 @@ class Stop(GtfsObjectBase):
       stop_id: a string, ignored when field_dict is present
       stop_code: a string, ignored when field_dict is present
     """
+    Persistable.__init__(self, None)
+
     self._schedule = None
     if field_dict:
       if isinstance(field_dict, self.__class__):
