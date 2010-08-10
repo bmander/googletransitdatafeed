@@ -60,7 +60,7 @@ class Schedule:
 
   def __init__(self, problem_reporter=None,
                memory_db=True, check_duplicate_trips=False,
-               gtfs_factory=None, db_filename=None):
+               gtfs_factory=None, db_filename=None, create_db=True):
     if gtfs_factory is None:
       gtfs_factory = gtfsfactory.GetGtfsFactory()
     self._gtfs_factory = gtfs_factory
@@ -88,7 +88,7 @@ class Schedule:
     else:
       self.problem_reporter = problem_reporter
     self._check_duplicate_trips = check_duplicate_trips
-    self.ConnectDb(memory_db, db_filename)
+    self.ConnectDb(memory_db, db_filename, create_db)
 
   def AddTableColumn(self, table, column):
     """Add column to table if it is not already there."""
@@ -116,7 +116,7 @@ class Schedule:
     if hasattr(self, '_temp_db_filename'):
       os.remove(self._temp_db_filename)
 
-  def ConnectDb(self, memory_db, db_filename):
+  def ConnectDb(self, memory_db, db_filename, create_db):
     if memory_db:
       self._connection = sqlite.connect(":memory:")
     else:
@@ -134,9 +134,10 @@ class Schedule:
       else:
         self._connection = sqlite.connect(db_filename)
 
-    for persisted_class in self._SQL_PERSISTED_CLASSES:
-      persisted_class.create_table( self.cursor() )
-      persisted_class.create_indices( self.cursor() )
+    if create_db:
+      for persisted_class in self._SQL_PERSISTED_CLASSES:
+        persisted_class.create_table( self.cursor() )
+        persisted_class.create_indices( self.cursor() )
 
   def cursor(self):
     """returns a cached cursor"""
