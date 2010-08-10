@@ -85,3 +85,17 @@ class Persistable:
 
     if not tolerant and  cursor.rowcount == 0:
       raise problems_module.Error, 'Attempted deletion of object which does not exist'
+
+  @classmethod
+  def select( cls, cursor, **fields ):
+    where_clause = " and ".join( ["%s=?"%k for k in fields.keys()] )
+
+    query = "SELECT * FROM "+cls._SQL_TABLENAME
+    if where_clause != "":
+      query += where_clause
+
+    cursor.execute( query, fields.values() )
+
+    sql_field_names = [fn for fn,ft in cls._SQL_FIELDS]
+    for row in cursor:
+      yield cls( field_dict=dict( zip( sql_field_names, row ) ) )
