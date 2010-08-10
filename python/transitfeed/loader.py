@@ -24,6 +24,7 @@ import zipfile
 import gtfsfactory as gtfsfactory_module
 import problems
 import util
+from persistable import Persistable
 
 class Loader:
   def __init__(self,
@@ -401,6 +402,11 @@ class Loader:
           instance.SetGtfsFactory(self._gtfs_factory)
           if not instance.ValidateBeforeAdd(self._problems):
             continue
+
+          if isinstance( instance, Persistable ):
+	    instance._cursor_factory = self._schedule
+	    instance.save()
+
           instance.AddToSchedule(self._schedule, self._problems)
           instance.ValidateAfterAdd(self._problems)
           self._problems.ClearContext()

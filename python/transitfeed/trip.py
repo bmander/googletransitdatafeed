@@ -20,16 +20,24 @@ from gtfsobjectbase import GtfsObjectBase
 import problems as problems_module
 import util
 from stoptime import StopTime
+from persistable import Persistable
 
-class Trip(GtfsObjectBase):
+class Trip(GtfsObjectBase, Persistable):
   _REQUIRED_FIELD_NAMES = ['route_id', 'service_id', 'trip_id']
   _FIELD_NAMES = _REQUIRED_FIELD_NAMES + [
     'trip_headsign', 'direction_id', 'block_id', 'shape_id'
     ]
   _TABLE_NAME= "trips"
 
+  _SQL_TABLENAME = _TABLE_NAME 
+  _SQL_FIELD_TYPES = ["CHAR(50)", "CHAR(50)", "CHAR(50)", "VAR CHAR(50)", 
+        "INTEGER", "CHAR(50)", "CHAR(50)"]
+  _SQL_FIELDS = zip( _FIELD_NAMES, _SQL_FIELD_TYPES )
+
   def __init__(self, headsign=None, service_period=None,
                route=None, trip_id=None, field_dict=None):
+    Persistable.__init__(self, None)
+
     self._schedule = None
     self._headways = []  # [(start_time, end_time, headway_secs)]
     if not field_dict:
