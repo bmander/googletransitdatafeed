@@ -17,16 +17,23 @@
 from gtfsobjectbase import GtfsObjectBase
 import problems as problems_module
 import util
+from persistable import Persistable
 
-class Transfer(GtfsObjectBase):
+class Transfer(GtfsObjectBase, Persistable):
   """Represents a transfer in a schedule"""
   _REQUIRED_FIELD_NAMES = ['from_stop_id', 'to_stop_id', 'transfer_type']
   _FIELD_NAMES = _REQUIRED_FIELD_NAMES + ['min_transfer_time']
   _TABLE_NAME = 'transfers'
   _ID_COLUMNS = ['from_stop_id', 'to_stop_id']
+  
+  _SQL_TABLENAME = _TABLE_NAME 
+  _SQL_FIELD_TYPES = ["CHAR(50)", "CHAR(50)", "INTEGER", "FLOAT"]
+  _SQL_FIELDS = zip( _FIELD_NAMES, _SQL_FIELD_TYPES )
 
   def __init__(self, schedule=None, from_stop_id=None, to_stop_id=None, transfer_type=None,
                min_transfer_time=None, field_dict=None):
+    Persistable.__init__(self, None)
+
     self._schedule = None
     if field_dict:
       self.__dict__.update(field_dict)

@@ -48,6 +48,7 @@ from route import Route
 from fareattribute import FareAttribute
 from farerule import FareRule
 from frequency import Frequency
+from transfer import Transfer
 
 class Schedule:
   """Represents a Schedule, a collection of stops, routes, trips and
@@ -55,7 +56,7 @@ class Schedule:
 
   _SQL_PERSISTED_CLASSES = [StopTime, ServicePeriod, ServicePeriodException, 
     ShapePoint, Trip, Agency, Stop, Route, FareAttribute, FareRule,
-    Frequency]
+    Frequency, Transfer]
 
   def __init__(self, problem_reporter=None,
                memory_db=True, check_duplicate_trips=False,
