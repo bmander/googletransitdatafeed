@@ -17,8 +17,9 @@
 from gtfsobjectbase import GtfsObjectBase
 from problems import default_problem_reporter
 import util
+from persistable import Persistable
 
-class Agency(GtfsObjectBase):
+class Agency(GtfsObjectBase, Persistable):
   """Represents an agency in a schedule.
 
   Callers may assign arbitrary values to instance attributes. __init__ makes no
@@ -33,6 +34,11 @@ class Agency(GtfsObjectBase):
                                           'agency_phone']
   _TABLE_NAME = 'agency'
 
+  _SQL_TABLENAME = _TABLE_NAME 
+  _SQL_FIELD_TYPES = ["CHAR(50)", "CHAR(50)", "VAR CHAR(50)", "VAR CHAR(50)", 
+        "CHAR(50)", "CHAR(50)"]
+  _SQL_FIELDS = zip( _FIELD_NAMES, _SQL_FIELD_TYPES )
+
   def __init__(self, name=None, url=None, timezone=None, id=None,
                field_dict=None, lang=None, **kwargs):
     """Initialize a new Agency object.
@@ -46,6 +52,8 @@ class Agency(GtfsObjectBase):
       kwargs: arbitrary keyword arguments may be used to add attributes to the
         new object, ignored when field_dict is present
     """
+    Persistable.__init__(self, None)
+
     self._schedule = None
 
     if not field_dict:
