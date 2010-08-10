@@ -42,13 +42,7 @@ class FareRule(GtfsObjectBase, Persistable):
      self.contains_id) = \
      (fare_id, route_id, origin_id, destination_id, contains_id)
     if field_dict:
-      if isinstance(field_dict, self.GetGtfsFactory().FareRule):
-        # Special case so that we don't need to re-parse the attributes to
-        # native types iteritems returns all attributes that don't start with _
-        for k, v in field_dict.iteritems():
-          self.__dict__[k] = v
-      else:
-        self.__dict__.update(field_dict)
+      self.__dict__.update(field_dict)
 
     # canonicalize non-content values as None
     if not self.route_id:
