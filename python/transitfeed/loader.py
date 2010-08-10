@@ -485,8 +485,8 @@ class Loader:
     shapes = {}  # shape_id to shape object
     for (d, row_num, header, row) in self._ReadCsvDict(
         file_name, 
-        self._gtfs_factory.Shape._FIELD_NAMES,
-        self._gtfs_factory.Shape._REQUIRED_FIELD_NAMES):
+        self._gtfs_factory.ShapePoint._FIELD_NAMES,
+        self._gtfs_factory.ShapePoint._REQUIRED_FIELD_NAMES):
       file_context = (file_name, row_num, row, header)
       self._problems.SetFileContext(*file_context)
 

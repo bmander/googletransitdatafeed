@@ -23,9 +23,6 @@ import util
 class Shape(GtfsFactoryUser):
   """This class represents a geographic shape that corresponds to the route
   taken by one or more Trips."""
-  _REQUIRED_FIELD_NAMES = ['shape_id', 'shape_pt_lat', 'shape_pt_lon',
-                           'shape_pt_sequence']
-  _FIELD_NAMES = _REQUIRED_FIELD_NAMES + ['shape_dist_traveled']
 
   def __init__(self, shape_id):
     # List of shape point tuple (lat, lng, shape_dist_traveled), where lat and

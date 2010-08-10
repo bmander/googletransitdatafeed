@@ -705,7 +705,7 @@ class Schedule:
     if shape_rows:
       shape_string = StringIO.StringIO()
       writer = util.CsvUnicodeWriter(shape_string)
-      writer.writerow(self._gtfs_factory.Shape._FIELD_NAMES)
+      writer.writerow(self._gtfs_factory.ShapePoint._FIELD_NAMES)
       writer.writerows(shape_rows)
       self._WriteArchiveString(archive, 'shapes.txt', shape_string)
 
