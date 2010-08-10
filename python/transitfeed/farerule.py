@@ -16,8 +16,9 @@
 
 from problems import default_problem_reporter
 from gtfsobjectbase import GtfsObjectBase
+from persistable import Persistable
 
-class FareRule(GtfsObjectBase):
+class FareRule(GtfsObjectBase, Persistable):
   """This class represents a rule that determines which itineraries a
   fare rule applies to."""
   _REQUIRED_FIELD_NAMES = ['fare_id']
@@ -27,9 +28,15 @@ class FareRule(GtfsObjectBase):
                                          'contains_id']
   _TABLE_NAME = "fare_rules"
 
+  _SQL_TABLENAME = _TABLE_NAME 
+  _SQL_FIELD_TYPES = ["CHAR(50)", "CHAR(50)", "CHAR(50)", "CHAR(50)", "CHAR(50)"]
+  _SQL_FIELDS = zip( _FIELD_NAMES, _SQL_FIELD_TYPES )
+
   def __init__(self, fare_id=None, route_id=None,
                origin_id=None, destination_id=None, contains_id=None,
                field_dict=None):
+    Persistable.__init__(self, None)
+
     self._schedule = None
     (self.fare_id, self.route_id, self.origin_id, self.destination_id,
      self.contains_id) = \
