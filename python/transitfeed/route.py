@@ -17,8 +17,9 @@
 from gtfsobjectbase import GtfsObjectBase
 import problems as problems_module
 import util
+from persistable import Persistable
 
-class Route(GtfsObjectBase):
+class Route(GtfsObjectBase, Persistable):
   """Represents a single route."""
 
   _REQUIRED_FIELD_NAMES = [
@@ -41,6 +42,11 @@ class Route(GtfsObjectBase):
   _ROUTE_TYPE_IDS = set(_ROUTE_TYPES.keys())
   _ROUTE_TYPE_NAMES = dict((v['name'], k) for k, v in _ROUTE_TYPES.items())
   _TABLE_NAME = 'routes'
+
+  _SQL_TABLENAME = _TABLE_NAME 
+  _SQL_FIELD_TYPES = ["CHAR(50)", "CHAR(50)", "CHAR(50)", "VAR CHAR(50)", 
+        "VAR CHAR(50)", "INTEGER", "VAR CHAR(50)", "CHAR(10)", "CHAR(10)"]
+  _SQL_FIELDS = zip( _FIELD_NAMES, _SQL_FIELD_TYPES )
 
   def __init__(self, short_name=None, long_name=None, route_type=None,
                route_id=None, agency_id=None, field_dict=None):
