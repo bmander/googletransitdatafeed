@@ -9,4 +9,4 @@ gtfs_filename = sys.argv[1]
 database_filename = sys.argv[2]
 
 loader = Loader( gtfs_filename, memory_db=False, db_filename=database_filename )
-sched = loader.Load()
+sched = loader.Load(verbose=True)

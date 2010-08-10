@@ -25,6 +25,7 @@ import gtfsfactory as gtfsfactory_module
 import problems
 import util
 from persistable import Persistable
+import sys
 
 class Loader:
   def __init__(self,
@@ -385,9 +386,11 @@ class Loader:
       self._problems.EmptyFile(file_name)
     return results
 
-  def _LoadFeed(self):
+  def _LoadFeed(self, verbose=False):
     loading_order = self._gtfs_factory.GetLoadingOrder()
     for filename in loading_order:
+      if verbose: sys.stdout.write( "Processing %s..."%filename )
+
       if not self._gtfs_factory.IsFileRequired(filename) and \
          not self._HasFile(filename):
         pass # File is not required, and feed does not have it.
@@ -397,6 +400,8 @@ class Loader:
                                        filename,
                                        object_class._FIELD_NAMES,
                                        object_class._REQUIRED_FIELD_NAMES):
+          if verbose and row_num%1000==0: sys.stdout.write( "." ); sys.stdout.flush()
+
           self._problems.SetFileContext(filename, row_num, row, header)
           instance = object_class(field_dict=d)
           instance.SetGtfsFactory(self._gtfs_factory)
@@ -410,8 +415,9 @@ class Loader:
           instance.AddToSchedule(self._schedule, self._problems)
           instance.ValidateAfterAdd(self._problems)
           self._problems.ClearContext()
+	if verbose: sys.stdout.write("done\n")
 
-  def _LoadCalendar(self):
+  def _LoadCalendar(self, verbose=False):
     file_name = 'calendar.txt'
     file_name_dates = 'calendar_dates.txt'
     if not self._HasFile(file_name) and not self._HasFile(file_name_dates):
@@ -426,10 +432,13 @@ class Loader:
     # process calendar.txt
     if self._HasFile(file_name):
       has_useful_contents = False
+      if verbose: sys.stdout.write( "Processing calendar.txt..." )
       for (row, row_num, cols) in \
           self._ReadCSV(file_name,
                         self._gtfs_factory.ServicePeriod._FIELD_NAMES,
                         self._gtfs_factory.ServicePeriod._FIELD_NAMES_REQUIRED):
+        if verbose and row_num%1000==0: sys.stdout.write( "." ); sys.stdout.flush()
+
         context = (file_name, row_num, row, cols)
         self._problems.SetFileContext(*context)
 
@@ -443,13 +452,17 @@ class Loader:
 
         period._cursor_factory = self._schedule
 	period.save()
+      if verbose: sys.stdout.write( "done\n" )
 
     # process calendar_dates.txt
     if self._HasFile(file_name_dates):
       # ['service_id', 'date', 'exception_type']
       fields = self._gtfs_factory.ServicePeriodException._FIELD_NAMES
+      if verbose: sys.stdout.write( "Processing calendar_dates.txt..." )
       for (row, row_num, cols) in self._ReadCSV(file_name_dates,
                                                 fields, fields):
+        if verbose and row_num%1000==0: sys.stdout.write( "." ); sys.stdout.flush()
+
         context = (file_name_dates, row_num, row, cols)
         self._problems.SetFileContext(*context)
 
@@ -470,6 +483,7 @@ class Loader:
           self._problems.InvalidValue('exception_type', exception_type)
 
         self._problems.ClearContext()
+      if verbose: sys.stdout.write( "done\n" )
 
     # Now insert the periods into the schedule object, so that they're
     # validated with both calendar and calendar_dates info present
@@ -478,15 +492,19 @@ class Loader:
       self._schedule.AddServicePeriodObject(period, self._problems)
       self._problems.ClearContext()
 
-  def _LoadShapes(self):
+  def _LoadShapes(self, verbose=False):
     file_name = 'shapes.txt'
     if not self._HasFile(file_name):
       return
     shapes = {}  # shape_id to shape object
+
+    if verbose: sys.stdout.write( "Processing shapes.txt..." )
     for (d, row_num, header, row) in self._ReadCsvDict(
         file_name, 
         self._gtfs_factory.ShapePoint._FIELD_NAMES,
         self._gtfs_factory.ShapePoint._REQUIRED_FIELD_NAMES):
+      if verbose and row_num%1000==0: sys.stdout.write( "." ); sys.stdout.flush()
+
       file_context = (file_name, row_num, row, header)
       self._problems.SetFileContext(*file_context)
 
@@ -506,17 +524,21 @@ class Loader:
 
       shape.AddShapePointObjectUnsorted(shapepoint, self._problems)
       self._problems.ClearContext()
+    if verbose: sys.stdout.write( "done\n" )
       
     for shape_id, shape in shapes.items():
       self._schedule.AddShapeObject(shape, self._problems)
       del shapes[shape_id]
 
-  def _LoadStopTimes(self):
+  def _LoadStopTimes(self, verbose=False):
     cursor = self._schedule._connection.cursor()
 
+    if verbose: sys.stdout.write( "Processing stop_times.txt..." )
     for (row, row_num, cols) in self._ReadCSV('stop_times.txt',
         self._gtfs_factory.StopTime._FIELD_NAMES,
         self._gtfs_factory.StopTime._REQUIRED_FIELD_NAMES):
+      if verbose and row_num%1000==0: sys.stdout.write( "." ); sys.stdout.flush()
+
       file_context = ('stop_times.txt', row_num, row, cols)
       self._problems.SetFileContext(*file_context)
 
@@ -558,23 +580,25 @@ class Loader:
       stop_time.save( trip_id=trip_id )
 
       self._problems.ClearContext()
+    if verbose: sys.stdout.write( "done\n" )
+
     self._schedule._connection.commit()
 
     # stop_times are validated in Trip.ValidateChildren, called by
     # Schedule.Validate
 
-  def Load(self):
+  def Load(self, verbose=False):
     self._problems.ClearContext()
     if not self._DetermineFormat():
       return self._schedule
 
     self._CheckFileNames()
-    self._LoadCalendar()
-    self._LoadShapes()
-    self._LoadFeed()
+    self._LoadCalendar(verbose)
+    self._LoadShapes(verbose)
+    self._LoadFeed(verbose)
     
     if self._load_stop_times:
-      self._LoadStopTimes()
+      self._LoadStopTimes(verbose)
 
     if self._zip:
       self._zip.close()
