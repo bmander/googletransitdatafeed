@@ -17,18 +17,26 @@
 from gtfsobjectbase import GtfsObjectBase
 from problems import default_problem_reporter
 import util
+from persistable import Persistable
 
-class FareAttribute(GtfsObjectBase):
+class FareAttribute(GtfsObjectBase, Persistable):
   """Represents a fare type."""
   _REQUIRED_FIELD_NAMES = ['fare_id', 'price', 'currency_type',
                            'payment_method', 'transfers']
   _FIELD_NAMES = _REQUIRED_FIELD_NAMES + ['transfer_duration']
   _TABLE_NAME = "fare_attributes"
 
+  _SQL_TABLENAME = _TABLE_NAME 
+  _SQL_FIELD_TYPES = ["CHAR(50)", "FLOAT", "CHAR(10)", "INTEGER", 
+        "INTEGER", "FLOAT"]
+  _SQL_FIELDS = zip( _FIELD_NAMES, _SQL_FIELD_TYPES )
+
   def __init__(self,
                fare_id=None, price=None, currency_type=None,
                payment_method=None, transfers=None, transfer_duration=None,
                field_dict=None):
+    Persistable.__init__(self, None)
+
     self._schedule = None
     (self.fare_id, self.price, self.currency_type, self.payment_method,
      self.transfers, self.transfer_duration) = \
