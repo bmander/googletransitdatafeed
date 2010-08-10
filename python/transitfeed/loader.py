@@ -494,7 +494,7 @@ class Loader:
       shapepoint._cursor_factory = self._schedule
       shapepoint.save()
 
-      if not shapepoint.ParseAttributes(self._problems):
+      if not shapepoint.ValidateAttributes(self._problems):
         continue
 
       if shapepoint.shape_id in shapes:

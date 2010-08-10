@@ -63,7 +63,7 @@ class ShapePoint(GtfsObjectBase, Persistable):
       self.shape_pt_sequence = seq
       self.shape_dist_traveled = dist
 
-  def ParseAttributes(self, problems):
+  def ValidateAttributes(self, problems):
     """Parse all attributes, calling problems as needed.
 
     Return True if all of the values are valid.

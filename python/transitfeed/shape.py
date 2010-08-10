@@ -43,7 +43,7 @@ class Shape(GtfsFactoryUser):
     shapepoint_class = self.GetGtfsFactory().ShapePoint
     shapepoint = shapepoint_class(
         self.shape_id, lat, lon, len(self.sequence), distance)
-    if shapepoint.ParseAttributes(problems):
+    if shapepoint.ValidateAttributes(problems):
       self.AddShapePointObjectUnsorted(shapepoint, problems)
 
   def AddShapePointObjectUnsorted(self, shapepoint, problems):

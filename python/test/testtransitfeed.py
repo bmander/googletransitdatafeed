@@ -2466,30 +2466,30 @@ class ShapePointValidationTestCase(ValidationTestCase):
   def runTest(self):
     shapepoint = transitfeed.ShapePoint('', 36.915720, -116.7156, 0, 0)
     self.ExpectMissingValueInClosure('shape_id', 
-        lambda: shapepoint.ParseAttributes(self.problems))
+        lambda: shapepoint.ValidateAttributes(self.problems))
 
     shapepoint = transitfeed.ShapePoint('T', '36.9151', '-116.7611', '00', '0')
-    shapepoint.ParseAttributes(self.problems)
+    shapepoint.ValidateAttributes(self.problems)
     e = self.accumulator.PopException('InvalidNonNegativeIntegerValue')
     self.assertMatchesRegex('not have a leading zero', e.FormatProblem())
     self.accumulator.AssertNoMoreExceptions()
 
     shapepoint = transitfeed.ShapePoint('T', '36.9151', '-116.7611', -1, '0')
-    shapepoint.ParseAttributes(self.problems)
+    shapepoint.ValidateAttributes(self.problems)
     e = self.accumulator.PopException('InvalidValue')
     self.assertMatchesRegex('Value should be a number', e.FormatProblem())
     self.accumulator.AssertNoMoreExceptions()
 
     shapepoint = transitfeed.ShapePoint('T', '0.1', '0.1', '1', '0')
-    shapepoint.ParseAttributes(self.problems)
+    shapepoint.ValidateAttributes(self.problems)
     e = self.accumulator.PopException('InvalidValue')
     self.assertMatchesRegex('too close to 0, 0,', e.FormatProblem())
     self.accumulator.AssertNoMoreExceptions()
 
     shapepoint = transitfeed.ShapePoint('T', '36.9151', '-116.7611', '0', '')
-    shapepoint.ParseAttributes(self.problems)
+    shapepoint.ValidateAttributes(self.problems)
     shapepoint = transitfeed.ShapePoint('T', '36.9151', '-116.7611', '0', '-1')
-    shapepoint.ParseAttributes(self.problems)
+    shapepoint.ValidateAttributes(self.problems)
     e = self.accumulator.PopException('InvalidValue')
     self.assertMatchesRegex('Invalid value -1.0', e.FormatProblem())
     self.assertMatchesRegex('should be a positive number', e.FormatProblem())
